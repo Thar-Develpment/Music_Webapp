@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --background: #070709;
+  --foreground: #f3f4f6;
+  --card: #0e0f14;
+  --card-foreground: #f9fafb;
+  --popover: #0e0f14;
+  --popover-foreground: #f9fafb;
+  --primary: #d4af37;
+  --primary-foreground: #070709;
+  --secondary: #1a1c24;
+  --secondary-foreground: #f3f4f6;
+  --muted: #1f222e;
+  --muted-foreground: #9ca3af;
+  --accent: #262938;
+  --accent-foreground: #f3f4f6;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(212, 175, 55, 0.25);
+  --gold-glow: 0 0 35px rgba(212, 175, 55, 0.2);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: #d4af37;
+  selection-color: #070709;
+}
+
+::selection {
+  background: #d4af37;
+  color: #070709;
+}
+
+/* Custom Typography classes */
+.font-heading {
+  font-family: var(--font-syne), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-jakarta), sans-serif;
+}
+
+/* Glassmorphic Cards & Panels */
+.glass-panel {
+  background: rgba(14, 15, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-panel-gold {
+  background: rgba(18, 19, 26, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -10px rgba(212, 175, 55, 0.15);
+}
+
+/* Champagne Gold Text Gradient */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #fff7d6 0%, #d4af37 50%, #aa820a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.silver-text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #070709;
+}
+::-webkit-scrollbar-thumb {
+  background: #222533;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
