@@ -11,42 +11,48 @@ import {
 } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
 import { Setting } from "@music-label/shared";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface FooterProps {
   settings: Setting;
 }
 
 export default function Footer({ settings }: FooterProps) {
-  const [currentYear, setCurrentYear] = React.useState(2026);
-
-  React.useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
+  const currentYear = 2026;
+  const { isDark } = useTheme();
 
   return (
-    <footer className="relative bg-[#050507] border-t border-white/[0.08] text-zinc-400 pt-20 pb-12 overflow-hidden">
-      {/* Background glow effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-32 bg-[#D4AF37]/5 blur-[120px] pointer-events-none rounded-full" />
+    <footer className={`relative border-t pt-20 pb-12 overflow-hidden transition-colors duration-300 ${
+      isDark ? "bg-[#060608] border-white/[0.08] text-zinc-400" : "bg-[#F8F8FA] border-black/[0.08] text-zinc-600"
+    }`}>
+      {/* Background subtle crimson warmth */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-32 bg-[#E51E2B]/5 blur-[120px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-white/[0.08]">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b ${
+          isDark ? "border-white/[0.08]" : "border-black/[0.08]"
+        }`}>
           {/* Col 1: Brand & Statement (5 cols) */}
           <div className="lg:col-span-5 flex flex-col space-y-6">
-            <Link href="/" className="flex items-center space-x-3 text-white">
-              <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 bg-[#121318] flex items-center justify-center text-[#D4AF37]">
+            <Link href="/" className="flex items-center space-x-3">
+              <div className={`w-10 h-10 rounded-full border border-[#E51E2B]/50 flex items-center justify-center text-[#E51E2B] ${
+                isDark ? "bg-red-950/40" : "bg-red-50"
+              }`}>
                 <Disc3 className="w-5 h-5 animate-[spin_12s_linear_infinite]" />
               </div>
               <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-2xl tracking-[0.16em] text-white">
+                <span className={`font-heading font-extrabold text-2xl tracking-[0.16em] ${
+                  isDark ? "text-white" : "text-black"
+                }`}>
                   {settings.siteName}
                 </span>
-                <span className="text-[10px] tracking-[0.25em] text-[#D4AF37] uppercase font-medium">
+                <span className="text-[10px] tracking-[0.25em] text-[#E51E2B] uppercase font-bold">
                   Recordings & Film
                 </span>
               </div>
             </Link>
 
-            <p className="text-sm leading-relaxed text-zinc-400 max-w-sm">
+            <p className={`text-sm leading-relaxed max-w-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
               {settings.footerText}
             </p>
 
@@ -56,7 +62,11 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-all duration-200"
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                  }`}
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4" />
@@ -67,7 +77,11 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-all duration-200"
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                  }`}
                   aria-label="YouTube"
                 >
                   <YoutubeIcon className="w-4 h-4" />
@@ -78,7 +92,11 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-all duration-200"
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                  }`}
                   aria-label="Facebook"
                 >
                   <FacebookIcon className="w-4 h-4" />
@@ -89,93 +107,78 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Col 2: Quick Links (3 cols) */}
           <div className="lg:col-span-3 flex flex-col space-y-4">
-            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#D4AF37] uppercase">
+            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#E51E2B] uppercase">
               Navigation
             </h4>
             <ul className="flex flex-col space-y-2.5 text-sm">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link href="/about" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
                   About the Label
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="hover:text-white transition-colors">
-                  Photo & Video Gallery
+                <Link href="/gallery" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  Visual Archive & Stills
                 </Link>
               </li>
               <li>
-                <Link href="/documentary" className="hover:text-white transition-colors">
-                  Documentary Production Team
+                <Link href="/documentary" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  Documentary Production
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact & Enquiries
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/admin"
-                  className="text-amber-300/80 hover:text-[#D4AF37] flex items-center space-x-1 pt-1"
-                >
-                  <span>Admin Management</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                <Link href="/contact" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  Press & Licensing Enquiries
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Bookings & Contact Info (4 cols) */}
+          {/* Col 3: Contact & Headquarters (4 cols) */}
           <div className="lg:col-span-4 flex flex-col space-y-4">
-            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#D4AF37] uppercase">
-              Bookings & Management
+            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#E51E2B] uppercase">
+              Headquarters
             </h4>
-            <div className="flex flex-col space-y-3 text-sm">
-              <a
-                href={`mailto:${settings.bookingEmail}`}
-                className="group flex items-center space-x-3 text-zinc-300 hover:text-[#D4AF37] transition-colors"
-              >
-                <div className="w-8 h-8 rounded-lg border border-white/10 bg-white/[0.02] flex items-center justify-center text-[#D4AF37]">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <span>{settings.bookingEmail}</span>
-              </a>
-
-              <a
-                href={`tel:${settings.bookingPhone}`}
-                className="group flex items-center space-x-3 text-zinc-300 hover:text-[#D4AF37] transition-colors"
-              >
-                <div className="w-8 h-8 rounded-lg border border-white/10 bg-white/[0.02] flex items-center justify-center text-[#D4AF37]">
-                  <Phone className="w-4 h-4" />
-                </div>
+            <ul className="flex flex-col space-y-3 text-sm">
+              <li className="flex items-start space-x-3">
+                <MapPin className="w-4 h-4 text-[#E51E2B] shrink-0 mt-0.5" />
+                <span>{settings.address || "180 The Strand, Temple, London WC2R 1EA"}</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Phone className="w-4 h-4 text-[#E51E2B] shrink-0" />
                 <span>{settings.bookingPhone}</span>
-              </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Mail className="w-4 h-4 text-[#E51E2B] shrink-0" />
+                <span>{settings.bookingEmail}</span>
+              </li>
+            </ul>
 
-              {settings.address && (
-                <div className="flex items-start space-x-3 text-zinc-400">
-                  <div className="w-8 h-8 rounded-lg border border-white/10 bg-white/[0.02] flex items-center justify-center text-[#D4AF37] shrink-0 mt-0.5">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <span>{settings.address}</span>
-                </div>
-              )}
+            <div className="pt-2">
+              <Link
+                href="/admin"
+                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider text-zinc-500 hover:text-[#E51E2B] transition-colors"
+              >
+                <span>Client CMS Portal</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom Credits & Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 space-y-4 sm:space-y-0">
-          <p>
-            © {currentYear} {settings.siteName} Recordings Inc. All rights reserved.
-          </p>
-          <p className="flex items-center space-x-1 text-zinc-500">
-            <span>Designed for High-Fidelity Sonic & Visual Artistry</span>
-          </p>
+          <p>© {currentYear} {settings.siteName}. All rights reserved.</p>
+          <div className="flex items-center space-x-6">
+            <span>Spatial Audio 9.1.6</span>
+            <span>45 RPM Audiophile Press</span>
+            <span>Dolby Vision Master</span>
+          </div>
         </div>
       </div>
     </footer>

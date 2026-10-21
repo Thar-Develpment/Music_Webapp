@@ -12,6 +12,9 @@ export const SocialLinksSchema = z.object({
 });
 export type SocialLinks = z.infer<typeof SocialLinksSchema>;
 
+export const SiteThemeSchema = z.enum(["black", "white"]);
+export type SiteTheme = z.infer<typeof SiteThemeSchema>;
+
 export const SettingSchema = z.object({
   siteName: z.string().min(1, "Site name is required"),
   logoUrl: z.string().min(1, "Logo URL is required"),
@@ -20,6 +23,7 @@ export const SettingSchema = z.object({
   bookingPhone: z.string().min(1, "Booking phone is required"),
   address: z.string().optional(),
   footerText: z.string(),
+  theme: SiteThemeSchema.default("white"),
   socialLinks: SocialLinksSchema,
 });
 export type Setting = z.infer<typeof SettingSchema>;
@@ -179,6 +183,8 @@ export const EnquirySubmissionSchema = z.object({
   message: z.string().min(5, "Message must be at least 5 characters").max(180, "Message cannot exceed 180 characters"),
 });
 export type EnquirySubmission = z.infer<typeof EnquirySubmissionSchema>;
+export const contactFormSchema = EnquirySubmissionSchema;
+export type ContactFormData = EnquirySubmission;
 
 export const EnquiryRecordSchema = EnquirySubmissionSchema.extend({
   id: z.string(),

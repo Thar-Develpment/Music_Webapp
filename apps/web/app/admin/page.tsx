@@ -6,17 +6,17 @@ import {
   FileEdit,
   Image as ImageIcon,
   Users,
-  Sparkles,
+  LayoutGrid,
   FolderOpen,
   Settings,
   Mail,
   ArrowRight,
-  Eye,
   TrendingUp,
-  Disc3,
 } from "lucide-react";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 export default function AdminDashboard() {
+  const { isDark } = useTheme();
   const [stats, setStats] = useState({
     galleryCount: 0,
     teamCount: 0,
@@ -60,149 +60,207 @@ export default function AdminDashboard() {
       desc: "Edit headlines, body copy, hero videos, and buttons across Home, About, and Contact.",
       href: "/admin/pages",
       icon: FileEdit,
-      color: "from-amber-500/20 to-yellow-500/10",
-      border: "border-amber-500/30",
     },
     {
       title: "Gallery & Media",
       desc: "Manage categories, upload concert photos, embed videos, and reorder items.",
       href: "/admin/gallery",
       icon: ImageIcon,
-      color: "from-blue-500/20 to-indigo-500/10",
-      border: "border-blue-500/30",
     },
     {
       title: "Documentary Team",
       desc: "Update profiles for directors, cinematographers, sound designers, and visual crew.",
       href: "/admin/documentary",
       icon: Users,
-      color: "from-purple-500/20 to-violet-500/10",
-      border: "border-purple-500/30",
     },
     {
       title: "Home Extras & Roster",
       desc: "Manage testimonials, executive manager portraits, upcoming releases, and counters.",
       href: "/admin/home-extras",
-      icon: Sparkles,
-      color: "from-emerald-500/20 to-teal-500/10",
-      border: "border-emerald-500/30",
+      icon: LayoutGrid,
     },
     {
       title: "Media Asset Library",
       desc: "Search, preview, and reuse uploaded images and external video URLs across all pages.",
       href: "/admin/media",
       icon: FolderOpen,
-      color: "from-cyan-500/20 to-sky-500/10",
-      border: "border-cyan-500/30",
     },
     {
       title: "Site & Social Settings",
-      desc: "Configure brand logo, header/footer statement, booking contacts, and social links.",
+      desc: "Configure brand theme (white/black), statement, booking contacts, and social links.",
       href: "/admin/settings",
       icon: Settings,
-      color: "from-rose-500/20 to-pink-500/10",
-      border: "border-rose-500/30",
     },
   ];
 
   return (
     <div className="flex flex-col space-y-10">
       {/* Welcome Banner */}
-      <div className="rounded-3xl glass-panel-gold p-8 sm:p-10 border border-[#D4AF37]/30 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div
+        className={`rounded-3xl p-8 sm:p-10 border relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all ${
+          isDark
+            ? "bg-gradient-to-r from-[#181820] to-[#121217] border-white/10 text-white shadow-xl shadow-black/40"
+            : "bg-gradient-to-r from-red-50 to-white border-[#E51E2B]/20 text-[#09090B] shadow-sm"
+        }`}
+      >
         <div>
-          <span className="text-xs font-semibold tracking-widest text-[#D4AF37] uppercase">
+          <span className="text-xs font-bold tracking-widest text-[#E51E2B] uppercase">
             Label Management Console
           </span>
-          <h1 className="mt-2 font-heading font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-tight">
+          <h1
+            className={`mt-2 font-heading font-extrabold text-3xl sm:text-4xl uppercase tracking-tight ${
+              isDark ? "text-white" : "text-[#09090B]"
+            }`}
+          >
             Velvet Noir Admin Dashboard
           </h1>
-          <p className="mt-3 text-zinc-300 text-sm max-w-xl font-light">
-            Update copy, upload high-resolution media assets, adjust your artist roster, and respond to incoming booking transmissions.
+          <p
+            className={`mt-3 text-sm max-w-xl font-light ${
+              isDark ? "text-zinc-300" : "text-zinc-600"
+            }`}
+          >
+            Update copy, switch between dark and white themes, upload high-resolution media assets,
+            and respond to incoming booking transmissions.
           </p>
         </div>
 
-        <Link
-          href="/"
-          target="_blank"
-          className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-[#D4AF37] text-[#070709] font-bold text-xs uppercase tracking-wider hover:bg-[#F5D77F] transition-all shadow-lg shrink-0"
-        >
-          <Eye className="w-4 h-4" />
-          <span>Preview Live Site</span>
-        </Link>
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <Link
+            href="/admin/settings"
+            className="px-5 py-2.5 rounded-full bg-[#E51E2B] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#D81A26] transition-all shadow-md shadow-[#E51E2B]/20"
+          >
+            Switch Site Theme
+          </Link>
+          <Link
+            href="/"
+            target="_blank"
+            className={`px-5 py-2.5 rounded-full border text-xs font-bold uppercase tracking-wider transition-all ${
+              isDark
+                ? "border-white/20 text-white hover:bg-white/10"
+                : "border-black/15 text-zinc-700 hover:bg-black/5"
+            }`}
+          >
+            Live Site
+          </Link>
+        </div>
       </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div className="p-6 rounded-2xl glass-panel border border-white/10 flex flex-col">
-          <span className="text-xs text-zinc-400 font-semibold uppercase tracking-wider">
-            Unread Enquiries
-          </span>
-          <div className="mt-2 flex items-baseline space-x-2">
-            <span className="font-heading font-extrabold text-3xl text-[#F5D77F]">
+      {/* KPI Stats Overview */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+          className={`p-6 rounded-2xl border flex flex-col transition-all ${
+            isDark ? "bg-[#121217] border-white/10" : "bg-white border-black/[0.08] shadow-sm"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+              Enquiries
+            </span>
+            <Mail className="w-4 h-4 text-[#E51E2B]" />
+          </div>
+          <div className="mt-3 flex items-baseline space-x-2">
+            <span
+              className={`font-heading font-extrabold text-3xl ${
+                isDark ? "text-white" : "text-[#09090B]"
+              }`}
+            >
               {stats.unreadEnquiries}
             </span>
-            <span className="text-xs text-zinc-500">of {stats.totalEnquiries} total</span>
+            <span className="text-xs text-zinc-400">new / {stats.totalEnquiries} total</span>
           </div>
           <Link
             href="/admin/enquiries"
-            className="mt-4 text-xs text-[#D4AF37] hover:underline flex items-center space-x-1"
+            className="mt-4 text-xs text-[#E51E2B] hover:underline flex items-center space-x-1 font-bold"
           >
             <span>View Inbox</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
-        <div className="p-6 rounded-2xl glass-panel border border-white/10 flex flex-col">
-          <span className="text-xs text-zinc-400 font-semibold uppercase tracking-wider">
-            Gallery Media
-          </span>
-          <div className="mt-2 flex items-baseline space-x-2">
-            <span className="font-heading font-extrabold text-3xl text-white">
+        <div
+          className={`p-6 rounded-2xl border flex flex-col transition-all ${
+            isDark ? "bg-[#121217] border-white/10" : "bg-white border-black/[0.08] shadow-sm"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+              Gallery Media
+            </span>
+            <ImageIcon className="w-4 h-4 text-[#E51E2B]" />
+          </div>
+          <div className="mt-3 flex items-baseline space-x-2">
+            <span
+              className={`font-heading font-extrabold text-3xl ${
+                isDark ? "text-white" : "text-[#09090B]"
+              }`}
+            >
               {stats.galleryCount}
             </span>
-            <span className="text-xs text-zinc-500">active assets</span>
+            <span className="text-xs text-zinc-400">active assets</span>
           </div>
           <Link
             href="/admin/gallery"
-            className="mt-4 text-xs text-[#D4AF37] hover:underline flex items-center space-x-1"
+            className="mt-4 text-xs text-[#E51E2B] hover:underline flex items-center space-x-1 font-bold"
           >
             <span>Manage Gallery</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
-        <div className="p-6 rounded-2xl glass-panel border border-white/10 flex flex-col">
-          <span className="text-xs text-zinc-400 font-semibold uppercase tracking-wider">
-            Documentary Crew
-          </span>
-          <div className="mt-2 flex items-baseline space-x-2">
-            <span className="font-heading font-extrabold text-3xl text-white">
+        <div
+          className={`p-6 rounded-2xl border flex flex-col transition-all ${
+            isDark ? "bg-[#121217] border-white/10" : "bg-white border-black/[0.08] shadow-sm"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+              Documentary Crew
+            </span>
+            <Users className="w-4 h-4 text-[#E51E2B]" />
+          </div>
+          <div className="mt-3 flex items-baseline space-x-2">
+            <span
+              className={`font-heading font-extrabold text-3xl ${
+                isDark ? "text-white" : "text-[#09090B]"
+              }`}
+            >
               {stats.teamCount}
             </span>
-            <span className="text-xs text-zinc-500">production roles</span>
+            <span className="text-xs text-zinc-400">production roles</span>
           </div>
           <Link
             href="/admin/documentary"
-            className="mt-4 text-xs text-[#D4AF37] hover:underline flex items-center space-x-1"
+            className="mt-4 text-xs text-[#E51E2B] hover:underline flex items-center space-x-1 font-bold"
           >
             <span>Edit Credits</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
-        <div className="p-6 rounded-2xl glass-panel border border-white/10 flex flex-col">
-          <span className="text-xs text-zinc-400 font-semibold uppercase tracking-wider">
-            Roster Artists
-          </span>
-          <div className="mt-2 flex items-baseline space-x-2">
-            <span className="font-heading font-extrabold text-3xl text-white">
+        <div
+          className={`p-6 rounded-2xl border flex flex-col transition-all ${
+            isDark ? "bg-[#121217] border-white/10" : "bg-white border-black/[0.08] shadow-sm"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+              Roster Artists
+            </span>
+            <TrendingUp className="w-4 h-4 text-[#E51E2B]" />
+          </div>
+          <div className="mt-3 flex items-baseline space-x-2">
+            <span
+              className={`font-heading font-extrabold text-3xl ${
+                isDark ? "text-white" : "text-[#09090B]"
+              }`}
+            >
               {stats.artistCount}
             </span>
-            <span className="text-xs text-zinc-500">collective</span>
+            <span className="text-xs text-zinc-400">collective</span>
           </div>
           <Link
             href="/admin/home-extras"
-            className="mt-4 text-xs text-[#D4AF37] hover:underline flex items-center space-x-1"
+            className="mt-4 text-xs text-[#E51E2B] hover:underline flex items-center space-x-1 font-bold"
           >
             <span>Edit Roster</span>
             <ArrowRight className="w-3 h-3" />
@@ -212,7 +270,11 @@ export default function AdminDashboard() {
 
       {/* Quick Shortcuts Grid */}
       <div>
-        <h2 className="font-heading font-bold text-xl text-white uppercase tracking-wider mb-6">
+        <h2
+          className={`font-heading font-extrabold text-xl uppercase tracking-wider mb-6 ${
+            isDark ? "text-white" : "text-[#09090B]"
+          }`}
+        >
           Content Management Shortcuts
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -222,21 +284,39 @@ export default function AdminDashboard() {
               <Link
                 key={s.title}
                 href={s.href}
-                className="group p-6 rounded-2xl glass-panel glass-panel-hover border border-white/10 flex flex-col justify-between"
+                className={`group p-6 rounded-2xl border flex flex-col justify-between transition-all ${
+                  isDark
+                    ? "bg-[#121217] border-white/10 hover:border-[#E51E2B]/50 shadow-black/40"
+                    : "bg-white border-black/[0.08] hover:border-[#E51E2B]/50 shadow-sm"
+                }`}
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#D4AF37] group-hover:scale-110 transition-transform">
+                  <div
+                    className={`w-12 h-12 rounded-xl border flex items-center justify-center text-[#E51E2B] group-hover:scale-110 transition-transform ${
+                      isDark ? "bg-white/[0.04] border-white/10" : "bg-red-50 border-[#E51E2B]/20"
+                    }`}
+                  >
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="mt-4 font-heading font-bold text-lg text-white group-hover:text-[#F5D77F] transition-colors">
+                  <h3
+                    className={`mt-4 font-heading font-extrabold text-lg transition-colors ${
+                      isDark
+                        ? "text-white group-hover:text-[#FF4D58]"
+                        : "text-[#09090B] group-hover:text-[#E51E2B]"
+                    }`}
+                  >
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
+                  <p
+                    className={`mt-2 text-xs sm:text-sm font-light leading-relaxed ${
+                      isDark ? "text-zinc-400" : "text-zinc-600"
+                    }`}
+                  >
                     {s.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#D4AF37] group-hover:translate-x-1 transition-transform">
+                <div className="mt-6 flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#E51E2B] group-hover:translate-x-1 transition-transform">
                   <span>Open Module</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>

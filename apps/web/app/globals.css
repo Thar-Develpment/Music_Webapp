@@ -1,100 +1,297 @@
 @import "tailwindcss";
 
-:root {
-  --background: #070709;
-  --foreground: #f3f4f6;
-  --card: #0e0f14;
-  --card-foreground: #f9fafb;
-  --popover: #0e0f14;
-  --popover-foreground: #f9fafb;
-  --primary: #d4af37;
-  --primary-foreground: #070709;
-  --secondary: #1a1c24;
-  --secondary-foreground: #f3f4f6;
-  --muted: #1f222e;
-  --muted-foreground: #9ca3af;
-  --accent: #262938;
-  --accent-foreground: #f3f4f6;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-gold: rgba(212, 175, 55, 0.25);
-  --gold-glow: 0 0 35px rgba(212, 175, 55, 0.2);
+/* =========================================================================
+   DUAL THEME TOKENS: WHITE & RED (Default) vs OBSIDIAN BLACK & RED
+   ========================================================================= */
+
+:root, [data-theme="white"], .theme-white {
+  --background: #fafafc;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --muted: #52525b;
+  --subtle-border: rgba(0, 0, 0, 0.08);
+  --primary: #e51e2b;
+  --primary-hover: #d81a26;
+  --primary-glow: rgba(229, 30, 43, 0.25);
+  --glass-surface: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-red-border: rgba(229, 30, 43, 0.35);
+  --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  --glass-panel-bg: rgba(255, 255, 255, 0.88);
+  --glass-frosted-bg: rgba(255, 255, 255, 0.92);
+  --pill-bg: rgba(0, 0, 0, 0.04);
+  --pill-border: rgba(0, 0, 0, 0.08);
+  --scrollbar-track: #f4f4f6;
+  --scrollbar-thumb: #d4d4d8;
 }
+
+[data-theme="black"], .theme-black, .dark {
+  --background: #08080a;
+  --foreground: #f4f4f6;
+  --card: #121217;
+  --card-foreground: #ffffff;
+  --muted: #a1a1aa;
+  --subtle-border: rgba(255, 255, 255, 0.08);
+  --primary: #e51e2b;
+  --primary-hover: #ff2b38;
+  --primary-glow: rgba(229, 30, 43, 0.45);
+  --glass-surface: rgba(18, 18, 24, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-red-border: rgba(229, 30, 43, 0.45);
+  --glass-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  --glass-panel-bg: rgba(18, 18, 24, 0.82);
+  --glass-frosted-bg: rgba(12, 12, 16, 0.88);
+  --pill-bg: rgba(255, 255, 255, 0.05);
+  --pill-border: rgba(255, 255, 255, 0.1);
+  --scrollbar-track: #0e0e12;
+  --scrollbar-thumb: #27272a;
+}
+
+/* =========================================================================
+   TYPOGRAPHY RULES
+   - H1 & H2: Blode Starkly
+   - Remaining: Trench
+   ========================================================================= */
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-trench), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
-  selection-background-color: #d4af37;
-  selection-color: #070709;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: #d4af37;
-  color: #070709;
+  background: #e51e2b;
+  color: #ffffff;
 }
 
-/* Custom Typography classes */
-.font-heading {
-  font-family: var(--font-syne), sans-serif;
-  letter-spacing: -0.02em;
+/* All H1 and H2 Headings strictly use Blode Starkly */
+h1, h2, .font-heading-h1, .font-heading-h2 {
+  font-family: var(--font-blode), display, sans-serif;
+  letter-spacing: 0.02em;
 }
 
-.font-body {
-  font-family: var(--font-jakarta), sans-serif;
+h1.font-heading, h2.font-heading {
+  font-family: var(--font-blode), display, sans-serif;
+  letter-spacing: 0.02em;
 }
 
-/* Glassmorphic Cards & Panels */
+/* All remaining typography strictly uses Trench */
+h3, h4, h5, h6, p, a, span, button, input, textarea, select, label, .font-body, .font-trench {
+  font-family: var(--font-trench), system-ui, -apple-system, sans-serif;
+}
+
+h3.font-heading, h4.font-heading, h5.font-heading, h6.font-heading,
+div.font-heading, span.font-heading, p.font-heading, a.font-heading {
+  font-family: var(--font-trench), system-ui, -apple-system, sans-serif;
+}
+
+/* =========================================================================
+   HIGH-PERFORMANCE GLASSMORPHISM (THEME ADAPTIVE)
+   ========================================================================= */
+
+/* Base Frosted Glass Panel */
 .glass-panel {
-  background: rgba(14, 15, 20, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--glass-panel-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transform: translateZ(0);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.glass-panel-gold {
-  background: rgba(18, 19, 26, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+/* Crimson Red Accent Glass Panel */
+.glass-panel-red, .glass-panel-gold {
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  transform: translateZ(0);
+  transition: all 0.3s ease;
 }
 
+[data-theme="white"] .glass-panel-red,
+[data-theme="white"] .glass-panel-gold,
+.theme-white .glass-panel-red,
+.theme-white .glass-panel-gold {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.92) 0%, rgba(255, 255, 255, 0.96) 100%);
+  border: 1px solid rgba(229, 30, 43, 0.35);
+  box-shadow: 0 12px 35px -10px rgba(229, 30, 43, 0.15), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="black"] .glass-panel-red,
+[data-theme="black"] .glass-panel-gold,
+.theme-black .glass-panel-red,
+.theme-black .glass-panel-gold {
+  background: linear-gradient(135deg, rgba(42, 8, 11, 0.85) 0%, rgba(18, 18, 24, 0.9) 100%);
+  border: 1px solid rgba(229, 30, 43, 0.45);
+  box-shadow: 0 14px 40px -10px rgba(229, 30, 43, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Admin Panel Theme Adaptive Utilities */
+[data-theme="white"] .admin-card, .theme-white .admin-card {
+  background-color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #09090b;
+}
+
+[data-theme="black"] .admin-card, .theme-black .admin-card, .dark .admin-card {
+  background-color: #121217;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f4f4f6;
+}
+
+[data-theme="white"] .admin-input, .theme-white .admin-input {
+  background-color: #fafafc;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #09090b;
+}
+
+[data-theme="black"] .admin-input, .theme-black .admin-input, .dark .admin-input {
+  background-color: #181820;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f4f4f6;
+}
+
+/* Frosted High-Contrast Layer for Floating Bars & Docks */
+.glass-frosted {
+  background: var(--glass-frosted-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transform: translateZ(0);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Interactive Glass Hover with Red Energy Glow */
 .glass-panel-hover {
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.glass-panel-hover:hover {
-  border-color: rgba(212, 175, 55, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px -10px rgba(212, 175, 55, 0.15);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
 }
 
-/* Champagne Gold Text Gradient */
-.gold-text-gradient {
-  background: linear-gradient(135deg, #fff7d6 0%, #d4af37 50%, #aa820a 100%);
+.glass-panel-hover:hover {
+  border-color: rgba(229, 30, 43, 0.65);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(229, 30, 43, 0.25), 0 0 25px -4px rgba(229, 30, 43, 0.3);
+}
+
+/* Liquid Pill Glass for Badges & Buttons */
+.glass-pill {
+  background: var(--pill-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--pill-border);
+  transition: all 0.2s ease;
+}
+
+.glass-pill:hover {
+  background: rgba(229, 30, 43, 0.12);
+  border-color: rgba(229, 30, 43, 0.5);
+  color: #e51e2b;
+}
+
+/* High-Contrast Rock Red Badge */
+.rock-badge-red {
+  background: #e51e2b;
+  color: #ffffff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 10px rgba(229, 30, 43, 0.3);
+}
+
+/* Shimmer Light Reflection Effect across Glass */
+.glass-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(229, 30, 43, 0.08) 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: rotate(-25deg);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+
+.glass-shimmer:hover::after {
+  opacity: 1;
+}
+
+/* Sound Wave Equalizer Keyframes (Red bars) */
+@keyframes soundwave-1 {
+  0%, 100% { height: 6px; }
+  50% { height: 26px; }
+}
+@keyframes soundwave-2 {
+  0%, 100% { height: 20px; }
+  50% { height: 8px; }
+}
+@keyframes soundwave-3 {
+  0%, 100% { height: 12px; }
+  50% { height: 30px; }
+}
+@keyframes soundwave-4 {
+  0%, 100% { height: 24px; }
+  50% { height: 14px; }
+}
+
+.wave-bar-1 { animation: soundwave-1 0.8s ease-in-out infinite; }
+.wave-bar-2 { animation: soundwave-2 0.65s ease-in-out infinite; }
+.wave-bar-3 { animation: soundwave-3 0.95s ease-in-out infinite; }
+.wave-bar-4 { animation: soundwave-4 0.75s ease-in-out infinite; }
+
+/* Text Gradients (Theme Adaptive) */
+.theme-white .red-text-gradient,
+.theme-white .gold-text-gradient,
+[data-theme="white"] .red-text-gradient,
+[data-theme="white"] .gold-text-gradient {
+  background: linear-gradient(135deg, #09090b 0%, #e51e2b 65%, #ff2b38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.theme-black .red-text-gradient,
+.theme-black .gold-text-gradient,
+[data-theme="black"] .red-text-gradient,
+[data-theme="black"] .gold-text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #e51e2b 70%, #ff4d5a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .silver-text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+  background: linear-gradient(135deg, #888888 0%, #cccccc 60%, #e51e2b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar (Theme Adaptive) */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #070709;
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: #222533;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: #e51e2b;
 }
 
 /* Lenis smooth scroll */

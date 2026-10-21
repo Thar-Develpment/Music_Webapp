@@ -1,0 +1,466 @@
+"use client";
+
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Play, Pause, Disc3, Volume2, ArrowRight, ChevronRight, ShoppingBag, Radio } from "lucide-react";
+import { MotionReveal } from "@/components/animations/MotionReveal";
+import { useTheme } from "@/components/theme/ThemeProvider";
+
+interface Track {
+  id: string;
+  number: string;
+  title: string;
+  duration: string;
+  badge: string;
+  badgeColor?: string;
+}
+
+const tracks: Track[] = [
+  {
+    id: "track-1",
+    number: "01",
+    title: "Good Times Bad Times",
+    duration: "2:48",
+    badge: "Sample",
+    badgeColor: "bg-[#E51E2B]",
+  },
+  {
+    id: "track-2",
+    number: "02",
+    title: "Dazed & Confused",
+    duration: "6:28",
+    badge: "Sample",
+    badgeColor: "bg-black",
+  },
+  {
+    id: "track-3",
+    number: "03",
+    title: "Black Dog",
+    duration: "4:56",
+    badge: "Sample",
+    badgeColor: "bg-[#997d21]",
+  },
+  {
+    id: "track-4",
+    number: "04",
+    title: "All Of My Love",
+    duration: "5:54",
+    badge: "Sample",
+    badgeColor: "bg-zinc-700",
+  },
+];
+
+export default function VinylShowcaseSection() {
+  const { isDark } = useTheme();
+  const [selectedTrackIndex, setSelectedTrackIndex] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const activeTrack = tracks[selectedTrackIndex];
+
+  return (
+    <section className={`relative w-full py-28 overflow-hidden select-none border-t transition-colors duration-300 ${
+      isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.08]"
+    }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Heading Tag */}
+        <div className="text-center mb-12">
+          <MotionReveal direction="up">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#E51E2B]/40 shadow-sm mb-4">
+              <Radio className="w-3.5 h-3.5 text-[#E51E2B] animate-pulse" />
+              <span className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase">
+                Turntable Master Console
+              </span>
+            </div>
+            <h2 className={`font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight ${
+              isDark ? "text-white" : "text-[#09090B]"
+            }`}>
+              Vinylist Direct Master
+            </h2>
+          </MotionReveal>
+        </div>
+
+        {/* The Split Screen Player Card */}
+        <div className={`relative rounded-3xl overflow-hidden border transition-all duration-300 ${
+          isDark
+            ? "border-white/10 bg-[#0B0B0E] shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+            : "border-black/[0.1] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
+        }`}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px] relative">
+            
+            {/* =========================================================
+                LEFT SIDE: A Side Tracklist
+               ========================================================= */}
+            <div className={`lg:col-span-6 p-8 sm:p-12 z-10 flex flex-col justify-between relative transition-colors duration-300 ${
+              isDark ? "bg-[#0B0B0E]" : "bg-white"
+            }`}>
+              {/* Subtle Watermark 'A side' */}
+              <div className={`absolute top-12 left-10 text-[100px] sm:text-[140px] font-extrabold leading-none pointer-events-none font-heading select-none ${
+                isDark ? "text-white/[0.03]" : "text-black/[0.03]"
+              }`}>
+                A side
+              </div>
+
+              <div>
+                {/* Header User / Collection Tag */}
+                <div className={`flex items-center justify-between mb-8 pb-4 border-b ${
+                  isDark ? "border-white/10" : "border-black/[0.08]"
+                }`}>
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-10 h-10 rounded-full overflow-hidden border ${
+                      isDark ? "border-white/10 bg-zinc-900" : "border-black/10 bg-zinc-100"
+                    }`}>
+                      <img
+                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop"
+                        alt="Collector"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center space-x-1.5">
+                        <span className={`text-sm font-bold tracking-wide ${
+                          isDark ? "text-white" : "text-zinc-900"
+                        }`}>
+                          James Douglas (46)
+                        </span>
+                        <span className="text-[10px] font-extrabold bg-[#E51E2B] text-white px-1.5 py-0.5 rounded uppercase">
+                          PRO
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-zinc-400 uppercase tracking-widest font-semibold block">
+                        Collector Archival Cut
+                      </span>
+                    </div>
+                  </div>
+
+                  <span className="text-xs uppercase font-bold tracking-widest text-zinc-400">
+                    vinylist
+                  </span>
+                </div>
+
+                {/* Subtitle */}
+                <div className="mb-6 flex items-center space-x-2">
+                  <span className={`font-heading font-extrabold text-2xl sm:text-3xl tracking-tight ${
+                    isDark ? "text-white" : "text-zinc-900"
+                  }`}>
+                    A side
+                  </span>
+                  <span className="w-2 h-2 rounded-full bg-[#E51E2B] animate-ping" />
+                </div>
+
+                {/* Interactive Tracklist */}
+                <div className="space-y-3">
+                  {tracks.map((track, idx) => {
+                    const isSelected = selectedTrackIndex === idx;
+                    return (
+                      <div
+                        key={track.id}
+                        onClick={() => {
+                          setSelectedTrackIndex(idx);
+                          setIsPlaying(true);
+                        }}
+                        className={`group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer ${
+                          isSelected
+                            ? isDark
+                              ? "bg-red-950/40 border border-[#E51E2B]/50 shadow-md shadow-red-950/20 scale-[1.01]"
+                              : "bg-red-50/80 border border-[#E51E2B]/50 shadow-md shadow-red-500/10 scale-[1.01]"
+                            : isDark
+                            ? "hover:bg-white/[0.04] border border-transparent"
+                            : "hover:bg-zinc-50 border border-transparent"
+                        }`}
+                      >
+                        <div className="flex items-center space-x-4 min-w-0">
+                          <span
+                            className={`text-xs font-mono font-bold ${
+                              isSelected ? "text-[#E51E2B]" : "text-zinc-400"
+                            }`}
+                          >
+                            {track.number}
+                          </span>
+
+                          {/* Track Icon / Badge */}
+                          <div
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm ${
+                              track.badgeColor || "bg-[#E51E2B]"
+                            } text-white font-bold text-xs`}
+                          >
+                            {isSelected && isPlaying ? (
+                              <Pause className="w-3.5 h-3.5 fill-current" />
+                            ) : (
+                              <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                            )}
+                          </div>
+
+                          <div className="min-w-0">
+                            <h4
+                              className={`text-sm sm:text-base font-bold truncate transition-colors ${
+                                isSelected
+                                  ? isDark ? "text-white" : "text-zinc-900"
+                                  : isDark ? "text-zinc-300 group-hover:text-white" : "text-zinc-700 group-hover:text-black"
+                              }`}
+                            >
+                              {track.title}
+                            </h4>
+                            <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block">
+                              {track.badge}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Duration & Playing Bars */}
+                        <div className="flex items-center space-x-3 shrink-0 pl-2">
+                          {isSelected && isPlaying && (
+                            <div className="flex items-end space-x-0.5 h-3.5">
+                              <span className="w-0.5 rounded-full bg-[#E51E2B] wave-bar-1" />
+                              <span className="w-0.5 rounded-full bg-[#FF4D58] wave-bar-2" />
+                              <span className="w-0.5 rounded-full bg-[#E51E2B] wave-bar-3" />
+                            </div>
+                          )}
+                          <span
+                            className={`text-xs font-mono font-semibold ${
+                              isSelected ? "text-[#E51E2B]" : "text-zinc-400"
+                            }`}
+                          >
+                            {track.duration}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Bottom Vinylist Status */}
+              <div className={`mt-8 pt-4 border-t flex items-center justify-between text-xs ${
+                isDark ? "border-white/10 text-zinc-400" : "border-black/[0.08] text-zinc-500"
+              }`}>
+                <span className="uppercase tracking-widest font-bold">
+                  45 RPM • 180g Audiophile Press
+                </span>
+                <span className="text-[#E51E2B] font-bold">Master Fidelity 96kHz/24bit</span>
+              </div>
+            </div>
+
+            {/* =========================================================
+                RIGHT SIDE: ELECTRIC ROCK RED (Diagonal Split Cut)
+               ========================================================= */}
+            <div className="lg:col-span-6 relative z-0 flex flex-col justify-between p-8 sm:p-12 text-white bg-[#E51E2B]">
+              {/* Slanted Angle Split Background Layer for Desktop */}
+              <div
+                className="hidden lg:block absolute inset-0 bg-[#E51E2B] -left-16"
+                style={{
+                  clipPath: "polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                }}
+              />
+
+              {/* Watermark 'Zeppelin' or Label typography on red background */}
+              <div className="absolute bottom-6 right-4 text-[90px] sm:text-[140px] font-black text-black/[0.08] leading-none pointer-events-none font-heading select-none uppercase">
+                VELVET
+              </div>
+
+              {/* Top Navigation & Controls */}
+              <div className="relative z-10 flex items-center justify-end space-x-4 mb-6">
+                <div className="flex items-center space-x-3">
+                  <span className="text-xs font-bold uppercase tracking-widest text-white/90">
+                    vinylist
+                  </span>
+                  <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                    <Disc3 className="w-4 h-4 text-white animate-spin" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Album Showcase & Metadata */}
+              <div className="relative z-10 lg:pl-12 xl:pl-16">
+                {/* Album Covers Row */}
+                <div className="flex items-center space-x-4 mb-6">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/40 group relative cursor-pointer hover:scale-105 transition-transform">
+                    <img
+                      src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=500&auto=format&fit=crop"
+                      alt="Album Cover"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                  </div>
+
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shadow-xl border border-white/20 opacity-80 hover:opacity-100 transition-opacity">
+                    <img
+                      src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=500&auto=format&fit=crop"
+                      alt="Alternate Art"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+
+                {/* Album Title & Metadata */}
+                <div>
+                  <span className="text-xs uppercase font-extrabold tracking-widest text-white/80 block mb-1">
+                    Velvet Noir Recordings
+                  </span>
+                  <h3 className="font-heading font-extrabold text-2xl sm:text-4xl text-white tracking-tight uppercase leading-tight">
+                    Album: Mothership
+                  </h3>
+                  <span className="text-xs font-semibold text-white/90 block mt-1">
+                    Archive Session • 2026 Remaster
+                  </span>
+                </div>
+
+                {/* Info Text */}
+                <div className="mt-4 max-w-md">
+                  <span className="text-xs uppercase font-bold tracking-wider text-white/90 block mb-1">
+                    Info
+                  </span>
+                  <p className="text-xs sm:text-sm text-white/85 font-light leading-relaxed">
+                    Mothership is a definitive master collection crafted from original analog master reels, pressed on 180g virgin marbled vinyl at 45 RPM with custom Neve desk EQ and lacquer cuts for maximum dynamic presence.
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <button
+                    onClick={() => alert("Vinyl Order: Velvet Noir Mothership 180g added to inquiry cart!")}
+                    className="px-8 py-3.5 rounded-full bg-white text-[#0A0A0C] font-extrabold text-xs uppercase tracking-wider shadow-2xl hover:bg-zinc-100 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center space-x-2"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-[#E51E2B]" />
+                    <span>Order Vinyl</span>
+                  </button>
+
+                  <a
+                    href="/gallery"
+                    className="px-6 py-3.5 rounded-full border border-white/40 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/10 transition-all cursor-pointer flex items-center space-x-1.5"
+                  >
+                    <span>See Artwork</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Side Bottom Status */}
+              <div className="relative z-10 mt-8 pt-4 border-t border-white/20 flex items-center justify-between text-xs text-white/80 lg:pl-12">
+                <span>7 - 46 Edition Number</span>
+                <span>Worldwide Sync Cleared</span>
+              </div>
+            </div>
+
+            {/* =========================================================
+                CENTER OVERLAY: MASSIVE SPINNING VINYL RECORD + TONEARM
+                Positioned right over the vertical separation line
+               ========================================================= */}
+            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none items-center justify-center">
+              {/* Vinyl Disc Container */}
+              <div className="relative w-[340px] xl:w-[400px] h-[340px] xl:h-[400px] rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.6)] flex items-center justify-center">
+                {/* Outer Vinyl Body with Grooves */}
+                <div
+                  className={`w-full h-full rounded-full bg-[#111114] border-[10px] border-[#0A0A0C] flex items-center justify-center relative shadow-[inset_0_0_50px_rgba(0,0,0,0.95)] ${
+                    isPlaying ? "animate-[spin_10s_linear_infinite]" : ""
+                  }`}
+                  style={{
+                    background:
+                      "radial-gradient(circle, #0e0e12 0%, #15151b 25%, #08080a 40%, #17171f 55%, #08080a 70%, #1a1a24 85%, #060608 100%)",
+                  }}
+                >
+                  {/* Subtle Grooved Lines */}
+                  <div className="absolute inset-4 rounded-full border border-white/[0.04]" />
+                  <div className="absolute inset-8 rounded-full border border-white/[0.05]" />
+                  <div className="absolute inset-12 rounded-full border border-white/[0.04]" />
+                  <div className="absolute inset-16 rounded-full border border-white/[0.05]" />
+                  <div className="absolute inset-20 rounded-full border border-white/[0.04]" />
+                  <div className="absolute inset-24 rounded-full border border-white/[0.05]" />
+
+                  {/* Vinyl Specular Light Reflection (Diagonal Sheen) */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/[0.08] to-transparent pointer-events-none" />
+
+                  {/* Center Label (Red Ring + Insignia) */}
+                  <div className="w-36 h-36 xl:w-44 xl:h-44 rounded-full bg-[#E51E2B] p-2 flex items-center justify-center shadow-2xl relative">
+                    <div className="w-full h-full rounded-full bg-[#0C0C0F] border-4 border-[#E51E2B] flex flex-col items-center justify-center p-3 text-center">
+                      <Disc3 className="w-10 h-10 xl:w-12 xl:h-12 text-[#E51E2B] animate-[spin_6s_linear_infinite]" />
+                      <span className="text-[9px] font-extrabold uppercase tracking-widest text-white mt-1">
+                        VELVET NOIR
+                      </span>
+                      <span className="text-[7px] text-[#E51E2B] uppercase font-bold tracking-wider">
+                        MASTER CUT
+                      </span>
+                    </div>
+
+                    {/* Center Spindle Hole */}
+                    <div className="absolute w-4 h-4 rounded-full bg-zinc-200 border-2 border-black shadow-inner" />
+                  </div>
+                </div>
+
+                {/* Phono Tonearm / Needle overlay */}
+                <div
+                  className={`absolute -top-12 right-2 w-32 h-44 pointer-events-none transition-transform duration-700 origin-top-right ${
+                    isPlaying ? "rotate-[18deg]" : "rotate-0"
+                  }`}
+                >
+                  {/* Arm Base Pivot */}
+                  <div className="w-8 h-8 rounded-full bg-zinc-700 border-2 border-zinc-400 shadow-xl absolute top-0 right-4" />
+                  {/* Chrome Tone-arm rod */}
+                  <div className="w-1.5 h-36 bg-gradient-to-r from-zinc-300 via-zinc-100 to-zinc-400 rounded-full absolute top-6 right-7 shadow-lg" />
+                  {/* Cartridge & Stylus */}
+                  <div className="w-5 h-8 bg-zinc-900 border border-zinc-500 rounded-md absolute bottom-0 right-5 shadow-2xl flex items-center justify-center">
+                    <span className="w-1 h-2 bg-[#E51E2B]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* =========================================================
+              BOTTOM BAR: REALTIME AUDIO SCRUBBER & CONTROLS
+             ========================================================= */}
+          <div className={`p-4 sm:p-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors duration-300 ${
+            isDark ? "bg-[#0E0E12] border-white/10" : "bg-white border-black/[0.08]"
+          }`}>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="w-11 h-11 rounded-full bg-[#E51E2B] text-white flex items-center justify-center hover:bg-[#D81A26] active:scale-95 transition-all cursor-pointer shadow-lg shadow-[#E51E2B]/20"
+                aria-label={isPlaying ? "Pause Master" : "Play Master"}
+              >
+                {isPlaying ? (
+                  <Pause className="w-5 h-5 fill-current" />
+                ) : (
+                  <Play className="w-5 h-5 fill-current ml-0.5" />
+                )}
+              </button>
+
+              <div>
+                <span className={`text-xs font-bold block ${isDark ? "text-white" : "text-zinc-900"}`}>
+                  {activeTrack.number}. {activeTrack.title}
+                </span>
+                <span className={`text-[10px] uppercase tracking-widest font-mono ${
+                  isDark ? "text-zinc-400" : "text-zinc-500"
+                }`}>
+                  Playing Side A • {activeTrack.duration}
+                </span>
+              </div>
+            </div>
+
+            {/* Soundwave Graphic Bars */}
+            <div className="flex items-end space-x-1 h-6 px-4">
+              {[6, 14, 22, 10, 18, 26, 12, 20, 8, 24, 16, 28, 14, 20, 8, 16, 24, 10, 18, 12, 22, 8, 14, 20].map((h, i) => (
+                <span
+                  key={i}
+                  className={`w-1 rounded-full transition-all duration-300 ${
+                    i < 12 ? "bg-[#E51E2B]" : isDark ? "bg-zinc-700" : "bg-zinc-300"
+                  }`}
+                  style={{
+                    height: isPlaying ? `${Math.max(6, (h * (i % 2 === 0 ? 1 : 0.75)))}px` : "6px",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Volume indicator */}
+            <div className={`flex items-center space-x-3 text-xs ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+              <Volume2 className="w-4 h-4 text-[#E51E2B]" />
+              <div className={`w-24 h-1.5 rounded-full overflow-hidden ${isDark ? "bg-zinc-800" : "bg-zinc-200"}`}>
+                <div className="w-3/4 h-full bg-[#E51E2B] rounded-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

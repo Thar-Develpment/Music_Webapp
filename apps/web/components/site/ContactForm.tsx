@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { EnquirySubmissionSchema } from "@music-label/shared";
+import { contactFormSchema, ContactFormData } from "@music-label/shared";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
+  const { isDark } = useTheme();
+  const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
     email: "",
     phone: "",
@@ -18,21 +20,17 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const maxChars = 180;
-  const remainingChars = maxChars - formData.message.length;
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // Clear error for field as user types
+    setFormData((prev: ContactFormData) => ({ ...prev, [name]: value }));
+    // Clear field-specific error on change
     if (errors[name]) {
-      setErrors((prev) => {
-        const next = { ...prev };
-        delete next[name];
-        return next;
+      setErrors((prev: Record<string, string>) => {
+        const updated = { ...prev };
+        delete updated[name];
+        return updated;
       });
     }
   };
@@ -41,14 +39,14 @@ export default function ContactForm() {
     e.preventDefault();
     setSubmitError(null);
 
-    // Validate using Zod schema
-    const result = EnquirySubmissionSchema.safeParse(formData);
+    // Validate with Zod schema from packages/shared
+    const result = contactFormSchema.safeParse(formData);
+
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
-        const fieldName = issue.path[0] as string;
-        if (!fieldErrors[fieldName]) {
-          fieldErrors[fieldName] = issue.message;
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
         }
       });
       setErrors(fieldErrors);
@@ -65,25 +63,46 @@ export default function ContactForm() {
       });
 
       const data = await res.json();
+
       if (!res.ok || !data.success) {
-        throw new Error(data.error || "Failed to send message. Please try again.");
+        throw new Error(data.error?.message || "Failed to submit enquiry.");
       }
 
       setSubmitted(true);
       setFormData({ firstName: "", email: "", phone: "", message: "" });
+      setErrors({});
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setSubmitError(err.message);
-      } else {
-        setSubmitError("An unexpected error occurred.");
-      }
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setSubmitError(msg);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="w-full rounded-3xl glass-panel p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+    <div
+      className={`w-full p-8 sm:p-12 rounded-3xl border shadow-2xl relative overflow-hidden transition-all ${
+        isDark ? "bg-[#121217] border-white/10 shadow-black/50" : "bg-white border-black/10"
+      }`}
+    >
+      <div className="mb-8">
+        <h3
+          className={`font-heading font-extrabold text-2xl sm:text-3xl uppercase ${
+            isDark ? "text-white" : "text-zinc-900"
+          }`}
+        >
+          Direct Transmission
+        </h3>
+        <p
+          className={`mt-2 text-sm font-light ${
+            isDark ? "text-zinc-400" : "text-zinc-600"
+          }`}
+        >
+          Fill out the secure form below. All licensing and tour requests are routed straight to our
+          executive desks.
+        </p>
+      </div>
+
       <AnimatePresence mode="wait">
         {submitted ? (
           <motion.div
@@ -91,23 +110,32 @@ export default function ContactForm() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="flex flex-col items-center text-center py-12"
+            className="flex flex-col items-center justify-center py-16 text-center"
           >
-            <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-6">
+            <div className="w-16 h-16 rounded-full bg-red-50 border-2 border-[#E51E2B] flex items-center justify-center text-[#E51E2B] mb-6 shadow-md shadow-[#E51E2B]/15">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
-            <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white uppercase">
+            <h3
+              className={`font-heading font-extrabold text-2xl sm:text-3xl uppercase ${
+                isDark ? "text-white" : "text-zinc-900"
+              }`}
+            >
               Transmission Received
             </h3>
 
-            <p className="mt-4 text-zinc-300 text-sm sm:text-base max-w-md font-light leading-relaxed">
-              Thank you for reaching out to Velvet Noir. Our executive A&R and management team has logged your enquiry and will respond within 24 to 48 hours.
+            <p
+              className={`mt-4 text-sm sm:text-base max-w-md font-light leading-relaxed ${
+                isDark ? "text-zinc-300" : "text-zinc-600"
+              }`}
+            >
+              Thank you for reaching out to Velvet Noir. Our executive A&R and management team has
+              logged your enquiry and will respond within 24 to 48 hours.
             </p>
 
             <button
               onClick={() => setSubmitted(false)}
-              className="mt-8 px-8 py-3 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 hover:bg-[#D4AF37] text-[#F5D77F] hover:text-[#070709] text-xs font-bold tracking-widest uppercase transition-all"
+              className="mt-8 px-8 py-3 rounded-full border border-[#E51E2B] bg-red-50 hover:bg-[#E51E2B] text-[#E51E2B] hover:text-white text-xs font-bold tracking-widest uppercase transition-all"
             >
               Send Another Message
             </button>
@@ -123,8 +151,8 @@ export default function ContactForm() {
             noValidate
           >
             {submitError && (
-              <div className="p-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-sm flex items-center space-x-3">
-                <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
+              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-sm flex items-center space-x-3">
+                <AlertCircle className="w-5 h-5 shrink-0 text-red-500" />
                 <span>{submitError}</span>
               </div>
             )}
@@ -134,9 +162,11 @@ export default function ContactForm() {
               <div className="flex flex-col space-y-2">
                 <label
                   htmlFor="firstName"
-                  className="text-xs font-semibold tracking-wider text-zinc-300 uppercase"
+                  className={`text-xs font-bold tracking-wider uppercase ${
+                    isDark ? "text-zinc-300" : "text-zinc-700"
+                  }`}
                 >
-                  First Name <span className="text-[#D4AF37]">*</span>
+                  First Name <span className="text-[#E51E2B]">*</span>
                 </label>
                 <input
                   type="text"
@@ -145,14 +175,20 @@ export default function ContactForm() {
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="e.g. Julian"
-                  className={`w-full px-4 py-3.5 rounded-xl bg-black/50 border text-white placeholder-zinc-500 focus:outline-none transition-colors text-sm ${
+                  className={`w-full px-4 py-3.5 rounded-xl border transition-colors text-sm focus:outline-none ${
+                    isDark
+                      ? "bg-[#181820] text-white placeholder-zinc-500 focus:bg-[#20202a]"
+                      : "bg-zinc-50 text-zinc-900 placeholder-zinc-400 focus:bg-white"
+                  } ${
                     errors.firstName
                       ? "border-red-500 focus:border-red-500"
-                      : "border-white/10 focus:border-[#D4AF37]"
+                      : isDark
+                      ? "border-white/10 focus:border-[#E51E2B]"
+                      : "border-black/10 focus:border-[#E51E2B]"
                   }`}
                 />
                 {errors.firstName && (
-                  <span className="text-xs text-red-400 font-medium">
+                  <span className="text-xs text-red-500 font-medium">
                     {errors.firstName}
                   </span>
                 )}
@@ -162,9 +198,11 @@ export default function ContactForm() {
               <div className="flex flex-col space-y-2">
                 <label
                   htmlFor="email"
-                  className="text-xs font-semibold tracking-wider text-zinc-300 uppercase"
+                  className={`text-xs font-bold tracking-wider uppercase ${
+                    isDark ? "text-zinc-300" : "text-zinc-700"
+                  }`}
                 >
-                  Email Address <span className="text-[#D4AF37]">*</span>
+                  Email Address <span className="text-[#E51E2B]">*</span>
                 </label>
                 <input
                   type="email"
@@ -173,14 +211,20 @@ export default function ContactForm() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="e.g. julian@studio.com"
-                  className={`w-full px-4 py-3.5 rounded-xl bg-black/50 border text-white placeholder-zinc-500 focus:outline-none transition-colors text-sm ${
+                  className={`w-full px-4 py-3.5 rounded-xl border transition-colors text-sm focus:outline-none ${
+                    isDark
+                      ? "bg-[#181820] text-white placeholder-zinc-500 focus:bg-[#20202a]"
+                      : "bg-zinc-50 text-zinc-900 placeholder-zinc-400 focus:bg-white"
+                  } ${
                     errors.email
                       ? "border-red-500 focus:border-red-500"
-                      : "border-white/10 focus:border-[#D4AF37]"
+                      : isDark
+                      ? "border-white/10 focus:border-[#E51E2B]"
+                      : "border-black/10 focus:border-[#E51E2B]"
                   }`}
                 />
                 {errors.email && (
-                  <span className="text-xs text-red-400 font-medium">
+                  <span className="text-xs text-red-500 font-medium">
                     {errors.email}
                   </span>
                 )}
@@ -191,9 +235,11 @@ export default function ContactForm() {
             <div className="flex flex-col space-y-2">
               <label
                 htmlFor="phone"
-                className="text-xs font-semibold tracking-wider text-zinc-300 uppercase"
+                className={`text-xs font-bold tracking-wider uppercase ${
+                  isDark ? "text-zinc-300" : "text-zinc-700"
+                }`}
               >
-                Phone Number <span className="text-[#D4AF37]">*</span>
+                Phone Number <span className="text-[#E51E2B]">*</span>
               </label>
               <input
                 type="tel"
@@ -202,14 +248,20 @@ export default function ContactForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="+1 (555) 000-0000"
-                className={`w-full px-4 py-3.5 rounded-xl bg-black/50 border text-white placeholder-zinc-500 focus:outline-none transition-colors text-sm ${
+                className={`w-full px-4 py-3.5 rounded-xl border transition-colors text-sm focus:outline-none ${
+                  isDark
+                    ? "bg-[#181820] text-white placeholder-zinc-500 focus:bg-[#20202a]"
+                    : "bg-zinc-50 text-zinc-900 placeholder-zinc-400 focus:bg-white"
+                } ${
                   errors.phone
                     ? "border-red-500 focus:border-red-500"
-                    : "border-white/10 focus:border-[#D4AF37]"
+                    : isDark
+                    ? "border-white/10 focus:border-[#E51E2B]"
+                    : "border-black/10 focus:border-[#E51E2B]"
                 }`}
               />
               {errors.phone && (
-                <span className="text-xs text-red-400 font-medium">
+                <span className="text-xs text-red-500 font-medium">
                   {errors.phone}
                 </span>
               )}
@@ -220,34 +272,42 @@ export default function ContactForm() {
               <div className="flex justify-between items-center">
                 <label
                   htmlFor="message"
-                  className="text-xs font-semibold tracking-wider text-zinc-300 uppercase"
+                  className={`text-xs font-bold tracking-wider uppercase ${
+                    isDark ? "text-zinc-300" : "text-zinc-700"
+                  }`}
                 >
-                  Enquiry Message <span className="text-[#D4AF37]">*</span>
+                  Enquiry Message <span className="text-[#E51E2B]">*</span>
                 </label>
                 <span
                   className={`text-xs font-mono ${
-                    remainingChars < 20 ? "text-amber-400 font-bold" : "text-zinc-500"
+                    isDark ? "text-zinc-400" : "text-zinc-500"
                   }`}
                 >
-                  {remainingChars} chars remaining
+                  {formData.message.length}/180
                 </span>
               </div>
               <textarea
                 id="message"
                 name="message"
                 rows={4}
-                maxLength={maxChars}
+                maxLength={180}
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Briefly state your booking, licensing, or press enquiry (max 180 characters)..."
-                className={`w-full px-4 py-3.5 rounded-xl bg-black/50 border text-white placeholder-zinc-500 focus:outline-none transition-colors text-sm resize-none ${
+                className={`w-full px-4 py-3.5 rounded-xl border transition-colors text-sm resize-none focus:outline-none ${
+                  isDark
+                    ? "bg-[#181820] text-white placeholder-zinc-500 focus:bg-[#20202a]"
+                    : "bg-zinc-50 text-zinc-900 placeholder-zinc-400 focus:bg-white"
+                } ${
                   errors.message
                     ? "border-red-500 focus:border-red-500"
-                    : "border-white/10 focus:border-[#D4AF37]"
+                    : isDark
+                    ? "border-white/10 focus:border-[#E51E2B]"
+                    : "border-black/10 focus:border-[#E51E2B]"
                 }`}
               />
               {errors.message && (
-                <span className="text-xs text-red-400 font-medium">
+                <span className="text-xs text-red-500 font-medium">
                   {errors.message}
                 </span>
               )}
@@ -259,7 +319,7 @@ export default function ContactForm() {
                 type="submit"
                 id="contact-submit-button"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-[#070709] font-bold text-sm tracking-wider uppercase shadow-xl shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/35 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all duration-200 cursor-pointer"
+                className="w-full inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl bg-[#E51E2B] hover:bg-[#D81A26] text-white font-bold text-sm tracking-wider uppercase shadow-xl shadow-[#E51E2B]/20 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all duration-200 cursor-pointer"
               >
                 {isSubmitting ? (
                   <>

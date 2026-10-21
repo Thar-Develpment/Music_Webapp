@@ -10,6 +10,7 @@
     "dev": "npm run dev --workspace=apps/web",
     "build": "npm run build --workspace=apps/web",
     "start": "npm run start --workspace=apps/web",
-    "lint": "npm run lint --workspace=apps/web"
+    "lint": "npm run lint --workspace=apps/web",
+    "verify": "npm run lint --workspace=apps/web && npx tsc --noEmit --project apps/web/tsconfig.json && npm run build --workspace=apps/web"
   }
 }

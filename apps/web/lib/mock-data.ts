@@ -27,6 +27,7 @@ export const initialSettings: Setting = {
   bookingPhone: "+1 (310) 894-2200",
   address: "8439 Sunset Blvd, West Hollywood, CA 90069",
   footerText: "Crafting iconic sonic experiences and cinematic documentaries. Defining the vanguard of electronic, orchestral, and modern soul music.",
+  theme: "white",
   socialLinks: {
     instagram: "https://instagram.com/velvetnoirrec",
     youtube: "https://youtube.com/@velvetnoirrec",
@@ -456,6 +457,9 @@ declare global {
 }
 
 export const db: MockDatabase = global.__mockDb ?? new MockDatabase();
+if (!db.settings.theme) {
+  db.settings.theme = "white";
+}
 if (process.env.NODE_ENV !== "production") {
   global.__mockDb = db;
 }

@@ -1,33 +1,34 @@
 import type { Metadata } from "next";
-import { Syne, Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { db } from "@/lib/mock-data";
+import { SiteTheme } from "@music-label/shared";
 
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+const blodeStarkly = localFont({
+  src: "../public/fonts/blode-starkly/Blodestarkly-Regular.ttf",
+  variable: "--font-blode",
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const trench = localFont({
+  src: "../public/fonts/trench/trench100.ttf",
+  variable: "--font-trench",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "VELVET NOIR RECORDINGS — Avant-Garde Luxury Music Label",
+    default: "VELVET NOIR RECORDINGS — Avant-Garde Music Label",
     template: "%s | VELVET NOIR RECORDINGS",
   },
   description:
-    "An avant-garde collective of boundary-defying producers, cinematic composers, and visionary recording artists. Archival records, live tours, and documentary productions.",
+    "An avant-garde collective of boundary-defying producers, rock icons, and visionary recording artists. Archival records, live tours, and documentary productions.",
   keywords: [
     "music label",
-    "luxury record label",
+    "rock record label",
     "electronic music",
-    "orchestral film scores",
+    "film scores",
     "audiophile vinyl",
     "documentary production",
   ],
@@ -38,10 +39,41 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const theme: SiteTheme = db.settings.theme === "black" ? "black" : "white";
+
   return (
-    <html lang="en" className={`${syne.variable} ${plusJakarta.variable} dark`}>
-      <body className="min-h-screen bg-[#070709] text-[#F3F4F6] selection:bg-[#D4AF37] selection:text-[#070709] antialiased">
-        {children}
+    <html
+      lang="en"
+      data-theme={theme}
+      suppressHydrationWarning
+      className={`${blodeStarkly.variable} ${trench.variable} ${
+        theme === "black" ? "dark theme-black" : "theme-white"
+      }`}
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var m = document.cookie.match(/(?:^|;\\s*)velvet_theme=(black|white)/);
+                  var t = (m && m[1]) || localStorage.getItem('velvet_theme') || '${theme}';
+                  document.documentElement.setAttribute('data-theme', t);
+                  if (t === 'black') {
+                    document.documentElement.classList.add('dark', 'theme-black');
+                    document.documentElement.classList.remove('theme-white');
+                  } else {
+                    document.documentElement.classList.remove('dark', 'theme-black');
+                    document.documentElement.classList.add('theme-white');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#E51E2B] selection:text-white antialiased">
+        <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
       </body>
     </html>
   );

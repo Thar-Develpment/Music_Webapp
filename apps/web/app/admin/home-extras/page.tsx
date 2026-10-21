@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Artist, Manager, Testimonial, Counter } from "@music-label/shared";
-import { Plus, Trash2, Check, AlertCircle, Sparkles, Quote, Users, Hash } from "lucide-react";
+import { Plus, Trash2, Check, AlertCircle, Quote, Users, Hash } from "lucide-react";
 
 export default function AdminHomeExtras() {
   const [activeTab, setActiveTab] = useState<"artists" | "testimonials" | "managers" | "counters">("artists");

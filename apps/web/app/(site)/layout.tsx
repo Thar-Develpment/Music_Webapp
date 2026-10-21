@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/animations/SmoothScroll";
+import { FloatingOrbs } from "@/components/animations/FloatingOrbs";
 import { db } from "@/lib/mock-data";
 
 export default function SiteLayout({
@@ -13,9 +14,17 @@ export default function SiteLayout({
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen flex flex-col bg-[#070709] text-[#F3F4F6]">
+      <div className="min-h-screen flex flex-col relative transition-colors duration-300 bg-[var(--background)] text-[var(--foreground)]">
+        {/* Ambient Drifting Glowing Orbs for Glass Refraction */}
+        <FloatingOrbs />
+
+        {/* Global Navigation */}
         <Navbar siteName={settings.siteName} socialLinks={settings.socialLinks} />
-        <main className="flex-1 w-full">{children}</main>
+
+        {/* Page Content */}
+        <main className="flex-1 w-full relative z-10">{children}</main>
+
+        {/* Global Footer */}
         <Footer settings={settings} />
       </div>
     </SmoothScroll>

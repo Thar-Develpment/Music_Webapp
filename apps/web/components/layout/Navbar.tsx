@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
 import { motion, AnimatePresence } from "motion/react";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface NavbarProps {
   siteName?: string;
@@ -42,6 +43,7 @@ export default function Navbar({
   },
 }: NavbarProps) {
   const pathname = usePathname();
+  const { isDark } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -53,35 +55,38 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#070709]/85 backdrop-blur-xl border-b border-white/[0.08] py-4 shadow-2xl shadow-black/60"
-            : "bg-gradient-to-b from-black/80 via-black/30 to-transparent py-6"
+            ? isDark
+              ? "bg-[#08080A]/90 backdrop-blur-xl border-b border-white/[0.08] py-4 shadow-md shadow-black/40"
+              : "bg-white/90 backdrop-blur-xl border-b border-black/[0.08] py-4 shadow-md shadow-black/[0.03]"
+            : isDark
+            ? "bg-gradient-to-b from-[#08080A]/95 via-[#08080A]/80 to-transparent py-6"
+            : "bg-gradient-to-b from-white/95 via-white/80 to-transparent py-6"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
           {/* Brand Logo */}
           <Link
             href="/"
-            className="group flex items-center space-x-3 text-white transition-opacity hover:opacity-90"
+            className="group flex items-center space-x-3 transition-opacity hover:opacity-90"
             id="brand-logo"
           >
-            <div className="w-10 h-10 rounded-full border border-[#D4AF37]/40 bg-[#121318] flex items-center justify-center text-[#D4AF37] group-hover:scale-105 group-hover:border-[#D4AF37] transition-all duration-300 shadow-lg shadow-[#D4AF37]/10">
+            <div className={`w-10 h-10 rounded-full border border-[#E51E2B]/50 flex items-center justify-center text-[#E51E2B] group-hover:scale-105 group-hover:border-[#E51E2B] transition-all duration-300 shadow-md shadow-[#E51E2B]/15 ${
+              isDark ? "bg-red-950/40" : "bg-red-50"
+            }`}>
               <Disc3 className="w-5 h-5 animate-[spin_10s_linear_infinite]" />
             </div>
             <div className="flex flex-col">
-              <span className="font-heading font-extrabold text-xl tracking-[0.18em] text-white">
+              <span className={`font-heading font-extrabold text-xl tracking-[0.18em] ${
+                isDark ? "text-white" : "text-black"
+              }`}>
                 {siteName}
               </span>
-              <span className="text-[10px] tracking-[0.25em] text-[#D4AF37] uppercase font-medium">
+              <span className="text-[10px] tracking-[0.25em] text-[#E51E2B] uppercase font-bold">
                 Recordings & Film
               </span>
             </div>
@@ -96,17 +101,21 @@ export default function Navbar({
                   key={link.name}
                   href={link.href}
                   id={`nav-link-${link.name.toLowerCase()}`}
-                  className={`relative px-4 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-300 rounded-full ${
+                  className={`relative px-4 py-2 text-sm font-bold tracking-wider uppercase transition-all duration-200 rounded-full ${
                     isActive
-                      ? "text-[#D4AF37] bg-white/[0.04]"
-                      : "text-zinc-300 hover:text-white hover:bg-white/[0.03]"
+                      ? isDark
+                        ? "text-[#E51E2B] bg-red-950/40"
+                        : "text-[#E51E2B] bg-red-50"
+                      : isDark
+                      ? "text-zinc-300 hover:text-white hover:bg-white/[0.06]"
+                      : "text-zinc-600 hover:text-black hover:bg-black/[0.04]"
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
-                      className="absolute bottom-1 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"
+                      className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#E51E2B]"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -117,13 +126,19 @@ export default function Navbar({
 
           {/* Right Header Actions: Socials & Admin */}
           <div className="hidden lg:flex items-center space-x-5">
-            <div className="flex items-center space-x-3 border-r border-white/10 pr-5">
+            <div className={`flex items-center space-x-3 border-r pr-5 ${
+              isDark ? "border-white/10" : "border-black/[0.08]"
+            }`}>
               {socialLinks.instagram && (
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-all duration-200"
+                  className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                  }`}
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4" />
@@ -134,7 +149,11 @@ export default function Navbar({
                   href={socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-all duration-200"
+                  className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                  }`}
                   aria-label="YouTube"
                 >
                   <YoutubeIcon className="w-4 h-4" />
@@ -145,7 +164,11 @@ export default function Navbar({
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-all duration-200"
+                  className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                  }`}
                   aria-label="Facebook"
                 >
                   <FacebookIcon className="w-4 h-4" />
@@ -157,18 +180,22 @@ export default function Navbar({
             <Link
               href="/admin"
               id="admin-portal-button"
-              className="group flex items-center space-x-2 text-xs font-semibold tracking-wider uppercase px-4 py-2 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#F5D77F] hover:bg-[#D4AF37] hover:text-[#070709] transition-all duration-300 shadow-md shadow-[#D4AF37]/5"
+              className="group flex items-center space-x-2 text-xs font-bold tracking-wider uppercase px-4 py-2 rounded-full bg-[#E51E2B] text-white hover:bg-[#D81A26] transition-all duration-200 shadow-md shadow-[#E51E2B]/20"
             >
-              <Lock className="w-3.5 h-3.5 text-[#D4AF37] group-hover:text-[#070709]" />
+              <Lock className="w-3.5 h-3.5 text-white" />
               <span>Admin Panel</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity" />
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-11 h-11 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-zinc-200 hover:text-white"
+            className={`md:hidden w-11 h-11 rounded-full border flex items-center justify-center ${
+              isDark
+                ? "border-white/10 bg-white/[0.04] text-zinc-100 hover:text-white"
+                : "border-black/[0.08] bg-black/[0.02] text-zinc-800 hover:text-black"
+            }`}
             aria-label="Toggle Navigation Menu"
             id="mobile-menu-toggle"
           >
@@ -184,10 +211,14 @@ export default function Navbar({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#070709]/98 backdrop-blur-2xl flex flex-col pt-28 px-8 pb-12 md:hidden"
+            transition={{ duration: 0.25 }}
+            className={`fixed inset-x-0 top-[73px] z-40 backdrop-blur-2xl border-b p-6 shadow-2xl md:hidden ${
+              isDark
+                ? "bg-[#0c0c10]/95 border-white/10 text-white"
+                : "bg-white/95 border-black/[0.08] text-black"
+            }`}
           >
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-4">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -195,60 +226,45 @@ export default function Navbar({
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`font-heading text-2xl tracking-wider uppercase transition-colors ${
-                      isActive ? "text-[#D4AF37] font-bold" : "text-zinc-300 hover:text-white"
+                    className={`px-4 py-3 rounded-xl text-base font-bold tracking-wider uppercase transition-colors ${
+                      isActive
+                        ? isDark
+                          ? "bg-red-950/40 text-[#E51E2B]"
+                          : "bg-red-50 text-[#E51E2B]"
+                        : isDark
+                        ? "text-zinc-200 hover:bg-white/[0.06]"
+                        : "text-zinc-800 hover:bg-black/[0.04]"
                     }`}
                   >
                     {link.name}
                   </Link>
                 );
               })}
-            </div>
 
-            <div className="mt-auto pt-8 border-t border-white/10 flex flex-col space-y-6">
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center space-x-2 text-sm font-semibold tracking-wider uppercase py-3 rounded-xl border border-[#D4AF37]/40 bg-[#D4AF37]/15 text-[#F5D77F]"
-              >
-                <Lock className="w-4 h-4 text-[#D4AF37]" />
-                <span>Client Admin Panel</span>
-              </Link>
+              <div className={`pt-4 border-t flex items-center justify-between ${
+                isDark ? "border-white/10" : "border-black/[0.08]"
+              }`}>
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#E51E2B]"
+                >
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Access CMS</span>
+                </Link>
 
-              <div className="flex items-center justify-center space-x-6">
-                {socialLinks.instagram && (
-                  <a
-                    href={socialLinks.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-zinc-400 hover:text-[#D4AF37]"
-                    aria-label="Instagram"
-                  >
-                    <InstagramIcon className="w-6 h-6" />
-                  </a>
-                )}
-                {socialLinks.youtube && (
-                  <a
-                    href={socialLinks.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-zinc-400 hover:text-[#D4AF37]"
-                    aria-label="YouTube"
-                  >
-                    <YoutubeIcon className="w-6 h-6" />
-                  </a>
-                )}
-                {socialLinks.facebook && (
-                  <a
-                    href={socialLinks.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-zinc-400 hover:text-[#D4AF37]"
-                    aria-label="Facebook"
-                  >
-                    <FacebookIcon className="w-6 h-6" />
-                  </a>
-                )}
+                <div className={`flex items-center space-x-3 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                  {socialLinks.instagram && (
+                    <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                      <InstagramIcon className="w-4 h-4" />
+                    </a>
+                  )}
+                  {socialLinks.youtube && (
+                    <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
+                      <YoutubeIcon className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>
