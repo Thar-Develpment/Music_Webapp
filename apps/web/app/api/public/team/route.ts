@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import { getTeamMembers } from "@/lib/supabase/service";
 
 export async function GET() {
-  const sortedTeam = [...db.teamMembers].sort((a, b) => a.order - b.order);
+  const team = await getTeamMembers();
   return NextResponse.json({
     success: true,
-    data: sortedTeam,
+    data: team,
   });
 }

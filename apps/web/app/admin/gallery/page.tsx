@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { GalleryCategory, GalleryItem } from "@music-label/shared";
 import {
   Plus,
@@ -39,7 +39,7 @@ export default function AdminGalleryManager() {
   const [saving, setSaving] = useState(false);
   const [notification, setNotification] = useState<{ type: "success" | "error"; msg: string } | null>(null);
 
-  const fetchGalleryData = async () => {
+  const fetchGalleryData = useCallback(async () => {
     try {
       setLoading(true);
       const res = await fetch("/api/public/gallery");
@@ -56,11 +56,11 @@ export default function AdminGalleryManager() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [newCategoryId]);
 
   useEffect(() => {
     fetchGalleryData();
-  }, []);
+  }, [fetchGalleryData]);
 
   const showNotice = (type: "success" | "error", msg: string) => {
     setNotification({ type, msg });

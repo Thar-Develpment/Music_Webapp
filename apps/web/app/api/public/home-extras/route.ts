@@ -1,15 +1,29 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import {
+  getCounters,
+  getArtists,
+  getManagers,
+  getUpcomingProjects,
+  getTestimonials,
+} from "@/lib/supabase/service";
 
 export async function GET() {
+  const [counters, artists, managers, upcomingProjects, testimonials] = await Promise.all([
+    getCounters(),
+    getArtists(),
+    getManagers(),
+    getUpcomingProjects(),
+    getTestimonials(),
+  ]);
+
   return NextResponse.json({
     success: true,
     data: {
-      counters: [...db.counters].sort((a, b) => a.order - b.order),
-      artists: [...db.artists].sort((a, b) => a.order - b.order),
-      managers: [...db.managers].sort((a, b) => a.order - b.order),
-      upcomingProjects: [...db.upcomingProjects].sort((a, b) => a.order - b.order),
-      testimonials: [...db.testimonials].sort((a, b) => a.order - b.order),
+      counters,
+      artists,
+      managers,
+      upcomingProjects,
+      testimonials,
     },
   });
 }

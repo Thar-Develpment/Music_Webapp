@@ -4,7 +4,7 @@ import {
   AboutPageContentSchema,
   ContactPageContentSchema,
 } from "@music-label/shared";
-import { db } from "@/lib/mock-data";
+import { updatePageContent } from "@/lib/supabase/service";
 
 export async function PUT(
   request: Request,
@@ -19,8 +19,8 @@ export async function PUT(
       if (!validated.success) {
         return NextResponse.json({ success: false, error: "Validation failed", details: validated.error.flatten() }, { status: 400 });
       }
-      db.homeContent = validated.data;
-      return NextResponse.json({ success: true, data: db.homeContent });
+      const saved = await updatePageContent("home", validated.data);
+      return NextResponse.json({ success: true, data: saved });
     }
 
     if (slug === "about") {
@@ -28,8 +28,8 @@ export async function PUT(
       if (!validated.success) {
         return NextResponse.json({ success: false, error: "Validation failed", details: validated.error.flatten() }, { status: 400 });
       }
-      db.aboutContent = validated.data;
-      return NextResponse.json({ success: true, data: db.aboutContent });
+      const saved = await updatePageContent("about", validated.data);
+      return NextResponse.json({ success: true, data: saved });
     }
 
     if (slug === "contact") {
@@ -37,8 +37,8 @@ export async function PUT(
       if (!validated.success) {
         return NextResponse.json({ success: false, error: "Validation failed", details: validated.error.flatten() }, { status: 400 });
       }
-      db.contactContent = validated.data;
-      return NextResponse.json({ success: true, data: db.contactContent });
+      const saved = await updatePageContent("contact", validated.data);
+      return NextResponse.json({ success: true, data: saved });
     }
 
     return NextResponse.json({ success: false, error: "Page not found" }, { status: 404 });

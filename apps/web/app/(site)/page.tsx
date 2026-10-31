@@ -6,7 +6,15 @@ import ArtistsGrid from "@/components/site/ArtistsGrid";
 import UpcomingProjects from "@/components/site/UpcomingProjects";
 import TestimonialSlider from "@/components/site/TestimonialSlider";
 import SocialFollowBanner from "@/components/site/SocialFollowBanner";
-import { db } from "@/lib/mock-data";
+import {
+  getPageContent,
+  getArtists,
+  getManagers,
+  getUpcomingProjects,
+  getTestimonials,
+  getSettings,
+} from "@/lib/supabase/service";
+import { HomePageContent } from "@music-label/shared";
 
 export const metadata = {
   title: "Home | Velvet Noir Recordings — Luxury Sonic Immersion",
@@ -14,13 +22,16 @@ export const metadata = {
     "An avant-garde collective of boundary-defying producers, rock icons, and visionary recording artists.",
 };
 
-export default function HomePage() {
-  const homeContent = db.homeContent;
-  const artists = db.artists;
-  const managers = db.managers;
-  const upcomingProjects = db.upcomingProjects;
-  const testimonials = db.testimonials;
-  const settings = db.settings;
+export default async function HomePage() {
+  const [homeContent, artists, managers, upcomingProjects, testimonials, settings] =
+    await Promise.all([
+      getPageContent<HomePageContent>("home"),
+      getArtists(),
+      getManagers(),
+      getUpcomingProjects(),
+      getTestimonials(),
+      getSettings(),
+    ]);
 
   return (
     <div className="flex flex-col w-full bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300">
@@ -30,10 +41,10 @@ export default function HomePage() {
       {/* 2. About Teaser ("SCULPTING MODERN SOUNDSCAPES") */}
       <AboutTeaser content={homeContent.aboutTeaser} />
 
-      {/* 3. Vinylist Direct Master Section (Split Black/Red with Rotating Vinyl & Needle) */}
+      {/* 3. Vinylist Direct Master Section */}
       <VinylShowcaseSection />
 
-      {/* 5. Artists Section (Circular Constellation + 3D Spotify Glassmorphic Horizontal Cards) */}
+      {/* 5. Artists Section */}
       <ArtistsGrid artists={artists} managers={managers} />
 
       {/* 6. Upcoming Projects Gallery */}

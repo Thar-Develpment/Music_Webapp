@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import { getEnquiries } from "@/lib/supabase/service";
 
 export async function GET() {
+  const enquiries = await getEnquiries();
   return NextResponse.json({
     success: true,
-    data: db.enquiries,
+    data: enquiries,
     meta: {
-      total: db.enquiries.length,
-      unread: db.enquiries.filter((e) => !e.readAt).length,
+      total: enquiries.length,
+      unread: enquiries.filter((e) => !e.readAt).length,
     },
   });
 }

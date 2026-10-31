@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import { getGalleryCategories, getGalleryItems } from "@/lib/supabase/service";
 
 export async function GET() {
-  const sortedCategories = [...db.galleryCategories].sort((a, b) => a.order - b.order);
-  const sortedItems = [...db.galleryItems].sort((a, b) => a.order - b.order);
+  const [categories, items] = await Promise.all([
+    getGalleryCategories(),
+    getGalleryItems(),
+  ]);
 
   return NextResponse.json({
     success: true,
     data: {
-      categories: sortedCategories,
-      items: sortedItems,
+      categories,
+      items,
     },
   });
 }

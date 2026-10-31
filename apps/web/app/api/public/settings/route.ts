@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import { getSettings } from "@/lib/supabase/service";
 
 export async function GET() {
-  if (!db.settings.theme) {
-    db.settings.theme = "white";
-  }
+  const settings = await getSettings();
   return NextResponse.json({
     success: true,
-    data: db.settings,
+    data: settings,
   });
 }

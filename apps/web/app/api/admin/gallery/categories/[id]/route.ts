@@ -1,18 +1,14 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import { deleteGalleryCategory, getGalleryItems } from "@/lib/supabase/service";
 
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const index = db.galleryCategories.findIndex((c) => c.id === id);
-  if (index === -1) {
-    return NextResponse.json({ success: false, error: "Category not found" }, { status: 404 });
-  }
+  const items = await getGalleryItems();
+  const usedCount = items.filter((i) => i.categoryId === id).length;
 
-  // Check if items use this category
-  const usedCount = db.galleryItems.filter((i) => i.categoryId === id).length;
   if (usedCount > 0) {
     return NextResponse.json({
       success: false,
@@ -20,6 +16,6 @@ export async function DELETE(
     }, { status: 400 });
   }
 
-  db.galleryCategories.splice(index, 1);
+  await deleteGalleryCategory(id);
   return NextResponse.json({ success: true, message: "Category deleted" });
 }

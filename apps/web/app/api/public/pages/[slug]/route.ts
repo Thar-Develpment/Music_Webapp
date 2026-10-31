@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/mock-data";
+import { getPageContent } from "@/lib/supabase/service";
 
 export async function GET(
   request: Request,
@@ -7,14 +7,9 @@ export async function GET(
 ) {
   const { slug } = await params;
 
-  if (slug === "home") {
-    return NextResponse.json({ success: true, data: db.homeContent });
-  }
-  if (slug === "about") {
-    return NextResponse.json({ success: true, data: db.aboutContent });
-  }
-  if (slug === "contact") {
-    return NextResponse.json({ success: true, data: db.contactContent });
+  if (slug === "home" || slug === "about" || slug === "contact") {
+    const data = await getPageContent(slug);
+    return NextResponse.json({ success: true, data });
   }
 
   return NextResponse.json(

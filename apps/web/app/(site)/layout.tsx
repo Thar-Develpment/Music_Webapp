@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/animations/SmoothScroll";
@@ -22,7 +22,9 @@ export default function SiteLayout({
         <Navbar siteName={settings.siteName} socialLinks={settings.socialLinks} />
 
         {/* Page Content */}
-        <main className="flex-1 w-full relative z-10">{children}</main>
+        <Suspense fallback={null}>
+          <main className="flex-1 w-full relative z-10">{children}</main>
+        </Suspense>
 
         {/* Global Footer */}
         <Footer settings={settings} />

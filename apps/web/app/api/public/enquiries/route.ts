@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { EnquirySubmissionSchema } from "@music-label/shared";
-import { db } from "@/lib/mock-data";
+import { createEnquiry } from "@/lib/supabase/service";
 
 export async function POST(request: Request) {
   try {
@@ -18,14 +18,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const newEnquiry = {
-      ...validated.data,
-      id: `enq-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      readAt: null,
-    };
-
-    db.enquiries.unshift(newEnquiry);
+    const newEnquiry = await createEnquiry(validated.data);
 
     return NextResponse.json({
       success: true,

@@ -1,6 +1,11 @@
 import React from "react";
-import { db } from "@/lib/mock-data";
 import AboutView from "@/components/site/AboutView";
+import {
+  getPageContent,
+  getManagers,
+  getUpcomingProjects,
+} from "@/lib/supabase/service";
+import { AboutPageContent } from "@music-label/shared";
 
 export const metadata = {
   title: "About Us | Velvet Noir Recordings — Acoustic Architecture",
@@ -8,10 +13,12 @@ export const metadata = {
     "The story, artistic philosophy, architectural acoustic sanctuary, and vision behind Velvet Noir Recordings.",
 };
 
-export default function AboutPage() {
-  const about = db.aboutContent;
-  const managers = db.managers;
-  const upcomingProjects = db.upcomingProjects;
+export default async function AboutPage() {
+  const [about, managers, upcomingProjects] = await Promise.all([
+    getPageContent<AboutPageContent>("about"),
+    getManagers(),
+    getUpcomingProjects(),
+  ]);
 
   return (
     <AboutView
