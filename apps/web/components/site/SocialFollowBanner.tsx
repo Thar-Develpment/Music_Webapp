@@ -15,7 +15,7 @@ export default function SocialFollowBanner({ socialLinks }: SocialFollowBannerPr
   const { isDark } = useTheme();
 
   return (
-    <section className={`py-24 border-t relative overflow-hidden transition-colors duration-300 ${
+    <section className={`py-20 border-t relative overflow-hidden transition-colors duration-300 ${
       isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.08]"
     }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">

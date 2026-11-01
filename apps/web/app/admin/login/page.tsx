@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
         throw new Error(data.error || "Authentication failed");
       }
 
-      router.push("/admin");
+      router.push("/admin/enquiries");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

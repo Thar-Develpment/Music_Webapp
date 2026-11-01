@@ -122,6 +122,11 @@ export default function Footer({ settings }: FooterProps) {
                 </Link>
               </li>
               <li>
+                <Link href="/collections" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  Our Collections
+                </Link>
+              </li>
+              <li>
                 <Link href="/gallery" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
                   Visual Archive & Stills
                 </Link>

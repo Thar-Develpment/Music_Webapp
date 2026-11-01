@@ -14,6 +14,8 @@ import {
   MediaAsset,
   EnquiryRecord,
   EnquirySubmission,
+  Track,
+  CollectionItem,
 } from "@music-label/shared";
 import { getSupabaseAdmin, isSupabaseConfigured } from "./client";
 import { db } from "../mock-data";
@@ -730,4 +732,19 @@ export async function deleteEnquiry(id: string): Promise<void> {
   }
   const supabase = getSupabaseAdmin();
   await supabase.from("enquiries").delete().eq("id", id);
+}
+
+// ==========================================
+// 8. TRACKS & COLLECTIONS
+// ==========================================
+export async function getTracks(): Promise<Track[]> {
+  return db.tracks;
+}
+
+export async function getCollections(): Promise<CollectionItem[]> {
+  return db.collections;
+}
+
+export async function getCollectionById(id: string): Promise<CollectionItem | null> {
+  return db.collections.find((c) => c.id === id) || null;
 }

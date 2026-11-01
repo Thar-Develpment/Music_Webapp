@@ -28,22 +28,63 @@ interface ArtistsGridProps {
 export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
   const { isDark } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   const activeArtist = artists[activeIndex] || artists[0];
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? artists.length - 1 : prev - 1));
+    const nextIdx = activeIndex === 0 ? artists.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIdx);
+    const el = audioRef.current;
+    if (el && isPlaying) {
+      el.src = artists[nextIdx]?.audioUrl || "/audio/track-1.mp3";
+      el.load();
+      el.play().catch(() => {});
+    }
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev === artists.length - 1 ? 0 : prev + 1));
+    const nextIdx = activeIndex === artists.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIdx);
+    const el = audioRef.current;
+    if (el && isPlaying) {
+      el.src = artists[nextIdx]?.audioUrl || "/audio/track-1.mp3";
+      el.load();
+      el.play().catch(() => {});
+    }
+  };
+
+  const toggleAudio = (targetArtist?: Artist) => {
+    const el = audioRef.current;
+    if (!el) return;
+    const currentTarget = targetArtist || activeArtist;
+    const url = currentTarget?.audioUrl || "/audio/track-1.mp3";
+
+    if (!el.paused && activeArtist.id === currentTarget.id) {
+      el.pause();
+    } else {
+      if (el.src !== url && !el.src.endsWith(url)) {
+        el.src = url;
+        el.load();
+      }
+      el.play().catch((err) => console.log("Audio play blocked:", err));
+    }
   };
 
   return (
-    <section id="artists-section" className={`py-28 relative overflow-hidden select-none border-t transition-colors duration-300 ${
+    <section id="artists-section" className={`py-20 relative overflow-hidden select-none border-t transition-colors duration-300 ${
       isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.06]"
     }`}>
+      <audio
+        ref={audioRef}
+        src={activeArtist?.audioUrl || "/audio/track-1.mp3"}
+        preload="auto"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => setIsPlaying(false)}
+        onError={(e) => console.log("Audio error:", e)}
+      />
       {/* Background Ambient Red Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-[#E51E2B]/5 blur-[140px] rounded-full pointer-events-none" />
 
@@ -262,7 +303,7 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              setIsPlaying(!isPlaying);
+                              toggleAudio(artist);
                             }}
                             className="w-10 h-10 rounded-full bg-[#E51E2B] text-white flex items-center justify-center hover:bg-[#D81A26] active:scale-95 transition-all shadow-lg shadow-[#E51E2B]/40 cursor-pointer"
                             aria-label={isPlaying ? "Pause Artist Preview" : "Play Artist Preview"}
@@ -413,7 +454,7 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
            ========================================================= */}
         <div className={`pt-20 border-t ${isDark ? "border-white/10" : "border-black/[0.08]"}`}>
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <MotionReveal direction="up">
+            <MotionReveal direction="up"> 
               <span className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase">
                 Executive Leadership
               </span>

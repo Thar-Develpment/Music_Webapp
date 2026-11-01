@@ -22,9 +22,21 @@ const studioChannels = [
 export default function AboutTeaser({ content }: AboutTeaserProps) {
   const { isDark } = useTheme();
   const [activeChannel, setActiveChannel] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+
+  const toggleAcousticFeed = () => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (!el.paused) {
+      el.pause();
+    } else {
+      el.play().catch((err) => console.log("Audio play blocked:", err));
+    }
+  };
 
   return (
-    <section className={`py-32 relative overflow-hidden transition-colors duration-300 border-t ${
+    <section className={`py-20 relative overflow-hidden transition-colors duration-300 border-t ${
       isDark
         ? "bg-gradient-to-b from-[#08080A] via-[#0D0D12] to-[#08080A] border-white/[0.08]"
         : "bg-gradient-to-b from-[#FAFAFC] via-[#F4F4F8] to-[#FAFAFC] border-black/[0.06]"
@@ -50,17 +62,30 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                {/* Top Status Capsule */}
-                <div className={`absolute top-5 left-5 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border shadow-md ${
-                  isDark ? "bg-[#121217]/90 border-[#E51E2B]/40" : "glass-frosted border-[#E51E2B]/40"
-                }`}>
-                  <span className="w-2 h-2 rounded-full bg-[#E51E2B] animate-ping" />
-                  <span className={`text-[10px] font-bold tracking-widest uppercase ${
-                    isDark ? "text-white" : "text-zinc-900"
-                  }`}>
-                    Live Acoustic Feed
+                <audio
+                  ref={audioRef}
+                  src="/audio/acoustic-feed.mp3"
+                  loop
+                  preload="auto"
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onEnded={() => setIsPlaying(false)}
+                />
+                {/* Top Status Capsule - Clickable Audio Feed */}
+                <button
+                  type="button"
+                  onClick={toggleAcousticFeed}
+                  className={`absolute top-5 left-5 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border shadow-md cursor-pointer transition-all hover:scale-105 active:scale-95 z-20 ${
+                    isPlaying
+                      ? "bg-[#E51E2B] border-[#E51E2B] text-white"
+                      : isDark ? "bg-[#121217]/90 border-[#E51E2B]/40 text-white" : "glass-frosted border-[#E51E2B]/40 text-zinc-900"
+                  }`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${isPlaying ? "bg-white animate-pulse" : "bg-[#E51E2B] animate-ping"}`} />
+                  <span className="text-[10px] font-bold tracking-widest uppercase">
+                    {isPlaying ? "Feed Active • Click to Pause" : "Live Acoustic Feed • Click to Audition"}
                   </span>
-                </div>
+                </button>
 
                 {/* Floating Metric 1 (Top Right) */}
                 <motion.div

@@ -1,16 +1,9 @@
 "use client";
-//test
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  LayoutDashboard,
-  FileEdit,
-  Image as ImageIcon,
-  Users,
-  LayoutGrid,
-  FolderOpen,
-  Settings,
   Mail,
   ExternalLink,
   LogOut,
@@ -20,19 +13,11 @@ import {
   Bell,
   Sun,
   Moon,
-  Check,
 } from "lucide-react";
 import { SiteTheme } from "@music-label/shared";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 const adminNav = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Pages Editor", href: "/admin/pages", icon: FileEdit },
-  { name: "Gallery Manager", href: "/admin/gallery", icon: ImageIcon },
-  { name: "Documentary Team", href: "/admin/documentary", icon: Users },
-  { name: "Home Extras", href: "/admin/home-extras", icon: LayoutGrid },
-  { name: "Media Library", href: "/admin/media", icon: FolderOpen },
-  { name: "Site Settings", href: "/admin/settings", icon: Settings },
   { name: "Enquiries", href: "/admin/enquiries", icon: Mail, badge: true },
 ];
 
@@ -118,7 +103,7 @@ export default function AdminLayout({
             isDark ? "border-white/10" : "border-black/[0.08]"
           }`}
         >
-          <Link href="/admin" className="flex items-center space-x-3">
+          <Link href="/admin/enquiries" className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-full border border-[#E51E2B]/30 bg-[#FEF2F2]/10 flex items-center justify-center text-[#E51E2B]">
               <Disc3 className="w-4 h-4" />
             </div>
@@ -137,13 +122,10 @@ export default function AdminLayout({
           </Link>
         </div>
 
-        {/* Navigation Links */}
+        {/* Navigation Links - Enquiries only */}
         <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
           {adminNav.map((item) => {
-            const isActive =
-              item.href === "/admin"
-                ? pathname === "/admin"
-                : pathname.startsWith(item.href);
+            const isActive = pathname.startsWith(item.href);
             const Icon = item.icon;
             return (
               <Link
@@ -233,7 +215,7 @@ export default function AdminLayout({
               {mobileSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
             <span className="text-xs uppercase tracking-widest text-[#E51E2B] font-semibold hidden sm:inline-block">
-              Content Management Engine
+              Enquiries Management
             </span>
           </div>
 
@@ -329,10 +311,7 @@ export default function AdminLayout({
               }`}
             >
               {adminNav.map((item) => {
-                const isActive =
-                  item.href === "/admin"
-                    ? pathname === "/admin"
-                    : pathname.startsWith(item.href);
+                const isActive = pathname.startsWith(item.href);
                 const Icon = item.icon;
                 return (
                   <Link

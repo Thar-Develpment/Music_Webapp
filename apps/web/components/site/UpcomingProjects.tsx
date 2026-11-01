@@ -15,7 +15,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
   const { isDark } = useTheme();
 
   return (
-    <section className={`py-32 border-t relative overflow-hidden transition-colors duration-300 ${
+    <section className={`py-20 border-t relative overflow-hidden transition-colors duration-300 ${
       isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.08]"
     }`}>
       {/* Background glow */}

@@ -13,6 +13,8 @@ import {
   UpcomingProject,
   MediaAsset,
   EnquiryRecord,
+  Track,
+  CollectionItem,
 } from "@music-label/shared";
 
 // ==========================================
@@ -81,6 +83,68 @@ export const initialContactContent: ContactPageContent = {
   instructions: "For festival bookings, orchestral commission requests, soundtrack licensing, or general media enquiries, connect with our management office directly below.",
 };
 
+// ==========================================
+// Centralized Tracks (Copyright-free Local WAV audio samples)
+// ==========================================
+export const initialTracks: Track[] = [
+  {
+    id: "track-1",
+    number: "01",
+    title: "Obsidian Horizon",
+    artist: "Aethelgard",
+    album: "Velvet Noir Sessions Vol. 1",
+    duration: "2:48",
+    audioUrl: "/audio/track-.mp3",
+    coverUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+    badge: "Direct Master",
+    badgeColor: "bg-[#E51E2B]",
+    description: "Deep modular synth pulse merged with low-frequency sub-harmonics.",
+    order: 1,
+  },
+  {
+    id: "track-2",
+    number: "02",
+    title: "Aether Resonance",
+    artist: "Kaelen Voss",
+    album: "Velvet Noir Sessions Vol. 1",
+    duration: "3:15",
+    audioUrl: "/audio/track-.mp3",
+    coverUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop",
+    badge: "Dolby Atmos 9.1",
+    badgeColor: "bg-black",
+    description: "Lush harmonic ambient textures over subtle acoustic tape flutter.",
+    order: 2,
+  },
+  {
+    id: "track-3",
+    number: "03",
+    title: "Nocturne Noir",
+    artist: "SÖLVEIG",
+    album: "Velvet Noir Sessions Vol. 1",
+    duration: "4:02",
+    audioUrl: "/audio/track-.mp3",
+    coverUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
+    badge: "Analog Cut",
+    badgeColor: "bg-[#997d21]",
+    description: "Dark cinematic cello drone and hypnotic subterranean bass frequencies.",
+    order: 3,
+  },
+  {
+    id: "track-4",
+    number: "04",
+    title: "Analog Pulse",
+    artist: "Milo St. Claire",
+    album: "Velvet Noir Sessions Vol. 1",
+    duration: "3:40",
+    audioUrl: "/audio/track-.mp3",
+    coverUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
+    badge: "45 RPM Master",
+    badgeColor: "bg-zinc-700",
+    description: "Soul-infused modular polyrhythms recorded live straight to magnetic tape.",
+    order: 4,
+  },
+];
+
 export const initialArtists: Artist[] = [
   {
     id: "art-1",
@@ -88,6 +152,8 @@ export const initialArtists: Artist[] = [
     genre: "Neo-Classical Ambient",
     photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
     spotifyUrl: "https://open.spotify.com",
+    audioUrl: "/audio/track-.mp3",
+    featuredTrackTitle: "Aether Resonance",
     order: 1,
   },
   {
@@ -96,6 +162,8 @@ export const initialArtists: Artist[] = [
     genre: "Cinematic Dark Techno",
     photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
     spotifyUrl: "https://open.spotify.com",
+    audioUrl: "/audio/track-.mp3",
+    featuredTrackTitle: "Nocturne Noir",
     order: 2,
   },
   {
@@ -104,6 +172,8 @@ export const initialArtists: Artist[] = [
     genre: "Experimental R&B / Soul",
     photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop",
     spotifyUrl: "https://open.spotify.com",
+    audioUrl: "/audio/track-.mp3",
+    featuredTrackTitle: "Analog Pulse",
     order: 3,
   },
   {
@@ -112,6 +182,8 @@ export const initialArtists: Artist[] = [
     genre: "Modular Synthesizer & Drone",
     photoUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop",
     spotifyUrl: "https://open.spotify.com",
+    audioUrl: "/audio/track-.mp3",
+    featuredTrackTitle: "Obsidian Horizon",
     order: 4,
   },
 ];
@@ -160,6 +232,72 @@ export const initialUpcomingProjects: UpcomingProject[] = [
     coverUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
     description: "Heavily anticipated underground club cuts pressed on 180g marbled vinyl.",
     order: 3,
+  },
+];
+
+// ==========================================
+// Collections Seed Data (Our Collections Catalog)
+// ==========================================
+export const initialCollections: CollectionItem[] = [
+  {
+    id: "col-1",
+    title: "VELVET NOIR SESSIONS VOL. 1",
+    subtitle: "Direct Metal Master • 180g Crimson Marbled Vinyl",
+    artist: "Velvet Noir Collective",
+    year: "2026",
+    format: "180g Audiophile Double Vinyl (45 RPM)",
+    catalogNumber: "VN-LP-001",
+    coverUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1200&auto=format&fit=crop",
+    vinylColor: "#E51E2B",
+    description: "Our signature flagship compilation pressed directly from 1/2-inch analogue master tapes at Abbey Road Studios. Features high-dynamic uncompressed mastering with bespoke gatefold lithographs.",
+    tracks: initialTracks,
+    badge: "Flagship Master",
+    order: 1,
+  },
+  {
+    id: "col-2",
+    title: "SYMPHONY NO. 9 IN D MINOR",
+    subtitle: "Recorded Live at Rudolfinum Hall",
+    artist: "Aethelgard & Prague Philharmonic",
+    year: "2025",
+    format: "Tri-fold 200g Virgin Vinyl + 4K Blu-ray",
+    catalogNumber: "VN-LP-002",
+    coverUrl: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200&auto=format&fit=crop",
+    vinylColor: "#D4AF37",
+    description: "An unearthly intersection of modular electronic synthesis and a 90-piece orchestra. Captured via 32-channel discrete DSD microphones.",
+    tracks: [initialTracks[0], initialTracks[1]],
+    badge: "Audiophile Gold",
+    order: 2,
+  },
+  {
+    id: "col-3",
+    title: "KRAFTWERK BERLIN: TURBINE SESSIONS",
+    subtitle: "Industrial Concrete Acoustics • Limited 500 Copies",
+    artist: "SÖLVEIG",
+    year: "2026",
+    format: "Smoked Obsidian Heavyweight Vinyl",
+    catalogNumber: "VN-LP-003",
+    coverUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop",
+    vinylColor: "#222226",
+    description: "Recorded within the immense concrete chambers of the Kraftwerk power plant in Berlin. Subterranean sub-bass resonance and spatial delay tapestries.",
+    tracks: [initialTracks[2], initialTracks[3]],
+    badge: "Limited Edition",
+    order: 3,
+  },
+  {
+    id: "col-4",
+    title: "ELYSIAN DRIFT",
+    subtitle: "Ambient Tape Loops & Analog Echo",
+    artist: "Kaelen Voss & Milo St. Claire",
+    year: "2025",
+    format: "Clear Amber Vinyl (33 1/3 RPM)",
+    catalogNumber: "VN-LP-004",
+    coverUrl: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200&auto=format&fit=crop",
+    vinylColor: "#D97706",
+    description: "Intimate late-night tape loop explorations and acoustic Rhodes piano passed through custom valve tube preamplifiers.",
+    tracks: [initialTracks[1], initialTracks[3]],
+    badge: "Pure Analogue",
+    order: 4,
   },
 ];
 
@@ -441,6 +579,8 @@ class MockDatabase {
   homeContent: HomePageContent = { ...initialHomeContent };
   aboutContent: AboutPageContent = { ...initialAboutContent };
   contactContent: ContactPageContent = { ...initialContactContent };
+  tracks: Track[] = [...initialTracks];
+  collections: CollectionItem[] = [...initialCollections];
   artists: Artist[] = [...initialArtists];
   managers: Manager[] = [...initialManagers];
   upcomingProjects: UpcomingProject[] = [...initialUpcomingProjects];

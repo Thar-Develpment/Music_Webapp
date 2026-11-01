@@ -351,3 +351,58 @@ INSERT INTO public.enquiries (id, first_name, email, phone, message, created_at,
 ('enq-1', 'Seraphina', 'seraphina@paramount.com', '+1 415 555 0192', 'Interested in licensing Kaelen Voss ambient catalog for an upcoming psychological thriller feature film.', timezone('utc'::text, now()) - interval '3 days', timezone('utc'::text, now()) - interval '2 days'),
 ('enq-2', 'Mateo Rossi', 'mateo@sonar.es', '+34 93 123 4567', 'Submitting formal invitation for SÖLVEIG to headline Sónar Club Stage in Barcelona next June.', timezone('utc'::text, now()) - interval '1 day', NULL)
 ON CONFLICT (id) DO NOTHING;
+
+
+-- ==============================================================================
+-- TRACKS & COLLECTIONS TABLES
+-- ==============================================================================
+
+CREATE TABLE IF NOT EXISTS public.tracks (
+    id TEXT PRIMARY KEY,
+    number TEXT NOT NULL DEFAULT '01',
+    title TEXT NOT NULL,
+    artist TEXT NOT NULL,
+    album TEXT,
+    duration TEXT NOT NULL DEFAULT '3:30',
+    audio_url TEXT NOT NULL,
+    cover_url TEXT,
+    badge TEXT DEFAULT 'Master',
+    badge_color TEXT DEFAULT 'bg-[#E51E2B]',
+    description TEXT,
+    order_num INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.collections (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    subtitle TEXT NOT NULL,
+    artist TEXT NOT NULL,
+    year TEXT NOT NULL,
+    format TEXT NOT NULL DEFAULT '180g Audiophile Vinyl',
+    catalog_number TEXT NOT NULL,
+    cover_url TEXT NOT NULL,
+    vinyl_color TEXT NOT NULL DEFAULT '#E51E2B',
+    description TEXT NOT NULL,
+    badge TEXT,
+    spotify_url TEXT,
+    buy_url TEXT,
+    order_num INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Seed Tracks
+INSERT INTO public.tracks (id, number, title, artist, album, duration, audio_url, cover_url, badge, badge_color, description, order_num) VALUES
+('track-1', '01', 'Obsidian Horizon', 'Aethelgard', 'Velvet Noir Sessions Vol. 1', '2:48', '/audio/track-1.mp3', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop', 'Direct Master', 'bg-[#E51E2B]', 'Deep modular synth pulse merged with low-frequency sub-harmonics.', 1),
+('track-2', '02', 'Aether Resonance', 'Kaelen Voss', 'Velvet Noir Sessions Vol. 1', '3:15', '/audio/track-2.mp3', 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop', 'Dolby Atmos 9.1', 'bg-black', 'Lush harmonic ambient textures over subtle acoustic tape flutter.', 2),
+('track-3', '03', 'Nocturne Noir', 'SÖLVEIG', 'Velvet Noir Sessions Vol. 1', '4:02', '/audio/track-3.mp3', 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop', 'Analog Cut', 'bg-[#997d21]', 'Dark cinematic cello drone and hypnotic subterranean bass frequencies.', 3),
+('track-4', '04', 'Analog Pulse', 'Milo St. Claire', 'Velvet Noir Sessions Vol. 1', '3:40', '/audio/track-4.mp3', 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop', '45 RPM Master', 'bg-zinc-700', 'Soul-infused modular polyrhythms recorded live straight to magnetic tape.', 4)
+ON CONFLICT (id) DO NOTHING;
+
+-- Seed Collections
+INSERT INTO public.collections (id, title, subtitle, artist, year, format, catalog_number, cover_url, vinyl_color, description, badge, order_num) VALUES
+('col-1', 'VELVET NOIR SESSIONS VOL. 1', 'Direct Metal Master • 180g Crimson Marbled Vinyl', 'Velvet Noir Collective', '2026', '180g Audiophile Double Vinyl (45 RPM)', 'VN-LP-001', 'https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1200&auto=format&fit=crop', '#E51E2B', 'Our signature flagship compilation pressed directly from 1/2-inch analogue master tapes at Abbey Road Studios.', 'Flagship Master', 1),
+('col-2', 'SYMPHONY NO. 9 IN D MINOR', 'Recorded Live at Rudolfinum Hall', 'Aethelgard & Prague Philharmonic', '2025', 'Tri-fold 200g Virgin Vinyl + 4K Blu-ray', 'VN-LP-002', 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200&auto=format&fit=crop', '#D4AF37', 'An unearthly intersection of modular electronic synthesis and a 90-piece orchestra.', 'Audiophile Gold', 2),
+('col-3', 'KRAFTWERK BERLIN: TURBINE SESSIONS', 'Industrial Concrete Acoustics • Limited 500 Copies', 'SÖLVEIG', '2026', 'Smoked Obsidian Heavyweight Vinyl', 'VN-LP-003', 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop', '#222226', 'Recorded within the immense concrete chambers of the Kraftwerk power plant in Berlin.', 'Limited Edition', 3),
+('col-4', 'ELYSIAN DRIFT', 'Ambient Tape Loops & Analog Echo', 'Kaelen Voss & Milo St. Claire', '2025', 'Clear Amber Vinyl (33 1/3 RPM)', 'VN-LP-004', 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200&auto=format&fit=crop', '#D97706', 'Intimate late-night tape loop explorations and acoustic Rhodes piano passed through custom valve tube preamplifiers.', 'Pure Analogue', 4)
+ON CONFLICT (id) DO NOTHING;

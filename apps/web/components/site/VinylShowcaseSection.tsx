@@ -1,66 +1,59 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { Play, Pause, Disc3, Volume2, ArrowRight, ChevronRight, ShoppingBag, Radio } from "lucide-react";
 import { MotionReveal } from "@/components/animations/MotionReveal";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import { initialTracks } from "@/lib/mock-data";
+import { Track } from "@music-label/shared";
 
-interface Track {
-  id: string;
-  number: string;
-  title: string;
-  duration: string;
-  badge: string;
-  badgeColor?: string;
+interface VinylShowcaseSectionProps {
+  tracks?: Track[];
 }
 
-const tracks: Track[] = [
-  {
-    id: "track-1",
-    number: "01",
-    title: "Good Times Bad Times",
-    duration: "2:48",
-    badge: "Sample",
-    badgeColor: "bg-[#E51E2B]",
-  },
-  {
-    id: "track-2",
-    number: "02",
-    title: "Dazed & Confused",
-    duration: "6:28",
-    badge: "Sample",
-    badgeColor: "bg-black",
-  },
-  {
-    id: "track-3",
-    number: "03",
-    title: "Black Dog",
-    duration: "4:56",
-    badge: "Sample",
-    badgeColor: "bg-[#997d21]",
-  },
-  {
-    id: "track-4",
-    number: "04",
-    title: "All Of My Love",
-    duration: "5:54",
-    badge: "Sample",
-    badgeColor: "bg-zinc-700",
-  },
-];
-
-export default function VinylShowcaseSection() {
+export default function VinylShowcaseSection({ tracks = initialTracks }: VinylShowcaseSectionProps) {
   const { isDark } = useTheme();
-  const [selectedTrackIndex, setSelectedTrackIndex] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const activeTrack = tracks[selectedTrackIndex];
+  const activeTrack = tracks[selectedTrackIndex] || tracks[0];
+
+  const handleTogglePlay = (idx: number) => {
+    const el = audioRef.current;
+    if (!el) return;
+
+    if (selectedTrackIndex === idx) {
+      if (!el.paused) {
+        el.pause();
+      } else {
+        el.play().catch((err) => console.log("Audio play blocked:", err));
+      }
+    } else {
+      setSelectedTrackIndex(idx);
+      el.src = tracks[idx].audioUrl;
+      el.load();
+      el.play().catch((err) => console.log("Audio play blocked:", err));
+    }
+  };
 
   return (
-    <section className={`relative w-full py-28 overflow-hidden select-none border-t transition-colors duration-300 ${
+    <section className={`relative w-full py-20 overflow-hidden select-none border-t transition-colors duration-300 ${
       isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.08]"
     }`}>
+      {/* Audio element for vinyl playback */}
+      <audio
+        ref={audioRef}
+        src={activeTrack?.audioUrl}
+        preload="auto"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => setIsPlaying(false)}
+        onError={(e) => console.log("Audio error:", e)}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading Tag */}
         <div className="text-center mb-12">
@@ -120,20 +113,20 @@ export default function VinylShowcaseSection() {
                         <span className={`text-sm font-bold tracking-wide ${
                           isDark ? "text-white" : "text-zinc-900"
                         }`}>
-                          James Douglas (46)
+                          Velvet Noir Pressing #46
                         </span>
                         <span className="text-[10px] font-extrabold bg-[#E51E2B] text-white px-1.5 py-0.5 rounded uppercase">
                           PRO
                         </span>
                       </div>
                       <span className="text-[11px] text-zinc-400 uppercase tracking-widest font-semibold block">
-                        Collector Archival Cut
+                        Collector Archival Cut • Direct Master
                       </span>
                     </div>
                   </div>
 
-                  <span className="text-xs uppercase font-bold tracking-widest text-zinc-400">
-                    vinylist
+                  <span className="text-xs uppercase font-bold tracking-widest text-[#E51E2B]">
+                    stereo master
                   </span>
                 </div>
 
@@ -151,13 +144,12 @@ export default function VinylShowcaseSection() {
                 <div className="space-y-3">
                   {tracks.map((track, idx) => {
                     const isSelected = selectedTrackIndex === idx;
+                    const isCurrentPlaying = isSelected && isPlaying;
+
                     return (
                       <div
                         key={track.id}
-                        onClick={() => {
-                          setSelectedTrackIndex(idx);
-                          setIsPlaying(true);
-                        }}
+                        onClick={() => handleTogglePlay(idx)}
                         className={`group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer ${
                           isSelected
                             ? isDark
@@ -183,7 +175,7 @@ export default function VinylShowcaseSection() {
                               track.badgeColor || "bg-[#E51E2B]"
                             } text-white font-bold text-xs`}
                           >
-                            {isSelected && isPlaying ? (
+                            {isCurrentPlaying ? (
                               <Pause className="w-3.5 h-3.5 fill-current" />
                             ) : (
                               <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
@@ -201,14 +193,14 @@ export default function VinylShowcaseSection() {
                               {track.title}
                             </h4>
                             <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block">
-                              {track.badge}
+                              {track.artist} • {track.badge}
                             </span>
                           </div>
                         </div>
 
                         {/* Duration & Playing Bars */}
                         <div className="flex items-center space-x-3 shrink-0 pl-2">
-                          {isSelected && isPlaying && (
+                          {isCurrentPlaying && (
                             <div className="flex items-end space-x-0.5 h-3.5">
                               <span className="w-0.5 rounded-full bg-[#E51E2B] wave-bar-1" />
                               <span className="w-0.5 rounded-full bg-[#FF4D58] wave-bar-2" />
@@ -252,7 +244,7 @@ export default function VinylShowcaseSection() {
                 }}
               />
 
-              {/* Watermark 'Zeppelin' or Label typography on red background */}
+              {/* Watermark typography on red background */}
               <div className="absolute bottom-6 right-4 text-[90px] sm:text-[140px] font-black text-black/[0.08] leading-none pointer-events-none font-heading select-none uppercase">
                 VELVET
               </div>
@@ -261,10 +253,10 @@ export default function VinylShowcaseSection() {
               <div className="relative z-10 flex items-center justify-end space-x-4 mb-6">
                 <div className="flex items-center space-x-3">
                   <span className="text-xs font-bold uppercase tracking-widest text-white/90">
-                    vinylist
+                    vinylist console
                   </span>
                   <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                    <Disc3 className="w-4 h-4 text-white animate-spin" />
+                    <Disc3 className={`w-4 h-4 text-white ${isPlaying ? "animate-spin" : ""}`} />
                   </div>
                 </div>
               </div>
@@ -275,7 +267,7 @@ export default function VinylShowcaseSection() {
                 <div className="flex items-center space-x-4 mb-6">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/40 group relative cursor-pointer hover:scale-105 transition-transform">
                     <img
-                      src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=500&auto=format&fit=crop"
+                      src={activeTrack?.coverUrl || "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=500&auto=format&fit=crop"}
                       alt="Album Cover"
                       className="w-full h-full object-cover"
                     />
@@ -294,49 +286,49 @@ export default function VinylShowcaseSection() {
                 {/* Album Title & Metadata */}
                 <div>
                   <span className="text-xs uppercase font-extrabold tracking-widest text-white/80 block mb-1">
-                    Velvet Noir Recordings
+                    Velvet Noir Recordings • {activeTrack?.artist}
                   </span>
                   <h3 className="font-heading font-extrabold text-2xl sm:text-4xl text-white tracking-tight uppercase leading-tight">
-                    Album: Mothership
+                    {activeTrack?.title}
                   </h3>
                   <span className="text-xs font-semibold text-white/90 block mt-1">
-                    Archive Session • 2026 Remaster
+                    {activeTrack?.album || "Velvet Noir Sessions Vol. 1"} • 2026 Master
                   </span>
                 </div>
 
                 {/* Info Text */}
                 <div className="mt-4 max-w-md">
                   <span className="text-xs uppercase font-bold tracking-wider text-white/90 block mb-1">
-                    Info
+                    Acoustic Details
                   </span>
                   <p className="text-xs sm:text-sm text-white/85 font-light leading-relaxed">
-                    Mothership is a definitive master collection crafted from original analog master reels, pressed on 180g virgin marbled vinyl at 45 RPM with custom Neve desk EQ and lacquer cuts for maximum dynamic presence.
+                    {activeTrack?.description || "Crafted from original analog master reels, pressed on 180g virgin marbled vinyl at 45 RPM with custom Neve desk EQ for maximum dynamic presence."}
                   </p>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <button
-                    onClick={() => alert("Vinyl Order: Velvet Noir Mothership 180g added to inquiry cart!")}
+                  <Link
+                    href="/collections"
                     className="px-8 py-3.5 rounded-full bg-white text-[#0A0A0C] font-extrabold text-xs uppercase tracking-wider shadow-2xl hover:bg-zinc-100 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center space-x-2"
                   >
                     <ShoppingBag className="w-4 h-4 text-[#E51E2B]" />
-                    <span>Order Vinyl</span>
-                  </button>
+                    <span>Explore Collections</span>
+                  </Link>
 
-                  <a
+                  <Link
                     href="/gallery"
                     className="px-6 py-3.5 rounded-full border border-white/40 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/10 transition-all cursor-pointer flex items-center space-x-1.5"
                   >
                     <span>See Artwork</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
 
               {/* Right Side Bottom Status */}
               <div className="relative z-10 mt-8 pt-4 border-t border-white/20 flex items-center justify-between text-xs text-white/80 lg:pl-12">
-                <span>7 - 46 Edition Number</span>
+                <span>Edition #46 • Limited Run</span>
                 <span>Worldwide Sync Cleared</span>
               </div>
             </div>
@@ -373,91 +365,38 @@ export default function VinylShowcaseSection() {
                   <div className="w-36 h-36 xl:w-44 xl:h-44 rounded-full bg-[#E51E2B] p-2 flex items-center justify-center shadow-2xl relative">
                     <div className="w-full h-full rounded-full bg-[#0C0C0F] border-4 border-[#E51E2B] flex flex-col items-center justify-center p-3 text-center">
                       <Disc3 className="w-10 h-10 xl:w-12 xl:h-12 text-[#E51E2B] animate-[spin_6s_linear_infinite]" />
-                      <span className="text-[9px] font-extrabold uppercase tracking-widest text-white mt-1">
+                      <span className="text-[9px] xl:text-[10px] font-heading font-extrabold uppercase tracking-widest text-white mt-1">
                         VELVET NOIR
                       </span>
-                      <span className="text-[7px] text-[#E51E2B] uppercase font-bold tracking-wider">
-                        MASTER CUT
+                      <span className="text-[7px] text-zinc-400 font-mono">
+                        45 RPM • MASTER
                       </span>
                     </div>
-
-                    {/* Center Spindle Hole */}
-                    <div className="absolute w-4 h-4 rounded-full bg-zinc-200 border-2 border-black shadow-inner" />
                   </div>
                 </div>
 
-                {/* Phono Tonearm / Needle overlay */}
-                <div
-                  className={`absolute -top-12 right-2 w-32 h-44 pointer-events-none transition-transform duration-700 origin-top-right ${
-                    isPlaying ? "rotate-[18deg]" : "rotate-0"
-                  }`}
-                >
-                  {/* Arm Base Pivot */}
-                  <div className="w-8 h-8 rounded-full bg-zinc-700 border-2 border-zinc-400 shadow-xl absolute top-0 right-4" />
-                  {/* Chrome Tone-arm rod */}
-                  <div className="w-1.5 h-36 bg-gradient-to-r from-zinc-300 via-zinc-100 to-zinc-400 rounded-full absolute top-6 right-7 shadow-lg" />
-                  {/* Cartridge & Stylus */}
-                  <div className="w-5 h-8 bg-zinc-900 border border-zinc-500 rounded-md absolute bottom-0 right-5 shadow-2xl flex items-center justify-center">
-                    <span className="w-1 h-2 bg-[#E51E2B]" />
+                {/* Modern Metallic Turntable Tonearm Rig */}
+                <div className="absolute -top-12 -right-8 w-24 h-48 pointer-events-none">
+                  {/* Tonearm Pivot Base */}
+                  <div className="w-10 h-10 rounded-full bg-[#202028] border-2 border-white/20 shadow-xl flex items-center justify-center absolute top-0 right-4">
+                    <div className="w-4 h-4 rounded-full bg-[#E51E2B] shadow-inner" />
+                  </div>
+
+                  {/* Tonearm Wand Rod */}
+                  <div
+                    className={`w-1.5 h-36 bg-gradient-to-b from-zinc-300 via-zinc-400 to-zinc-600 rounded-full absolute top-8 right-8 shadow-lg origin-top transition-transform duration-700 ease-out ${
+                      isPlaying ? "rotate-[28deg]" : "rotate-[8deg]"
+                    }`}
+                  >
+                    {/* Cartridge & Stylus Needle Head */}
+                    <div className="w-4 h-6 bg-[#0E0E12] border border-[#E51E2B] rounded-sm absolute -bottom-1 -left-1 flex items-center justify-center shadow-md">
+                      <span className="w-1 h-1 rounded-full bg-[#E51E2B] animate-ping" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* =========================================================
-              BOTTOM BAR: REALTIME AUDIO SCRUBBER & CONTROLS
-             ========================================================= */}
-          <div className={`p-4 sm:p-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors duration-300 ${
-            isDark ? "bg-[#0E0E12] border-white/10" : "bg-white border-black/[0.08]"
-          }`}>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-11 h-11 rounded-full bg-[#E51E2B] text-white flex items-center justify-center hover:bg-[#D81A26] active:scale-95 transition-all cursor-pointer shadow-lg shadow-[#E51E2B]/20"
-                aria-label={isPlaying ? "Pause Master" : "Play Master"}
-              >
-                {isPlaying ? (
-                  <Pause className="w-5 h-5 fill-current" />
-                ) : (
-                  <Play className="w-5 h-5 fill-current ml-0.5" />
-                )}
-              </button>
-
-              <div>
-                <span className={`text-xs font-bold block ${isDark ? "text-white" : "text-zinc-900"}`}>
-                  {activeTrack.number}. {activeTrack.title}
-                </span>
-                <span className={`text-[10px] uppercase tracking-widest font-mono ${
-                  isDark ? "text-zinc-400" : "text-zinc-500"
-                }`}>
-                  Playing Side A • {activeTrack.duration}
-                </span>
-              </div>
-            </div>
-
-            {/* Soundwave Graphic Bars */}
-            <div className="flex items-end space-x-1 h-6 px-4">
-              {[6, 14, 22, 10, 18, 26, 12, 20, 8, 24, 16, 28, 14, 20, 8, 16, 24, 10, 18, 12, 22, 8, 14, 20].map((h, i) => (
-                <span
-                  key={i}
-                  className={`w-1 rounded-full transition-all duration-300 ${
-                    i < 12 ? "bg-[#E51E2B]" : isDark ? "bg-zinc-700" : "bg-zinc-300"
-                  }`}
-                  style={{
-                    height: isPlaying ? `${Math.max(6, (h * (i % 2 === 0 ? 1 : 0.75)))}px` : "6px",
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Volume indicator */}
-            <div className={`flex items-center space-x-3 text-xs ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
-              <Volume2 className="w-4 h-4 text-[#E51E2B]" />
-              <div className={`w-24 h-1.5 rounded-full overflow-hidden ${isDark ? "bg-zinc-800" : "bg-zinc-200"}`}>
-                <div className="w-3/4 h-full bg-[#E51E2B] rounded-full" />
-              </div>
-            </div>
           </div>
         </div>
       </div>

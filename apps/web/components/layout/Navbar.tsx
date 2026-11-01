@@ -28,6 +28,7 @@ interface NavbarProps {
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
+  { name: "Collections", href: "/collections" },
   { name: "Gallery", href: "/gallery" },
   { name: "Documentary", href: "/documentary" },
   { name: "Contact", href: "/contact" },
@@ -176,7 +177,7 @@ export default function Navbar({
               )}
             </div>
 
-            {/* Admin Portal Quick Link */}
+
             <Link
               href="/admin"
               id="admin-portal-button"

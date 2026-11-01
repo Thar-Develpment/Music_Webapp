@@ -69,6 +69,8 @@ export const ArtistSchema = z.object({
   photoUrl: z.string().min(1, "Photo URL is required"),
   order: z.number().default(0),
   spotifyUrl: z.string().url().optional().or(z.literal("")),
+  audioUrl: z.string().optional(),
+  featuredTrackTitle: z.string().optional(),
 });
 export type Artist = z.infer<typeof ArtistSchema>;
 
@@ -202,3 +204,41 @@ export interface ApiResponse<T> {
   error?: string;
   message?: string;
 }
+
+// ==========================================
+// 10. Tracks & Collections Schemas
+// ==========================================
+export const TrackSchema = z.object({
+  id: z.string(),
+  number: z.string().default("01"),
+  title: z.string().min(1, "Track title is required"),
+  artist: z.string().min(1, "Artist name is required"),
+  album: z.string().optional(),
+  duration: z.string(),
+  audioUrl: z.string(),
+  coverUrl: z.string().optional(),
+  badge: z.string().default("Master"),
+  badgeColor: z.string().optional(),
+  description: z.string().optional(),
+  order: z.number().default(0),
+});
+export type Track = z.infer<typeof TrackSchema>;
+
+export const CollectionItemSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1, "Title is required"),
+  subtitle: z.string(),
+  artist: z.string(),
+  year: z.string(),
+  format: z.string().default("180g Audiophile Vinyl"),
+  catalogNumber: z.string(),
+  coverUrl: z.string(),
+  vinylColor: z.string().default("#E51E2B"),
+  description: z.string(),
+  tracks: z.array(TrackSchema),
+  badge: z.string().optional(),
+  spotifyUrl: z.string().optional(),
+  buyUrl: z.string().optional(),
+  order: z.number().default(0),
+});
+export type CollectionItem = z.infer<typeof CollectionItemSchema>;

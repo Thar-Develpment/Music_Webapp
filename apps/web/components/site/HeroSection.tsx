@@ -130,7 +130,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className={`mt-7 text-base sm:text-lg md:text-xl max-w-2xl font-light leading-relaxed transition-colors ${
-            isDark ? "text-zinc-400" : "text-zinc-600"
+            isDark ? "text-zinc-400" : "text-black"
           }`}
         >
           {content.introText}
