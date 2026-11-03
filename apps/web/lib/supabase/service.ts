@@ -14,8 +14,8 @@ import {
   MediaAsset,
   EnquiryRecord,
   EnquirySubmission,
-  Track,
-  CollectionItem,
+  MovieItem,
+  MusicItem,
 } from "@music-label/shared";
 import { getSupabaseAdmin, isSupabaseConfigured } from "./client";
 import { db } from "../mock-data";
@@ -734,17 +734,170 @@ export async function deleteEnquiry(id: string): Promise<void> {
   await supabase.from("enquiries").delete().eq("id", id);
 }
 
+
 // ==========================================
-// 8. TRACKS & COLLECTIONS
+// 9. MOVIES & FILMS
 // ==========================================
-export async function getTracks(): Promise<Track[]> {
-  return db.tracks;
+export async function getMovies(): Promise<MovieItem[]> {
+  if (!isSupabaseConfigured) return db.movies;
+  try {
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from("movies")
+      .select("*")
+      .order("order_num", { ascending: true });
+
+    if (error || !data || data.length === 0) return db.movies;
+
+    return data.map((row) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      youtubeUrl: row.youtube_url,
+      thumbnailUrl: row.thumbnail_url,
+      director: row.director || "Velvet Noir Studios",
+      year: row.year || "2026",
+      duration: row.duration || "1h 45m",
+      genre: row.genre || "Cinematic / Documentary",
+      featured: !!row.featured,
+      order: row.order_num ?? 0,
+      createdAt: row.created_at,
+    }));
+  } catch {
+    return db.movies;
+  }
 }
 
-export async function getCollections(): Promise<CollectionItem[]> {
-  return db.collections;
+export async function upsertMovie(movie: MovieItem): Promise<MovieItem> {
+  const existingIndex = db.movies.findIndex((m) => m.id === movie.id);
+  if (existingIndex >= 0) {
+    db.movies[existingIndex] = movie;
+  } else {
+    db.movies.unshift(movie);
+  }
+
+  if (!isSupabaseConfigured) return movie;
+
+  try {
+    const supabase = getSupabaseAdmin();
+    await supabase.from("movies").upsert({
+      id: movie.id,
+      title: movie.title,
+      description: movie.description,
+      youtube_url: movie.youtubeUrl,
+      thumbnail_url: movie.thumbnailUrl,
+      director: movie.director,
+      year: movie.year,
+      duration: movie.duration,
+      genre: movie.genre,
+      featured: movie.featured,
+      order_num: movie.order,
+      created_at: movie.createdAt || new Date().toISOString(),
+    });
+  } catch (err) {
+    console.warn("Supabase upsertMovie fallback to mock store:", err);
+  }
+
+  return movie;
 }
 
-export async function getCollectionById(id: string): Promise<CollectionItem | null> {
-  return db.collections.find((c) => c.id === id) || null;
+export async function deleteMovie(id: string): Promise<void> {
+  db.movies = db.movies.filter((m) => m.id !== id);
+
+  if (!isSupabaseConfigured) return;
+
+  try {
+    const supabase = getSupabaseAdmin();
+    await supabase.from("movies").delete().eq("id", id);
+  } catch (err) {
+    console.warn("Supabase deleteMovie fallback:", err);
+  }
 }
+
+// ==========================================
+// 10. MUSIC & AUDIO TRACKS
+// ==========================================
+export async function getMusicItems(): Promise<MusicItem[]> {
+  if (!isSupabaseConfigured) return db.musicItems;
+  try {
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from("music_items")
+      .select("*")
+      .order("order_num", { ascending: true });
+
+    if (error || !data || data.length === 0) return db.musicItems;
+
+    return data.map((row) => ({
+      id: row.id,
+      title: row.title,
+      artist: row.artist,
+      description: row.description,
+      thumbnailUrl: row.thumbnail_url,
+      audioUrl: row.audio_url || "",
+      duration: row.duration || "3:45",
+      genre: row.genre || "Electronic / Orchestral",
+      year: row.year || "2026",
+      spotifyUrl: row.spotify_url || "",
+      soundcloudUrl: row.soundcloud_url || "",
+      appleMusicUrl: row.apple_music_url || "",
+      youtubeUrl: row.youtube_url || "",
+      featured: !!row.featured,
+      order: row.order_num ?? 0,
+      createdAt: row.created_at,
+    }));
+  } catch {
+    return db.musicItems;
+  }
+}
+
+export async function upsertMusicItem(music: MusicItem): Promise<MusicItem> {
+  const existingIndex = db.musicItems.findIndex((m) => m.id === music.id);
+  if (existingIndex >= 0) {
+    db.musicItems[existingIndex] = music;
+  } else {
+    db.musicItems.unshift(music);
+  }
+
+  if (!isSupabaseConfigured) return music;
+
+  try {
+    const supabase = getSupabaseAdmin();
+    await supabase.from("music_items").upsert({
+      id: music.id,
+      title: music.title,
+      artist: music.artist,
+      description: music.description,
+      thumbnail_url: music.thumbnailUrl,
+      audio_url: music.audioUrl,
+      duration: music.duration,
+      genre: music.genre,
+      year: music.year,
+      spotify_url: music.spotifyUrl || "",
+      soundcloud_url: music.soundcloudUrl || "",
+      apple_music_url: music.appleMusicUrl || "",
+      youtube_url: music.youtubeUrl || "",
+      featured: music.featured,
+      order_num: music.order,
+      created_at: music.createdAt || new Date().toISOString(),
+    });
+  } catch (err) {
+    console.warn("Supabase upsertMusicItem fallback to mock store:", err);
+  }
+
+  return music;
+}
+
+export async function deleteMusicItem(id: string): Promise<void> {
+  db.musicItems = db.musicItems.filter((m) => m.id !== id);
+
+  if (!isSupabaseConfigured) return;
+
+  try {
+    const supabase = getSupabaseAdmin();
+    await supabase.from("music_items").delete().eq("id", id);
+  } catch (err) {
+    console.warn("Supabase deleteMusicItem fallback:", err);
+  }
+}
+

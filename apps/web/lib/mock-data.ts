@@ -14,7 +14,8 @@ import {
   MediaAsset,
   EnquiryRecord,
   Track,
-  CollectionItem,
+  MovieItem,
+  MusicItem,
 } from "@music-label/shared";
 
 // ==========================================
@@ -29,7 +30,7 @@ export const initialSettings: Setting = {
   bookingPhone: "+1 (310) 894-2200",
   address: "8439 Sunset Blvd, West Hollywood, CA 90069",
   footerText: "Crafting iconic sonic experiences and cinematic documentaries. Defining the vanguard of electronic, orchestral, and modern soul music.",
-  theme: "white",
+  theme: "black",
   socialLinks: {
     instagram: "https://instagram.com/velvetnoirrec",
     youtube: "https://youtube.com/@velvetnoirrec",
@@ -235,71 +236,7 @@ export const initialUpcomingProjects: UpcomingProject[] = [
   },
 ];
 
-// ==========================================
-// Collections Seed Data (Our Collections Catalog)
-// ==========================================
-export const initialCollections: CollectionItem[] = [
-  {
-    id: "col-1",
-    title: "VELVET NOIR SESSIONS VOL. 1",
-    subtitle: "Direct Metal Master • 180g Crimson Marbled Vinyl",
-    artist: "Velvet Noir Collective",
-    year: "2026",
-    format: "180g Audiophile Double Vinyl (45 RPM)",
-    catalogNumber: "VN-LP-001",
-    coverUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1200&auto=format&fit=crop",
-    vinylColor: "#E51E2B",
-    description: "Our signature flagship compilation pressed directly from 1/2-inch analogue master tapes at Abbey Road Studios. Features high-dynamic uncompressed mastering with bespoke gatefold lithographs.",
-    tracks: initialTracks,
-    badge: "Flagship Master",
-    order: 1,
-  },
-  {
-    id: "col-2",
-    title: "SYMPHONY NO. 9 IN D MINOR",
-    subtitle: "Recorded Live at Rudolfinum Hall",
-    artist: "Aethelgard & Prague Philharmonic",
-    year: "2025",
-    format: "Tri-fold 200g Virgin Vinyl + 4K Blu-ray",
-    catalogNumber: "VN-LP-002",
-    coverUrl: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200&auto=format&fit=crop",
-    vinylColor: "#D4AF37",
-    description: "An unearthly intersection of modular electronic synthesis and a 90-piece orchestra. Captured via 32-channel discrete DSD microphones.",
-    tracks: [initialTracks[0], initialTracks[1]],
-    badge: "Audiophile Gold",
-    order: 2,
-  },
-  {
-    id: "col-3",
-    title: "KRAFTWERK BERLIN: TURBINE SESSIONS",
-    subtitle: "Industrial Concrete Acoustics • Limited 500 Copies",
-    artist: "SÖLVEIG",
-    year: "2026",
-    format: "Smoked Obsidian Heavyweight Vinyl",
-    catalogNumber: "VN-LP-003",
-    coverUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop",
-    vinylColor: "#222226",
-    description: "Recorded within the immense concrete chambers of the Kraftwerk power plant in Berlin. Subterranean sub-bass resonance and spatial delay tapestries.",
-    tracks: [initialTracks[2], initialTracks[3]],
-    badge: "Limited Edition",
-    order: 3,
-  },
-  {
-    id: "col-4",
-    title: "ELYSIAN DRIFT",
-    subtitle: "Ambient Tape Loops & Analog Echo",
-    artist: "Kaelen Voss & Milo St. Claire",
-    year: "2025",
-    format: "Clear Amber Vinyl (33 1/3 RPM)",
-    catalogNumber: "VN-LP-004",
-    coverUrl: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200&auto=format&fit=crop",
-    vinylColor: "#D97706",
-    description: "Intimate late-night tape loop explorations and acoustic Rhodes piano passed through custom valve tube preamplifiers.",
-    tracks: [initialTracks[1], initialTracks[3]],
-    badge: "Pure Analogue",
-    order: 4,
-  },
-];
+
 
 export const initialTestimonials: Testimonial[] = [
   {
@@ -572,6 +509,172 @@ export const initialEnquiries: EnquiryRecord[] = [
   },
 ];
 
+export const initialMovies: MovieItem[] = [
+  {
+    id: "mov-1",
+    title: "CHRONICLES OF RESONANCE",
+    description: "An intimate visual documentary capturing the underground recording sessions of our flagship album across abandoned brutalist cathedrals in Berlin and Reykjanes volcanic plains.",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    thumbnailUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop",
+    director: "Hélène Delacroix",
+    year: "2026",
+    duration: "1h 52m",
+    genre: "Documentary Feature",
+    featured: true,
+    order: 1,
+    createdAt: "2026-01-15T00:00:00Z",
+  },
+  {
+    id: "mov-2",
+    title: "OBSIDIAN ECHOES: LIVE AT THE ODEON",
+    description: "Captured in 4K HDR with 9.1 Dolby Atmos spatial audio, this concert film chronicles SÖLVEIG’s legendary midsummer solstice performance surrounded by 40-foot monolith video sculptures.",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    thumbnailUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop",
+    director: "Marcus Sterling",
+    year: "2025",
+    duration: "2h 10m",
+    genre: "Live Concert Film",
+    featured: true,
+    order: 2,
+    createdAt: "2026-02-10T00:00:00Z",
+  },
+  {
+    id: "mov-3",
+    title: "THE ANALOG COUPLING",
+    description: "A meditative visual essay exploring the craft of hand-cutting vinyl lacquer discs, magnetic tape bias calibration, and the sensory allure of physical analog sound in the digital age.",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    thumbnailUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1200&auto=format&fit=crop",
+    director: "Kaelen Voss",
+    year: "2026",
+    duration: "48m",
+    genre: "Cinematic Short",
+    featured: false,
+    order: 3,
+    createdAt: "2026-03-05T00:00:00Z",
+  },
+  {
+    id: "mov-4",
+    title: "SYMPHONY OF THE VOID",
+    description: "Orchestral overture documentary filmed during the live tracking of Symphony No. 9 with the Prague Philharmonic, featuring composer diary entries and exclusive control-room footage.",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    thumbnailUrl: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200&auto=format&fit=crop",
+    director: "Julian Vance",
+    year: "2025",
+    duration: "1h 35m",
+    genre: "Orchestral Score",
+    featured: false,
+    order: 4,
+    createdAt: "2026-03-20T00:00:00Z",
+  },
+  {
+    id: "mov-5",
+    title: "NEON HORIZONS: TOKYO SESSIONS",
+    description: "A midnight odyssey tracking synthesized audio design and modular synth improvisations through the neon alleys of Shinjuku and subterranean Tokyo audio listening bars.",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    thumbnailUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop",
+    director: "Kenji Takahashi",
+    year: "2026",
+    duration: "1h 18m",
+    genre: "Art House / Electronic",
+    featured: false,
+    order: 5,
+    createdAt: "2026-04-02T00:00:00Z",
+  },
+];
+
+export const initialMusicItems: MusicItem[] = [
+  {
+    id: "mus-1",
+    title: "Obsidian Horizon",
+    artist: "Aethelgard",
+    description: "Hypnotic sub-bass foundation intertwined with organic cello harmonics and modular tape synthesis.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+    audioUrl: "/audio/track-1.mp3",
+    duration: "2:48",
+    genre: "Dark Ambient / Electronic",
+    year: "2026",
+    spotifyUrl: "https://open.spotify.com",
+    soundcloudUrl: "https://soundcloud.com",
+    appleMusicUrl: "https://music.apple.com",
+    youtubeUrl: "https://youtube.com",
+    featured: true,
+    order: 1,
+    createdAt: "2026-01-10T00:00:00Z",
+  },
+  {
+    id: "mus-2",
+    title: "Aether Resonance",
+    artist: "Kaelen Voss",
+    description: "Atmospheric acoustic flutter and delicate valve tube saturation tailored for late-night deep listening.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop",
+    audioUrl: "/audio/track-2.mp3",
+    duration: "3:15",
+    genre: "Modular Drone / Neoclassical",
+    year: "2026",
+    spotifyUrl: "https://open.spotify.com",
+    soundcloudUrl: "https://soundcloud.com",
+    appleMusicUrl: "https://music.apple.com",
+    youtubeUrl: "https://youtube.com",
+    featured: true,
+    order: 2,
+    createdAt: "2026-01-22T00:00:00Z",
+  },
+  {
+    id: "mus-3",
+    title: "Nocturne Noir",
+    artist: "SÖLVEIG",
+    description: "Heavy subterranean industrial pulse merged with soaring cinematic soprano vocalizations.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
+    audioUrl: "/audio/track-3.mp3",
+    duration: "4:02",
+    genre: "Cinematic Electronic",
+    year: "2025",
+    spotifyUrl: "https://open.spotify.com",
+    soundcloudUrl: "https://soundcloud.com",
+    appleMusicUrl: "https://music.apple.com",
+    youtubeUrl: "https://youtube.com",
+    featured: true,
+    order: 3,
+    createdAt: "2026-02-05T00:00:00Z",
+  },
+  {
+    id: "mus-4",
+    title: "Analog Pulse (45 RPM Edit)",
+    artist: "Milo St. Claire",
+    description: "Warm vintage Rhodes chords passed through Space Echo tape delays with dynamic acoustic percussion.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
+    audioUrl: "/audio/track-4.mp3",
+    duration: "3:40",
+    genre: "Downtempo / Analog Soul",
+    year: "2026",
+    spotifyUrl: "https://open.spotify.com",
+    soundcloudUrl: "https://soundcloud.com",
+    appleMusicUrl: "https://music.apple.com",
+    youtubeUrl: "https://youtube.com",
+    featured: false,
+    order: 4,
+    createdAt: "2026-02-18T00:00:00Z",
+  },
+  {
+    id: "mus-5",
+    title: "Symphony No. 9: Andante Maestoso",
+    artist: "Aethelgard & Prague Philharmonic",
+    description: "A monumental clash of 90-piece orchestral strings and monolithic analog synthesizer crescendo.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=800&auto=format&fit=crop",
+    audioUrl: "/audio/acoustic-feed.mp3",
+    duration: "5:24",
+    genre: "Orchestral / Film Score",
+    year: "2025",
+    spotifyUrl: "https://open.spotify.com",
+    soundcloudUrl: "https://soundcloud.com",
+    appleMusicUrl: "https://music.apple.com",
+    youtubeUrl: "https://youtube.com",
+    featured: false,
+    order: 5,
+    createdAt: "2026-03-01T00:00:00Z",
+  },
+];
+
 // Single in-memory mock store
 class MockDatabase {
   settings: Setting = { ...initialSettings };
@@ -580,7 +683,6 @@ class MockDatabase {
   aboutContent: AboutPageContent = { ...initialAboutContent };
   contactContent: ContactPageContent = { ...initialContactContent };
   tracks: Track[] = [...initialTracks];
-  collections: CollectionItem[] = [...initialCollections];
   artists: Artist[] = [...initialArtists];
   managers: Manager[] = [...initialManagers];
   upcomingProjects: UpcomingProject[] = [...initialUpcomingProjects];
@@ -589,6 +691,8 @@ class MockDatabase {
   galleryItems: GalleryItem[] = [...initialGalleryItems];
   teamMembers: TeamMember[] = [...initialTeamMembers];
   enquiries: EnquiryRecord[] = [...initialEnquiries];
+  movies: MovieItem[] = [...initialMovies];
+  musicItems: MusicItem[] = [...initialMusicItems];
 }
 
 declare global {
@@ -599,6 +703,13 @@ export const db: MockDatabase = global.__mockDb ?? new MockDatabase();
 if (!db.settings.theme) {
   db.settings.theme = "white";
 }
+if (!db.movies) {
+  db.movies = [...initialMovies];
+}
+if (!db.musicItems) {
+  db.musicItems = [...initialMusicItems];
+}
 if (process.env.NODE_ENV !== "production") {
   global.__mockDb = db;
 }
+

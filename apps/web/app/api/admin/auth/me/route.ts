@@ -5,24 +5,26 @@ export async function GET() {
   const cookieStore = await cookies();
   const session = cookieStore.get("admin_session");
 
-  if (!session || session.value !== "mock_admin_token_active") {
+  if (!session || !session.value.startsWith("velvet_auth_session_")) {
     return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
   }
+
+  const expectedEmail = process.env.ADMIN_EMAIL || "admin@velvetnoir.com";
 
   return NextResponse.json({
     success: true,
     data: {
-      id: "adm-1",
-      email: "admin@velvetnoir.com",
-      role: "admin",
-      name: "Label Admin",
+      id: "adm-velvet-noir-1",
+      email: expectedEmail,
+      role: "master_admin",
+      name: "Velvet Noir Administrator",
     },
   });
 }
 
 export async function POST() {
-  // Logout
-  const response = NextResponse.json({ success: true, message: "Logged out" });
+  // Sign Out / Revoke session
+  const response = NextResponse.json({ success: true, message: "Logged out successfully" });
   response.cookies.delete("admin_session");
   return response;
 }

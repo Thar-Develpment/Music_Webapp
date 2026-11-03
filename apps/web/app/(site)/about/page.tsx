@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import AboutView from "@/components/site/AboutView";
 import {
   getPageContent,
@@ -13,7 +13,7 @@ export const metadata = {
     "The story, artistic philosophy, architectural acoustic sanctuary, and vision behind Velvet Noir Recordings.",
 };
 
-export default async function AboutPage() {
+async function AboutDataFetcher() {
   const [about, managers, upcomingProjects] = await Promise.all([
     getPageContent<AboutPageContent>("about"),
     getManagers(),
@@ -28,3 +28,12 @@ export default async function AboutPage() {
     />
   );
 }
+
+export default function AboutPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[var(--background)] animate-pulse" />}>
+      <AboutDataFetcher />
+    </Suspense>
+  );
+}
+

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import GalleryPageView from "@/components/site/GalleryPageView";
 import { getGalleryCategories, getGalleryItems } from "@/lib/supabase/service";
 
@@ -8,7 +8,7 @@ export const metadata = {
     "Visual archive of live tours, recording sessions, orchestral tracking, and documentary stills.",
 };
 
-export default async function GalleryPage() {
+async function GalleryDataFetcher() {
   const [categories, items] = await Promise.all([
     getGalleryCategories(),
     getGalleryItems(),
@@ -16,3 +16,12 @@ export default async function GalleryPage() {
 
   return <GalleryPageView categories={categories} items={items} />;
 }
+
+export default function GalleryPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[var(--background)] animate-pulse" />}>
+      <GalleryDataFetcher />
+    </Suspense>
+  );
+}
+

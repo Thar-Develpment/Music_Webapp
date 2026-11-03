@@ -309,11 +309,11 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                 {/* Action Buttons */}
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link
-                    href="/collections"
+                    href="/music"
                     className="px-8 py-3.5 rounded-full bg-white text-[#0A0A0C] font-extrabold text-xs uppercase tracking-wider shadow-2xl hover:bg-zinc-100 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center space-x-2"
                   >
-                    <ShoppingBag className="w-4 h-4 text-[#E51E2B]" />
-                    <span>Explore Collections</span>
+                    <Disc3 className="w-4 h-4 text-[#E51E2B]" />
+                    <span>Explore Discography</span>
                   </Link>
 
                   <Link

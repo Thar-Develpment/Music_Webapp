@@ -224,21 +224,52 @@ export const TrackSchema = z.object({
 });
 export type Track = z.infer<typeof TrackSchema>;
 
-export const CollectionItemSchema = z.object({
+
+// ==========================================
+// 11. Movie & Film Schemas
+// ==========================================
+export const MovieItemSchema = z.object({
   id: z.string(),
-  title: z.string().min(1, "Title is required"),
-  subtitle: z.string(),
-  artist: z.string(),
-  year: z.string(),
-  format: z.string().default("180g Audiophile Vinyl"),
-  catalogNumber: z.string(),
-  coverUrl: z.string(),
-  vinylColor: z.string().default("#E51E2B"),
-  description: z.string(),
-  tracks: z.array(TrackSchema),
-  badge: z.string().optional(),
-  spotifyUrl: z.string().optional(),
-  buyUrl: z.string().optional(),
+  title: z.string().min(1, "Movie title is required"),
+  description: z.string().min(1, "Movie description is required"),
+  youtubeUrl: z.string().min(1, "YouTube URL or Video ID is required"),
+  thumbnailUrl: z.string().min(1, "Thumbnail image URL is required"),
+  director: z.string().default("Velvet Noir Studios"),
+  year: z.string().default("2026"),
+  duration: z.string().default("1h 45m"),
+  genre: z.string().default("Cinematic / Documentary"),
+  featured: z.boolean().default(false),
   order: z.number().default(0),
+  createdAt: z.string().optional(),
 });
-export type CollectionItem = z.infer<typeof CollectionItemSchema>;
+export type MovieItem = z.infer<typeof MovieItemSchema>;
+
+export const MovieItemInputSchema = MovieItemSchema.omit({ id: true, createdAt: true });
+export type MovieItemInput = z.infer<typeof MovieItemInputSchema>;
+
+// ==========================================
+// 12. Music & Audio Track Schemas
+// ==========================================
+export const MusicItemSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1, "Music title is required"),
+  artist: z.string().min(1, "Artist name is required"),
+  description: z.string().min(1, "Music description is required"),
+  thumbnailUrl: z.string().min(1, "Cover artwork URL is required"),
+  audioUrl: z.string().default(""),
+  duration: z.string().default("3:45"),
+  genre: z.string().default("Electronic / Orchestral"),
+  year: z.string().default("2026"),
+  spotifyUrl: z.string().optional().or(z.literal("")),
+  soundcloudUrl: z.string().optional().or(z.literal("")),
+  appleMusicUrl: z.string().optional().or(z.literal("")),
+  youtubeUrl: z.string().optional().or(z.literal("")),
+  featured: z.boolean().default(false),
+  order: z.number().default(0),
+  createdAt: z.string().optional(),
+});
+export type MusicItem = z.infer<typeof MusicItemSchema>;
+
+export const MusicItemInputSchema = MusicItemSchema.omit({ id: true, createdAt: true });
+export type MusicItemInput = z.infer<typeof MusicItemInputSchema>;
+

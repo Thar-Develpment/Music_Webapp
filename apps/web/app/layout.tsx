@@ -72,7 +72,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#E51E2B] selection:text-white antialiased">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#E51E2B] selection:text-white antialiased"
+      >
         <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
       </body>
     </html>

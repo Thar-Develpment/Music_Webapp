@@ -48,29 +48,25 @@ function getStoredTheme(): SiteTheme | null {
 }
 
 export function ThemeProvider({
-  initialTheme = "white",
+  initialTheme = "black",
   children,
 }: {
   initialTheme?: SiteTheme;
   children: React.ReactNode;
 }) {
-  const [theme, setThemeState] = useState<SiteTheme>(() => {
-    // Check client storage immediately on hydration
-    const stored = getStoredTheme();
-    return stored || initialTheme;
-  });
+  const [theme, setThemeState] = useState<SiteTheme>(initialTheme);
 
   // Keep DOM updated synchronously
   useEffect(() => {
     applyThemeToDOM(theme);
   }, [theme]);
 
-  // Sync with initialTheme if prop changes from server
+  // Sync with client storage strictly after initial hydration to prevent SSR mismatch
   useEffect(() => {
     const stored = getStoredTheme();
-    if (!stored && initialTheme) {
-      setThemeState(initialTheme);
-      applyThemeToDOM(initialTheme);
+    if (stored && stored !== initialTheme) {
+      setThemeState(stored);
+      applyThemeToDOM(stored);
     }
   }, [initialTheme]);
 
@@ -141,6 +137,7 @@ export function ThemeProvider({
     >
       <div
         data-theme={theme}
+        suppressHydrationWarning
         className={`min-h-screen transition-colors duration-300 ${
           theme === "black"
             ? "theme-black dark bg-[#08080A] text-[#F4F4F6]"

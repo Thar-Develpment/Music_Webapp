@@ -9,10 +9,12 @@ import {
   Disc3,
   Lock,
   ArrowUpRight,
+  Search,
 } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import GlobalSearchModal from "./GlobalSearchModal";
 
 interface NavbarProps {
   siteName?: string;
@@ -27,10 +29,10 @@ interface NavbarProps {
 
 const navLinks = [
   { name: "Home", href: "/" },
+  { name: "Movies", href: "/movies" },
+  { name: "Music", href: "/music" },
+  { name: "Album", href: "/gallery" },
   { name: "About", href: "/about" },
-  { name: "Collections", href: "/collections" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Documentary", href: "/documentary" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -47,6 +49,18 @@ export default function Navbar({
   const { isDark } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchModalOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,7 +116,7 @@ export default function Navbar({
                   key={link.name}
                   href={link.href}
                   id={`nav-link-${link.name.toLowerCase()}`}
-                  className={`relative px-4 py-2 text-sm font-bold tracking-wider uppercase transition-all duration-200 rounded-full ${
+                  className={`relative px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-all duration-200 rounded-full ${
                     isActive
                       ? isDark
                         ? "text-[#E51E2B] bg-red-950/40"
@@ -125,11 +139,31 @@ export default function Navbar({
             })}
           </nav>
 
-          {/* Right Header Actions: Socials & Admin */}
-          <div className="hidden lg:flex items-center space-x-5">
-            <div className={`flex items-center space-x-3 border-r pr-5 ${
+          {/* Right Header Actions: Global Search, Socials & Admin */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <div className={`flex items-center space-x-2.5 border-r pr-4 ${
               isDark ? "border-white/10" : "border-black/[0.08]"
             }`}>
+              {/* Global Search Button placed right beside social media icons */}
+              <button
+                type="button"
+                onClick={() => setSearchModalOpen(true)}
+                id="global-search-trigger"
+                className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border text-xs transition-all duration-200 cursor-pointer ${
+                  isDark
+                    ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-white hover:border-[#E51E2B]/50 hover:bg-white/[0.08]"
+                    : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-black hover:border-[#E51E2B]/50 hover:bg-black/[0.05]"
+                }`}
+                aria-label="Global Search"
+                title="Search movies, music, and site (Ctrl+K)"
+              >
+                <Search className="w-3.5 h-3.5 text-[#E51E2B]" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Search</span>
+                <kbd className="hidden xl:inline-block px-1.5 py-0.2 rounded bg-black/30 text-[9px] font-mono text-zinc-400 border border-white/10">
+                  ⌘K
+                </kbd>
+              </button>
+
               {socialLinks.instagram && (
                 <a
                   href={socialLinks.instagram}
@@ -189,19 +223,35 @@ export default function Navbar({
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden w-11 h-11 rounded-full border flex items-center justify-center ${
-              isDark
-                ? "border-white/10 bg-white/[0.04] text-zinc-100 hover:text-white"
-                : "border-black/[0.08] bg-black/[0.02] text-zinc-800 hover:text-black"
-            }`}
-            aria-label="Toggle Navigation Menu"
-            id="mobile-menu-toggle"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Right Controls: Search & Menu Button */}
+          <div className="flex md:hidden items-center space-x-2">
+            <button
+              type="button"
+              onClick={() => setSearchModalOpen(true)}
+              className={`w-11 h-11 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+                isDark
+                  ? "border-white/10 bg-white/[0.04] text-zinc-100 hover:text-white"
+                  : "border-black/[0.08] bg-black/[0.02] text-zinc-800 hover:text-black"
+              }`}
+              aria-label="Open Global Search"
+              title="Global Search"
+            >
+              <Search className="w-4 h-4 text-[#E51E2B]" />
+            </button>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`w-11 h-11 rounded-full border flex items-center justify-center ${
+                isDark
+                  ? "border-white/10 bg-white/[0.04] text-zinc-100 hover:text-white"
+                  : "border-black/[0.08] bg-black/[0.02] text-zinc-800 hover:text-black"
+              }`}
+              aria-label="Toggle Navigation Menu"
+              id="mobile-menu-toggle"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -242,6 +292,23 @@ export default function Navbar({
                 );
               })}
 
+              {/* Mobile Global Search Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setSearchModalOpen(true);
+                }}
+                className={`w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
+                  isDark
+                    ? "border-white/10 bg-white/5 text-zinc-200 hover:text-white hover:border-[#E51E2B]/50"
+                    : "border-black/10 bg-black/5 text-zinc-800 hover:text-black hover:border-[#E51E2B]/50"
+                }`}
+              >
+                <Search className="w-4 h-4 text-[#E51E2B]" />
+                <span>Search Films, Tracks &amp; Site</span>
+              </button>
+
               <div className={`pt-4 border-t flex items-center justify-between ${
                 isDark ? "border-white/10" : "border-black/[0.08]"
               }`}>
@@ -271,6 +338,12 @@ export default function Navbar({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Global Search Command Dialog */}
+      <GlobalSearchModal
+        isOpen={searchModalOpen}
+        onClose={() => setSearchModalOpen(false)}
+      />
     </>
   );
 }

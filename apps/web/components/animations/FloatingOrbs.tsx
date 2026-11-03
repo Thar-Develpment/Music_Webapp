@@ -10,9 +10,11 @@ export function FloatingOrbs() {
     <div
       className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none"
       aria-hidden="true"
+      suppressHydrationWarning
     >
       {/* Top subtle crimson accent halo */}
       <div
+        suppressHydrationWarning
         className={`absolute -top-[15%] left-[20%] w-[650px] h-[500px] rounded-full transition-opacity duration-500 ${
           isDark ? "opacity-45" : "opacity-30"
         }`}
@@ -26,6 +28,7 @@ export function FloatingOrbs() {
 
       {/* Center-right subtle red ambient warmth */}
       <div
+        suppressHydrationWarning
         className={`absolute top-[40%] -right-[10%] w-[600px] h-[600px] rounded-full transition-opacity duration-500 ${
           isDark ? "opacity-35" : "opacity-25"
         }`}
@@ -39,6 +42,7 @@ export function FloatingOrbs() {
 
       {/* Bottom ambient glow */}
       <div
+        suppressHydrationWarning
         className={`absolute bottom-[5%] left-[10%] w-[500px] h-[400px] rounded-full transition-opacity duration-500 ${
           isDark ? "opacity-30" : "opacity-20"
         }`}

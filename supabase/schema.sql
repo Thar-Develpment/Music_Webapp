@@ -373,23 +373,6 @@ CREATE TABLE IF NOT EXISTS public.tracks (
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.collections (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    subtitle TEXT NOT NULL,
-    artist TEXT NOT NULL,
-    year TEXT NOT NULL,
-    format TEXT NOT NULL DEFAULT '180g Audiophile Vinyl',
-    catalog_number TEXT NOT NULL,
-    cover_url TEXT NOT NULL,
-    vinyl_color TEXT NOT NULL DEFAULT '#E51E2B',
-    description TEXT NOT NULL,
-    badge TEXT,
-    spotify_url TEXT,
-    buy_url TEXT,
-    order_num INT NOT NULL DEFAULT 0,
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
-);
 
 -- Seed Tracks
 INSERT INTO public.tracks (id, number, title, artist, album, duration, audio_url, cover_url, badge, badge_color, description, order_num) VALUES
@@ -399,10 +382,76 @@ INSERT INTO public.tracks (id, number, title, artist, album, duration, audio_url
 ('track-4', '04', 'Analog Pulse', 'Milo St. Claire', 'Velvet Noir Sessions Vol. 1', '3:40', '/audio/track-4.mp3', 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop', '45 RPM Master', 'bg-zinc-700', 'Soul-infused modular polyrhythms recorded live straight to magnetic tape.', 4)
 ON CONFLICT (id) DO NOTHING;
 
--- Seed Collections
-INSERT INTO public.collections (id, title, subtitle, artist, year, format, catalog_number, cover_url, vinyl_color, description, badge, order_num) VALUES
-('col-1', 'VELVET NOIR SESSIONS VOL. 1', 'Direct Metal Master • 180g Crimson Marbled Vinyl', 'Velvet Noir Collective', '2026', '180g Audiophile Double Vinyl (45 RPM)', 'VN-LP-001', 'https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1200&auto=format&fit=crop', '#E51E2B', 'Our signature flagship compilation pressed directly from 1/2-inch analogue master tapes at Abbey Road Studios.', 'Flagship Master', 1),
-('col-2', 'SYMPHONY NO. 9 IN D MINOR', 'Recorded Live at Rudolfinum Hall', 'Aethelgard & Prague Philharmonic', '2025', 'Tri-fold 200g Virgin Vinyl + 4K Blu-ray', 'VN-LP-002', 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200&auto=format&fit=crop', '#D4AF37', 'An unearthly intersection of modular electronic synthesis and a 90-piece orchestra.', 'Audiophile Gold', 2),
-('col-3', 'KRAFTWERK BERLIN: TURBINE SESSIONS', 'Industrial Concrete Acoustics • Limited 500 Copies', 'SÖLVEIG', '2026', 'Smoked Obsidian Heavyweight Vinyl', 'VN-LP-003', 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop', '#222226', 'Recorded within the immense concrete chambers of the Kraftwerk power plant in Berlin.', 'Limited Edition', 3),
-('col-4', 'ELYSIAN DRIFT', 'Ambient Tape Loops & Analog Echo', 'Kaelen Voss & Milo St. Claire', '2025', 'Clear Amber Vinyl (33 1/3 RPM)', 'VN-LP-004', 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200&auto=format&fit=crop', '#D97706', 'Intimate late-night tape loop explorations and acoustic Rhodes piano passed through custom valve tube preamplifiers.', 'Pure Analogue', 4)
+
+-- ==============================================================================
+-- MOVIES & FILMS TABLE
+-- ==============================================================================
+
+CREATE TABLE IF NOT EXISTS public.movies (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    youtube_url TEXT NOT NULL,
+    thumbnail_url TEXT NOT NULL,
+    director TEXT NOT NULL DEFAULT 'Velvet Noir Studios',
+    year TEXT NOT NULL DEFAULT '2026',
+    duration TEXT NOT NULL DEFAULT '1h 45m',
+    genre TEXT NOT NULL DEFAULT 'Cinematic / Documentary',
+    featured BOOLEAN NOT NULL DEFAULT false,
+    order_num INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE public.movies ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Public can view movies" ON public.movies;
+DROP POLICY IF EXISTS "Service role has full access to movies" ON public.movies;
+CREATE POLICY "Public can view movies" ON public.movies FOR SELECT USING (true);
+CREATE POLICY "Service role has full access to movies" ON public.movies FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+-- Seed Movies
+INSERT INTO public.movies (id, title, description, youtube_url, thumbnail_url, director, year, duration, genre, featured, order_num) VALUES
+('mov-1', 'CHRONICLES OF RESONANCE', 'An intimate visual documentary capturing the underground recording sessions of our flagship album across abandoned brutalist cathedrals in Berlin and Reykjanes volcanic plains.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop', 'Hélène Delacroix', '2026', '1h 52m', 'Documentary Feature', true, 1),
+('mov-2', 'OBSIDIAN ECHOES: LIVE AT THE ODEON', 'Captured in 4K HDR with 9.1 Dolby Atmos spatial audio, this concert film chronicles SÖLVEIG’s legendary midsummer solstice performance surrounded by 40-foot monolith video sculptures.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop', 'Marcus Sterling', '2025', '2h 10m', 'Live Concert Film', true, 2),
+('mov-3', 'THE ANALOG COUPLING', 'A meditative visual essay exploring the craft of hand-cutting vinyl lacquer discs, magnetic tape bias calibration, and the sensory allure of physical analog sound in the digital age.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1200&auto=format&fit=crop', 'Kaelen Voss', '2026', '48m', 'Cinematic Short', false, 3),
+('mov-4', 'SYMPHONY OF THE VOID', 'Orchestral overture documentary filmed during the live tracking of Symphony No. 9 with the Prague Philharmonic, featuring composer diary entries and exclusive control-room footage.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=1200&auto=format&fit=crop', 'Julian Vance', '2025', '1h 35m', 'Orchestral Score', false, 4),
+('mov-5', 'NEON HORIZONS: TOKYO SESSIONS', 'A midnight odyssey tracking synthesized audio design and modular synth improvisations through the neon alleys of Shinjuku and subterranean Tokyo audio listening bars.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop', 'Kenji Takahashi', '2026', '1h 18m', 'Art House / Electronic', false, 5)
 ON CONFLICT (id) DO NOTHING;
+
+-- ==============================================================================
+-- MUSIC & AUDIO TRACKS TABLE
+-- ==============================================================================
+
+CREATE TABLE IF NOT EXISTS public.music_items (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    artist TEXT NOT NULL,
+    description TEXT NOT NULL,
+    thumbnail_url TEXT NOT NULL,
+    audio_url TEXT NOT NULL DEFAULT '',
+    duration TEXT NOT NULL DEFAULT '3:45',
+    genre TEXT NOT NULL DEFAULT 'Electronic / Orchestral',
+    year TEXT NOT NULL DEFAULT '2026',
+    spotify_url TEXT DEFAULT '',
+    soundcloud_url TEXT DEFAULT '',
+    apple_music_url TEXT DEFAULT '',
+    youtube_url TEXT DEFAULT '',
+    featured BOOLEAN NOT NULL DEFAULT false,
+    order_num INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE public.music_items ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Public can view music items" ON public.music_items;
+DROP POLICY IF EXISTS "Service role has full access to music items" ON public.music_items;
+CREATE POLICY "Public can view music items" ON public.music_items FOR SELECT USING (true);
+CREATE POLICY "Service role has full access to music items" ON public.music_items FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+-- Seed Music Items
+INSERT INTO public.music_items (id, title, artist, description, thumbnail_url, audio_url, duration, genre, year, spotify_url, soundcloud_url, apple_music_url, youtube_url, featured, order_num) VALUES
+('mus-1', 'Obsidian Horizon', 'Aethelgard', 'Hypnotic sub-bass foundation intertwined with organic cello harmonics and modular tape synthesis.', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop', '/audio/track-1.mp3', '2:48', 'Dark Ambient / Electronic', '2026', 'https://open.spotify.com', 'https://soundcloud.com', 'https://music.apple.com', 'https://youtube.com', true, 1),
+('mus-2', 'Aether Resonance', 'Kaelen Voss', 'Atmospheric acoustic flutter and delicate valve tube saturation tailored for late-night deep listening.', 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop', '/audio/track-2.mp3', '3:15', 'Modular Drone / Neoclassical', '2026', 'https://open.spotify.com', 'https://soundcloud.com', 'https://music.apple.com', 'https://youtube.com', true, 2),
+('mus-3', 'Nocturne Noir', 'SÖLVEIG', 'Heavy subterranean industrial pulse merged with soaring cinematic soprano vocalizations.', 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop', '/audio/track-3.mp3', '4:02', 'Cinematic Electronic', '2025', 'https://open.spotify.com', 'https://soundcloud.com', 'https://music.apple.com', 'https://youtube.com', true, 3),
+('mus-4', 'Analog Pulse (45 RPM Edit)', 'Milo St. Claire', 'Warm vintage Rhodes chords passed through Space Echo tape delays with dynamic acoustic percussion.', 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop', '/audio/track-4.mp3', '3:40', 'Downtempo / Analog Soul', '2026', 'https://open.spotify.com', 'https://soundcloud.com', 'https://music.apple.com', 'https://youtube.com', false, 4),
+('mus-5', 'Symphony No. 9: Andante Maestoso', 'Aethelgard & Prague Philharmonic', 'A monumental clash of 90-piece orchestral strings and monolithic analog synthesizer crescendo.', 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=800&auto=format&fit=crop', '/audio/acoustic-feed.mp3', '5:24', 'Orchestral / Film Score', '2025', 'https://open.spotify.com', 'https://soundcloud.com', 'https://music.apple.com', 'https://youtube.com', false, 5)
+ON CONFLICT (id) DO NOTHING;
+

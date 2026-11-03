@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import HeroSection from "@/components/site/HeroSection";
 import AboutTeaser from "@/components/site/AboutTeaser";
 import VinylShowcaseSection from "@/components/site/VinylShowcaseSection";
@@ -22,7 +22,7 @@ export const metadata = {
     "An avant-garde collective of boundary-defying producers, rock icons, and visionary recording artists.",
 };
 
-export default async function HomePage() {
+async function HomeDataFetcher() {
   const [homeContent, artists, managers, upcomingProjects, testimonials, settings] =
     await Promise.all([
       getPageContent<HomePageContent>("home"),
@@ -58,3 +58,12 @@ export default async function HomePage() {
     </div>
   );
 }
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[var(--background)] animate-pulse" />}>
+      <HomeDataFetcher />
+    </Suspense>
+  );
+}
+

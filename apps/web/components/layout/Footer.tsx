@@ -117,23 +117,23 @@ export default function Footer({ settings }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
-                  About the Label
+                <Link href="/movies" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  Cinema & Feature Films
                 </Link>
               </li>
               <li>
-                <Link href="/collections" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
-                  Our Collections
+                <Link href="/music" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  Music & Audio Player
                 </Link>
               </li>
               <li>
                 <Link href="/gallery" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
-                  Visual Archive & Stills
+                  Album Archive & Stills
                 </Link>
               </li>
               <li>
-                <Link href="/documentary" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
-                  Documentary Production
+                <Link href="/about" className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-black"}`}>
+                  About the Label
                 </Link>
               </li>
               <li>

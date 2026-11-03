@@ -23,7 +23,7 @@ export default function SiteLayout({
 
         {/* Page Content */}
         <Suspense fallback={null}>
-          <main className="flex-1 w-full relative z-10">{children}</main>
+          <main className="flex-1 w-full relative">{children}</main>
         </Suspense>
 
         {/* Global Footer */}

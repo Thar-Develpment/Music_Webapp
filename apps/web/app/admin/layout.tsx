@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  LayoutDashboard,
+  Film,
+  Music,
   Mail,
   ExternalLink,
   LogOut,
@@ -13,11 +16,16 @@ import {
   Bell,
   Sun,
   Moon,
+  AlertCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { SiteTheme } from "@music-label/shared";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 const adminNav = [
+  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Movies", href: "/admin/movies", icon: Film },
+  { name: "Music Audio", href: "/admin/music", icon: Music },
   { name: "Enquiries", href: "/admin/enquiries", icon: Mail, badge: true },
 ];
 
@@ -31,16 +39,21 @@ export default function AdminLayout({
   const { theme, isDark, setTheme } = useTheme();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [themeConfirmTarget, setThemeConfirmTarget] = useState<SiteTheme | null>(null);
 
   // If on login route, render without sidebar
   const isLoginPage = pathname === "/admin/login";
 
-  // Fetch unread count
+  // Fetch unread enquiries count
   useEffect(() => {
     if (isLoginPage) return;
     const fetchUnread = async () => {
       try {
         const res = await fetch("/api/admin/enquiries");
+        if (res.status === 401) {
+          router.push("/admin/login");
+          return;
+        }
         const data = await res.json();
         if (data.success && data.meta) {
           setUnreadCount(data.meta.unread || 0);
@@ -50,18 +63,31 @@ export default function AdminLayout({
       }
     };
     fetchUnread();
-  }, [isLoginPage, pathname]);
+  }, [isLoginPage, pathname, router]);
 
-  const handleSwitchTheme = async (newTheme: SiteTheme) => {
-    if (newTheme === theme) return;
-    setTheme(newTheme);
+  const handleThemeButtonClick = (targetTheme: SiteTheme) => {
+    if (targetTheme === theme) return;
+    setThemeConfirmTarget(targetTheme);
+  };
+
+  const handleConfirmThemeSwitch = async () => {
+    if (!themeConfirmTarget) return;
+    const target = themeConfirmTarget;
+    setThemeConfirmTarget(null);
+    setTheme(target);
     try {
       await fetch("/api/admin/settings", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ theme: newTheme }),
+        body: JSON.stringify({ theme: target }),
       });
-    } catch (e) {}
+    } catch (e) {
+      // quiet fallback
+    }
+  };
+
+  const handleCancelThemeSwitch = () => {
+    setThemeConfirmTarget(null);
   };
 
   const handleLogout = async () => {
@@ -71,26 +97,19 @@ export default function AdminLayout({
       // ignore
     }
     router.push("/admin/login");
+    router.refresh();
   };
 
   if (isLoginPage) {
     return (
-      <div
-        className={`min-h-screen transition-colors duration-300 ${
-          isDark ? "bg-[#08080A] text-[#F4F4F6]" : "bg-[#FAFAFC] text-[#09090B]"
-        }`}
-      >
+      <div className="min-h-screen transition-colors duration-300 bg-[var(--background)] text-[var(--foreground)]">
         {children}
       </div>
     );
   }
 
   return (
-    <div
-      className={`min-h-screen flex transition-colors duration-300 ${
-        isDark ? "bg-[#08080A] text-[#F4F4F6]" : "bg-[#FAFAFC] text-[#09090B]"
-      }`}
-    >
+    <div className="min-h-screen flex transition-colors duration-300 bg-[var(--background)] text-[var(--foreground)]">
       {/* Sidebar for Desktop */}
       <aside
         className={`hidden lg:flex flex-col w-64 border-r fixed inset-y-0 left-0 z-30 transition-colors duration-300 ${
@@ -103,9 +122,9 @@ export default function AdminLayout({
             isDark ? "border-white/10" : "border-black/[0.08]"
           }`}
         >
-          <Link href="/admin/enquiries" className="flex items-center space-x-3">
+          <Link href="/admin" className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-full border border-[#E51E2B]/30 bg-[#FEF2F2]/10 flex items-center justify-center text-[#E51E2B]">
-              <Disc3 className="w-4 h-4" />
+              <Disc3 className="w-4 h-4 animate-[spin_10s_linear_infinite]" />
             </div>
             <div className="flex flex-col">
               <span
@@ -122,10 +141,13 @@ export default function AdminLayout({
           </Link>
         </div>
 
-        {/* Navigation Links - Enquiries only */}
+        {/* Navigation Links */}
         <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
           {adminNav.map((item) => {
-            const isActive = pathname.startsWith(item.href);
+            const isActive =
+              item.href === "/admin"
+                ? pathname === "/admin"
+                : pathname.startsWith(item.href);
             const Icon = item.icon;
             return (
               <Link
@@ -183,7 +205,8 @@ export default function AdminLayout({
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs text-red-500 hover:bg-red-500/10 transition-colors"
+            id="admin-logout-btn"
+            className="w-full flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
@@ -192,11 +215,7 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content Area */}
-      <div
-        className={`flex-1 lg:pl-64 flex flex-col min-h-screen transition-colors duration-300 ${
-          isDark ? "bg-[#08080A]" : "bg-[#FAFAFC]"
-        }`}
-      >
+      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen transition-colors duration-300 bg-[var(--background)]">
         {/* Top Navbar */}
         <header
           className={`h-16 backdrop-blur-md border-b px-6 flex items-center justify-between sticky top-0 z-20 transition-colors duration-300 ${
@@ -214,13 +233,19 @@ export default function AdminLayout({
             >
               {mobileSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
-            <span className="text-xs uppercase tracking-widest text-[#E51E2B] font-semibold hidden sm:inline-block">
-              Enquiries Management
-            </span>
+            <div className="flex items-center space-x-2">
+              <span className="text-xs uppercase tracking-widest text-[#E51E2B] font-semibold hidden sm:inline-block">
+                Label Management System
+              </span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium hidden sm:inline-flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" />
+                Auth Active
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center space-x-3 sm:space-x-4">
-            {/* Quick Live Theme Switcher */}
+            {/* Quick Live Theme Switcher with Confirmation */}
             <div className="flex items-center space-x-2">
               <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider hidden md:inline">
                 Theme:
@@ -233,8 +258,8 @@ export default function AdminLayout({
                 <button
                   type="button"
                   id="admin-header-theme-white-btn"
-                  onClick={() => handleSwitchTheme("white")}
-                  title="Switch to Alabaster White & Red theme"
+                  onClick={() => handleThemeButtonClick("white")}
+                  title="Switch to Alabaster White & Red theme (requires confirmation)"
                   className={`flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                     theme === "white"
                       ? "bg-white text-[#09090B] shadow-sm font-extrabold border border-black/10"
@@ -249,8 +274,8 @@ export default function AdminLayout({
                 <button
                   type="button"
                   id="admin-header-theme-black-btn"
-                  onClick={() => handleSwitchTheme("black")}
-                  title="Switch to Obsidian Black & Red theme"
+                  onClick={() => handleThemeButtonClick("black")}
+                  title="Switch to Obsidian Black & Red theme (requires confirmation)"
                   className={`flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                     theme === "black"
                       ? "bg-[#E51E2B] text-white shadow-sm font-extrabold"
@@ -311,7 +336,10 @@ export default function AdminLayout({
               }`}
             >
               {adminNav.map((item) => {
-                const isActive = pathname.startsWith(item.href);
+                const isActive =
+                  item.href === "/admin"
+                    ? pathname === "/admin"
+                    : pathname.startsWith(item.href);
                 const Icon = item.icon;
                 return (
                   <Link
@@ -351,13 +379,75 @@ export default function AdminLayout({
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 text-red-500 text-sm py-2"
+                  className="flex items-center space-x-2 text-red-500 text-sm py-2 cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Sign Out</span>
                 </button>
               </div>
             </nav>
+          </div>
+        )}
+
+        {/* Theme Change Confirmation Modal */}
+        {themeConfirmTarget && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-150">
+            <div
+              className={`max-w-md w-full rounded-2xl p-6 sm:p-7 border shadow-2xl transition-all ${
+                isDark
+                  ? "bg-[#121217] border-white/15 text-white"
+                  : "bg-white border-black/10 text-[#09090B]"
+              }`}
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#E51E2B]/10 border border-[#E51E2B]/30 flex items-center justify-center text-[#E51E2B] shrink-0">
+                  <AlertCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-extrabold text-lg tracking-wide">
+                    Confirm Theme Change
+                  </h3>
+                  <p className="text-xs text-zinc-400">Accidental change prevention</p>
+                </div>
+              </div>
+
+              <p
+                className={`text-sm leading-relaxed mb-6 ${
+                  isDark ? "text-zinc-300" : "text-zinc-600"
+                }`}
+              >
+                Are you sure you want to change the active theme to{" "}
+                <span className="font-bold text-[#E51E2B] uppercase">
+                  {themeConfirmTarget === "black"
+                    ? "Obsidian Black & Red"
+                    : "Alabaster White & Red"}
+                </span>
+                ? This will instantly switch the visual appearance across both the public website
+                and admin console.
+              </p>
+
+              <div className="flex items-center justify-end space-x-3 pt-3 border-t border-black/[0.06] dark:border-white/10">
+                <button
+                  type="button"
+                  onClick={handleCancelThemeSwitch}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer ${
+                    isDark
+                      ? "text-zinc-400 hover:text-white hover:bg-white/5"
+                      : "text-zinc-600 hover:text-black hover:bg-black/5"
+                  }`}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  id="confirm-theme-change-btn"
+                  onClick={handleConfirmThemeSwitch}
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#E51E2B] hover:bg-[#D81A26] text-white shadow-lg shadow-[#E51E2B]/30 transition-all cursor-pointer"
+                >
+                  Confirm & Switch
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
