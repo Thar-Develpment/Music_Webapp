@@ -41,8 +41,8 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
         ? "bg-gradient-to-b from-[#08080A] via-[#0D0D12] to-[#08080A] border-white/[0.08]"
         : "bg-gradient-to-b from-[#FAFAFC] via-[#F4F4F8] to-[#FAFAFC] border-black/[0.06]"
     }`}>
-      {/* Background subtle crimson ambient warmth */}
-      <div className="absolute top-1/2 left-0 w-[550px] h-[550px] bg-[#E51E2B]/5 blur-[160px] rounded-full pointer-events-none" />
+      {/* Background subtle multi-hue ambient warmth */}
+      <div className="absolute top-1/2 left-0 w-[550px] h-[550px] bg-gradient-to-r from-[#2563EB]/5 via-[#E11D48]/10 to-[#EA580C]/5 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
@@ -57,7 +57,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
               }`}>
                 <img
                   src={content.imageUrl}
-                  alt="Velvet Noir Sound Studio"
+                  alt="One Roof Sound Studio"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -77,11 +77,11 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                   onClick={toggleAcousticFeed}
                   className={`absolute top-5 left-5 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border shadow-md cursor-pointer transition-all hover:scale-105 active:scale-95 z-20 ${
                     isPlaying
-                      ? "bg-[#E51E2B] border-[#E51E2B] text-white"
-                      : isDark ? "bg-[#121217]/90 border-[#E51E2B]/40 text-white" : "glass-frosted border-[#E51E2B]/40 text-zinc-900"
+                      ? "bg-[#e11d48] border-[#e11d48] text-white"
+                      : isDark ? "bg-[#121217]/90 border-[#e11d48]/40 text-white" : "glass-frosted border-[#e11d48]/40 text-zinc-900"
                   }`}
                 >
-                  <span className={`w-2 h-2 rounded-full ${isPlaying ? "bg-white animate-pulse" : "bg-[#E51E2B] animate-ping"}`} />
+                  <span className={`w-2 h-2 rounded-full ${isPlaying ? "bg-white animate-pulse" : "bg-[#e11d48] animate-ping"}`} />
                   <span className="text-[10px] font-bold tracking-widest uppercase">
                     {isPlaying ? "Feed Active • Click to Pause" : "Live Acoustic Feed • Click to Audition"}
                   </span>
@@ -95,7 +95,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                     isDark ? "bg-[#121217]/90 border-white/10 text-zinc-300" : "glass-frosted border-black/10 text-zinc-800"
                   }`}
                 >
-                  <span className="text-[#E51E2B] font-bold mr-1">THD</span>0.0003%
+                  <span className="text-[#e11d48] font-bold mr-1">THD</span>0.0003%
                 </motion.div>
 
                 {/* Interactive Realtime VU Meter Overlay */}
@@ -104,14 +104,14 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                 }`}>
                   <div className="flex items-center justify-between mb-2.5">
                     <div className="flex items-center space-x-2">
-                      <Activity className="w-3.5 h-3.5 text-[#E51E2B] animate-pulse" />
+                      <Activity className="w-3.5 h-3.5 text-[#e11d48] animate-pulse" />
                       <span className={`text-[11px] font-bold uppercase tracking-wider ${
                         isDark ? "text-white" : "text-zinc-900"
                       }`}>
                         Master Desk Telemetry
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-[#E51E2B] font-bold">
+                    <span className="text-[10px] font-mono text-[#e11d48] font-bold">
                       {studioChannels[activeChannel].gain}
                     </span>
                   </div>
@@ -121,7 +121,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                     {[45, 80, 60, 95, 70, 85, 100, 75, 90, 65, 80, 50].map((baseHeight, idx) => (
                       <motion.div
                         key={idx}
-                        className="w-full rounded-sm bg-gradient-to-t from-[#E51E2B] to-[#FF4D58]"
+                        className="w-full rounded-sm bg-gradient-to-t from-[#e11d48] to-[#FF4D58]"
                         animate={{
                           height: [`${baseHeight * 0.4}%`, `${baseHeight}%`, `${baseHeight * 0.6}%`],
                         }}
@@ -140,8 +140,8 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                 <div className={`absolute bottom-6 left-6 right-6 p-4 rounded-2xl border flex items-center space-x-4 shadow-2xl ${
                   isDark ? "bg-[#16161D]/95 border-white/10" : "bg-white/95 border-black/10"
                 }`}>
-                  <div className={`w-11 h-11 rounded-xl border flex items-center justify-center text-[#E51E2B] shadow-md shadow-[#E51E2B]/20 shrink-0 ${
-                    isDark ? "bg-red-950/60 border-[#E51E2B]/40" : "bg-red-50 border-[#E51E2B]/40"
+                  <div className={`w-11 h-11 rounded-xl border flex items-center justify-center text-[#e11d48] shadow-md shadow-[#e11d48]/20 shrink-0 ${
+                    isDark ? "bg-red-950/60 border-[#e11d48]/40" : "bg-red-50 border-[#e11d48]/40"
                   }`}>
                     <Disc3 className="w-6 h-6 animate-[spin_8s_linear_infinite]" />
                   </div>
@@ -167,9 +167,9 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
              ========================================================= */}
           <div className="lg:col-span-7 flex flex-col justify-center">
             <MotionReveal direction="right" duration={0.8}>
-              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#E51E2B]/40 shadow-sm mb-6 self-start">
-                <Sliders className="w-3.5 h-3.5 text-[#E51E2B]" />
-                <span className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase">
+              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#e11d48]/40 shadow-sm mb-6 self-start">
+                <Sliders className="w-3.5 h-3.5 text-[#e11d48]" />
+                <span className="text-xs font-bold tracking-[0.25em] text-[#e11d48] uppercase">
                   Artistic Philosophy & Sonic Craft
                 </span>
               </div>
@@ -194,7 +194,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                   isDark ? "text-zinc-400" : "text-zinc-500"
                 }`}>
                   <span>Active Channel Routing</span>
-                  <span className="text-[#E51E2B]">Click to Switch Signal Path</span>
+                  <span className="text-[#e11d48]">Click to Switch Signal Path</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   {studioChannels.map((ch, idx) => {
@@ -206,8 +206,8 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                         className={`p-3 rounded-xl text-left transition-all duration-300 cursor-pointer ${
                           isSelected
                             ? isDark
-                              ? "bg-red-950/40 border border-[#E51E2B] shadow-md shadow-[#E51E2B]/20"
-                              : "bg-red-50 border border-[#E51E2B] shadow-md shadow-[#E51E2B]/15"
+                              ? "bg-red-950/40 border border-[#e11d48] shadow-md shadow-[#e11d48]/20"
+                              : "bg-red-50 border border-[#e11d48] shadow-md shadow-[#e11d48]/15"
                             : isDark
                             ? "bg-white/[0.04] border border-white/10 hover:border-white/25"
                             : "bg-white border border-black/10 hover:border-black/25"
@@ -215,12 +215,12 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className={`text-xs font-bold truncate ${
-                            isSelected ? "text-[#E51E2B]" : isDark ? "text-white" : "text-zinc-900"
+                            isSelected ? "text-[#e11d48]" : isDark ? "text-white" : "text-zinc-900"
                           }`}>{ch.name}</span>
-                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#E51E2B] animate-ping" />}
+                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48] animate-ping" />}
                         </div>
                         <span className="text-[10px] text-zinc-400 block font-mono">{ch.mode}</span>
-                        <span className="text-[10px] text-[#E51E2B] font-mono font-bold block mt-1">{ch.rate}</span>
+                        <span className="text-[10px] text-[#e11d48] font-mono font-bold block mt-1">{ch.rate}</span>
                       </button>
                     );
                   })}
@@ -229,10 +229,10 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
 
               {/* Architectural features badges */}
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className={`p-4 rounded-xl glass-panel border flex items-center space-x-3 group hover:border-[#E51E2B]/60 transition-colors ${
+                <div className={`p-4 rounded-xl glass-panel border flex items-center space-x-3 group hover:border-[#e11d48]/60 transition-colors ${
                   isDark ? "border-white/10" : "border-black/10"
                 }`}>
-                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-[#E51E2B] font-bold text-xs group-hover:scale-110 transition-transform ${
+                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-[#e11d48] font-bold text-xs group-hover:scale-110 transition-transform ${
                     isDark ? "bg-red-950/40" : "bg-red-100"
                   }`}>
                     01
@@ -249,10 +249,10 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                   </div>
                 </div>
 
-                <div className={`p-4 rounded-xl glass-panel border flex items-center space-x-3 group hover:border-[#E51E2B]/60 transition-colors ${
+                <div className={`p-4 rounded-xl glass-panel border flex items-center space-x-3 group hover:border-[#e11d48]/60 transition-colors ${
                   isDark ? "border-white/10" : "border-black/10"
                 }`}>
-                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-[#E51E2B] font-bold text-xs group-hover:scale-110 transition-transform ${
+                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-[#e11d48] font-bold text-xs group-hover:scale-110 transition-transform ${
                     isDark ? "bg-red-950/40" : "bg-red-100"
                   }`}>
                     02
@@ -274,7 +274,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                 <Link
                   href="/about"
                   id="about-teaser-button"
-                  className="group inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-xl shadow-[#E51E2B]/20 hover:scale-105 transition-all duration-300"
+                  className="group inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-xl shadow-[#e11d48]/20 hover:scale-105 transition-all duration-300"
                 >
                   <span>{content.buttonText || "Learn More"}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />

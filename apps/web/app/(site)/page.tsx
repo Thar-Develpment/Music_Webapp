@@ -17,7 +17,7 @@ import {
 import { HomePageContent } from "@music-label/shared";
 
 export const metadata = {
-  title: "Home | Velvet Noir Recordings — Luxury Sonic Immersion",
+  title: "Home | One Roof Entertainment — Luxury Sonic Immersion",
   description:
     "An avant-garde collective of boundary-defying producers, rock icons, and visionary recording artists.",
 };

@@ -66,7 +66,7 @@ export default function AboutArchitecturalHero() {
           <div className="absolute inset-x-0 bottom-0 h-[68%] sm:h-[72%] lg:h-[76%] z-10">
             <img
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop"
-              alt="Velvet Noir Acoustic Sanctuary"
+              alt="One Roof Acoustic Sanctuary"
               className={`w-full h-full object-cover object-center ${
                 isDark ? "brightness-[0.7] contrast-[1.15]" : "brightness-[0.92] contrast-[1.05]"
               }`}
@@ -86,7 +86,7 @@ export default function AboutArchitecturalHero() {
                   : "from-white/70 via-transparent to-white/70"
               }`}
             />
-            <div className="absolute inset-0 bg-[#E51E2B]/[0.02] mix-blend-color" />
+            <div className="absolute inset-0 bg-[#e11d48]/[0.02] mix-blend-color" />
           </div>
         </div>
 
@@ -108,7 +108,7 @@ export default function AboutArchitecturalHero() {
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 sm:px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                     isSelected
-                      ? "bg-[#E51E2B] text-white shadow-md shadow-red-500/20 scale-105"
+                      ? "bg-[#e11d48] text-white shadow-md shadow-red-500/20 scale-105"
                       : isDark
                       ? "bg-black/60 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-white/10"
                       : "bg-white/90 hover:bg-zinc-100 text-zinc-700 hover:text-black border border-black/10"
@@ -140,10 +140,10 @@ export default function AboutArchitecturalHero() {
                   isDark ? "text-white" : "text-[#09090B]"
                 }`}
               >
-                VELVET NOIR
+                ONE ROOF
               </span>
               <span className="text-[10px] text-zinc-400 uppercase tracking-wider block">
-                acoustic architecture
+                entertainment architecture
               </span>
             </div>
           </div>
@@ -151,16 +151,16 @@ export default function AboutArchitecturalHero() {
           {/* Right: Year & Minimalist Specification List */}
           <div className="flex items-center space-x-8 text-right">
             <div>
-              <span className="text-xs font-mono font-bold text-[#E51E2B] block">2026</span>
+              <span className="text-xs font-mono font-bold text-[#e11d48] block">2026</span>
               <span className="text-[11px] text-zinc-400 tracking-wide block">
                 Architecture of Pure Sound
               </span>
             </div>
 
             <div className="hidden sm:flex flex-col text-left text-[11px] text-zinc-400 space-y-0.5 font-mono">
-              <span className="hover:text-[#E51E2B] transition-colors">— Compactness</span>
-              <span className="hover:text-[#E51E2B] transition-colors">— Decoupled Purity</span>
-              <span className="hover:text-[#E51E2B] transition-colors">— Spatial Minimalism</span>
+              <span className="hover:text-[#e11d48] transition-colors">— Compactness</span>
+              <span className="hover:text-[#e11d48] transition-colors">— Decoupled Purity</span>
+              <span className="hover:text-[#e11d48] transition-colors">— Spatial Minimalism</span>
             </div>
           </div>
         </div>
@@ -171,19 +171,19 @@ export default function AboutArchitecturalHero() {
            ========================================================= */}
         <div className="relative z-20 my-auto py-8">
           <div className="relative">
-            {/* Giant Monolithic Header (TERRA style) */}
+            {/* Giant Monolithic Header */}
             <h1
-              className={`font-heading font-black text-[15vw] sm:text-[14vw] lg:text-[13vw] leading-[0.88] tracking-[-0.04em] uppercase select-none drop-shadow-sm ${
+              className={`font-heading font-black text-[13vw] sm:text-[12vw] lg:text-[11vw] leading-[0.88] tracking-[-0.04em] uppercase select-none drop-shadow-sm ${
                 isDark ? "text-white opacity-90" : "text-[#09090B] opacity-90"
               }`}
             >
-              VELVET
+              ONE ROOF
             </h1>
 
-            {/* Overlapping Italic Script (cotta style) */}
+            {/* Overlapping Italic Script */}
             <div className="absolute right-2 sm:right-12 md:right-24 bottom-[-15%] sm:bottom-[-20%] z-30">
-              <span className="font-serif italic font-normal text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-[#E51E2B] tracking-normal drop-shadow-md select-none">
-                sanctuary
+              <span className="font-serif italic font-normal text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-[#e11d48] tracking-normal drop-shadow-md select-none">
+                entertainment
               </span>
             </div>
           </div>
@@ -204,11 +204,11 @@ export default function AboutArchitecturalHero() {
                   aria-label={spot.title}
                 >
                   {/* Pulsing Red Outer Ring */}
-                  <span className="absolute inset-0 rounded-full bg-[#E51E2B]/30 animate-ping pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-[#e11d48]/30 animate-ping pointer-events-none" />
 
                   {/* Inner Solid Dot with Red Border */}
                   <span
-                    className={`relative block w-3.5 h-3.5 rounded-full border-2 border-[#E51E2B] shadow-md transition-transform duration-300 group-hover:scale-125 ${
+                    className={`relative block w-3.5 h-3.5 rounded-full border-2 border-[#e11d48] shadow-md transition-transform duration-300 group-hover:scale-125 ${
                       isDark ? "bg-[#121217]" : "bg-white"
                     }`}
                   />
@@ -228,7 +228,7 @@ export default function AboutArchitecturalHero() {
                           : "bg-white/95 border border-black/10 text-zinc-900"
                       }`}
                     >
-                      <div className="flex items-center space-x-1.5 mb-1 text-[#E51E2B]">
+                      <div className="flex items-center space-x-1.5 mb-1 text-[#e11d48]">
                         <Compass className="w-3.5 h-3.5" />
                         <span className="text-[10px] font-bold uppercase tracking-wider">
                           Acoustic Engineering
@@ -277,7 +277,7 @@ export default function AboutArchitecturalHero() {
                 >
                   <span className="text-zinc-400">Studio:</span>
                   <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
-                    Velvet Noir Acoustics
+                    One Roof Acoustics
                   </span>
                 </div>
                 <div
@@ -306,7 +306,7 @@ export default function AboutArchitecturalHero() {
                   }`}
                 >
                   <span className="text-zinc-400">Footprint:</span>
-                  <span className="font-mono font-bold text-[#E51E2B]">
+                  <span className="font-mono font-bold text-[#e11d48]">
                     840 m² / 9.1.6 Chamber
                   </span>
                 </div>
@@ -338,8 +338,8 @@ export default function AboutArchitecturalHero() {
                   key={net}
                   className={`w-8 h-8 rounded-full border flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer shadow-sm ${
                     isDark
-                      ? "bg-[#16161D] border-white/10 text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]"
-                      : "bg-white border-black/10 text-zinc-700 hover:text-[#E51E2B] hover:border-[#E51E2B]"
+                      ? "bg-[#16161D] border-white/10 text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]"
+                      : "bg-white border-black/10 text-zinc-700 hover:text-[#e11d48] hover:border-[#e11d48]"
                   }`}
                 >
                   {net}
@@ -355,7 +355,7 @@ export default function AboutArchitecturalHero() {
             }`}
           >
             <p
-              className={`border-l-2 border-[#E51E2B] pl-4 p-3.5 rounded-r-xl border shadow-sm ${
+              className={`border-l-2 border-[#e11d48] pl-4 p-3.5 rounded-r-xl border shadow-sm ${
                 isDark
                   ? "bg-[#16161D]/90 border-white/10 text-zinc-300"
                   : "bg-white/90 border-black/5 text-zinc-600"

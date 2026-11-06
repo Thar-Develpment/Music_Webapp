@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
 import { GalleryCategory, GalleryItem } from "@music-label/shared";
 import { ArrowUpRight, ArrowRight, Play, Maximize2, Grid, LayoutGrid, Eye } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -57,7 +56,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                 id={`gallery-filter-${cat.slug}`}
                 className={`px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                   isSelected
-                    ? "bg-[#E51E2B] text-white shadow-md shadow-red-500/20 scale-105"
+                    ? "bg-[#e11d48] text-white shadow-md shadow-red-500/20 scale-105"
                     : isDark
                     ? "text-zinc-400 hover:text-white hover:bg-white/10"
                     : "text-zinc-600 hover:text-black hover:bg-black/[0.04]"
@@ -79,7 +78,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
             onClick={() => setViewMode("matrix")}
             className={`px-3 py-1.5 rounded-full flex items-center space-x-1.5 font-bold transition-all cursor-pointer ${
               viewMode === "matrix"
-                ? "bg-[#E51E2B] text-white shadow-sm"
+                ? "bg-[#e11d48] text-white shadow-sm"
                 : isDark
                 ? "text-zinc-400 hover:text-white"
                 : "text-zinc-600 hover:text-black"
@@ -92,7 +91,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
             onClick={() => setViewMode("cards")}
             className={`px-3 py-1.5 rounded-full flex items-center space-x-1.5 font-bold transition-all cursor-pointer ${
               viewMode === "cards"
-                ? "bg-[#E51E2B] text-white shadow-sm"
+                ? "bg-[#e11d48] text-white shadow-sm"
                 : isDark
                 ? "text-zinc-400 hover:text-white"
                 : "text-zinc-600 hover:text-black"
@@ -146,7 +145,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                   : "from-white via-transparent to-white"
               }`}
             />
-            <div className="absolute inset-0 bg-[#E51E2B]/[0.02] mix-blend-color" />
+            <div className="absolute inset-0 bg-[#e11d48]/[0.02] mix-blend-color" />
           </div>
 
           {/* Left Vertical Rail */}
@@ -156,7 +155,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                 isDark ? "text-white" : "text-zinc-900"
               }`}
             >
-              velvet
+              one roof
             </span>
 
             <span
@@ -168,7 +167,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
             </span>
 
             <span className="text-[9px] font-mono text-zinc-500 tracking-widest">
-              © velvetnoir.io
+              © oneroofentertainment.com
             </span>
           </div>
 
@@ -223,8 +222,8 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                   } ${
                     isSelected
                       ? isDark
-                        ? "bg-[#E51E2B]/15 border-b-[#E51E2B] border-r-[#E51E2B] shadow-[inset_0_0_20px_rgba(229,30,43,0.2)]"
-                        : "bg-red-50/80 border-b-[#E51E2B] border-r-[#E51E2B] shadow-[inset_0_0_20px_rgba(229,30,43,0.1)]"
+                        ? "bg-[#e11d48]/15 border-b-[#e11d48] border-r-[#e11d48] shadow-[inset_0_0_20px_rgba(229,30,43,0.2)]"
+                        : "bg-red-50/80 border-b-[#e11d48] border-r-[#e11d48] shadow-[inset_0_0_20px_rgba(229,30,43,0.1)]"
                       : isDark
                       ? "hover:bg-white/[0.04]"
                       : "hover:bg-white/60"
@@ -236,16 +235,16 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                       isDark ? "text-zinc-400" : "text-zinc-500"
                     }`}
                   >
-                    <span className="group-hover:text-[#E51E2B] transition-colors font-bold">
+                    <span className="group-hover:text-[#e11d48] transition-colors font-bold">
                       {(idx + 1).toString().padStart(2, "0")}
                     </span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:text-[#E51E2B] transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:text-[#e11d48] transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
 
                   {/* Feature Inset Card */}
                   {isFeatureCell ? (
                     <div
-                      className={`relative z-20 my-auto flex items-center space-x-3 p-2.5 rounded-xl border shadow-lg group-hover:border-[#E51E2B] transition-colors ${
+                      className={`relative z-20 my-auto flex items-center space-x-3 p-2.5 rounded-xl border shadow-lg group-hover:border-[#e11d48] transition-colors ${
                         isDark
                           ? "bg-[#181820]/95 border-white/10 shadow-black/40"
                           : "bg-white/95 border-black/10"
@@ -269,7 +268,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                         >
                           {item.title}
                         </h4>
-                        <span className="text-[10px] font-bold text-[#E51E2B] uppercase tracking-wider flex items-center space-x-1 mt-1">
+                        <span className="text-[10px] font-bold text-[#e11d48] uppercase tracking-wider flex items-center space-x-1 mt-1">
                           <span>FEATURED REEL</span>
                           <ArrowRight className="w-3 h-3" />
                         </span>
@@ -279,7 +278,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                     /* Standard Matrix Exhibit Cell */
                     <div className="relative z-20 mt-auto">
                       <h4
-                        className={`font-heading font-extrabold text-sm sm:text-base uppercase tracking-tight group-hover:text-[#E51E2B] transition-colors line-clamp-2 ${
+                        className={`font-heading font-extrabold text-sm sm:text-base uppercase tracking-tight group-hover:text-[#e11d48] transition-colors line-clamp-2 ${
                           isDark ? "text-zinc-200" : "text-zinc-900"
                         }`}
                       >
@@ -295,14 +294,14 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                         <span className="uppercase tracking-wider">
                           {item.media.kind === "video" ? "Film Master" : "35mm Print"}
                         </span>
-                        <ArrowRight className="w-3 h-3 text-[#E51E2B] group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-3 h-3 text-[#e11d48] group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   )}
 
                   {/* Active Cell Accent Line at bottom */}
                   {isSelected && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E51E2B] z-30" />
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#e11d48] z-30" />
                   )}
                 </div>
               );
@@ -320,7 +319,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
             </span>
             <button
               onClick={() => setLightboxIndex(activeItemIndex)}
-              className="mt-2 sm:mt-0 px-4 py-1.5 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white text-xs font-bold tracking-wider uppercase transition-all cursor-pointer shadow-md shadow-[#E51E2B]/20"
+              className="mt-2 sm:mt-0 px-4 py-1.5 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold tracking-wider uppercase transition-all cursor-pointer shadow-md shadow-[#e11d48]/20"
             >
               Open Active Visual ({activeItemIndex + 1}/{filteredItems.length})
             </button>
@@ -342,8 +341,8 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
               <div
                 className={`aspect-[4/3] rounded-3xl overflow-hidden border shadow-xl relative transition-all ${
                   isDark
-                    ? "border-white/10 bg-[#121217] hover:border-[#E51E2B]/60 shadow-black/50"
-                    : "border-black/10 bg-white hover:border-[#E51E2B]/60"
+                    ? "border-white/10 bg-[#121217] hover:border-[#e11d48]/60 shadow-black/50"
+                    : "border-black/10 bg-white hover:border-[#e11d48]/60"
                 }`}
               >
                 <img
@@ -357,7 +356,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                 {/* Hover overlay icon and title */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-between">
                   <div className="flex justify-end">
-                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:text-[#E51E2B] group-hover:bg-white transition-all shadow-md">
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white group-hover:text-[#e11d48] group-hover:bg-white transition-all shadow-md">
                       {item.media.kind === "video" ? (
                         <Play className="w-4 h-4 fill-current ml-0.5" />
                       ) : (
@@ -368,7 +367,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
 
                   <div>
                     <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold tracking-widest text-white uppercase mb-2 border border-white/30">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#E51E2B]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48]" />
                       <span>
                         {item.media.kind === "video" ? "Master Film Reel" : "35mm Photography"}
                       </span>

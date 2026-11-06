@@ -268,7 +268,7 @@ export default function AdminEnquiriesPage() {
 
               <div className="pt-4 flex items-center justify-between border-t border-white/10">
                 <a
-                  href={`mailto:${selectedEnquiry.email}?subject=Velvet Noir Recordings Response`}
+                  href={`mailto:${selectedEnquiry.email}?subject=One Roof Entertainment Response`}
                   className="px-5 py-2.5 rounded-full bg-[#D4AF37] text-[#070709] font-bold text-xs uppercase tracking-wider hover:bg-[#F5D77F] transition-all cursor-pointer"
                 >
                   Reply via Email

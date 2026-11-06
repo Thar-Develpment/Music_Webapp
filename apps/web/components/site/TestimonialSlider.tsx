@@ -42,14 +42,14 @@ export default function TestimonialSlider({
       isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.08]"
     }`}>
       {/* Background Accent Halo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#E51E2B]/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#e11d48]/5 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <MotionReveal direction="up">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#E51E2B]/40 shadow-sm mb-5">
-              <Quote className="w-3.5 h-3.5 text-[#E51E2B]" />
-              <span className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#e11d48]/40 shadow-sm mb-5">
+              <Quote className="w-3.5 h-3.5 text-[#e11d48]" />
+              <span className="text-xs font-bold tracking-[0.25em] text-[#e11d48] uppercase">
                 Industry Critical Acclaim
               </span>
             </div>
@@ -75,13 +75,13 @@ export default function TestimonialSlider({
                     isDark ? "bg-[#121217] border-white/10" : "bg-white border-black/[0.08]"
                   }`}>
                     {/* Glowing Stars */}
-                    <div className="flex items-center space-x-1 mb-6 text-[#E51E2B]">
+                    <div className="flex items-center space-x-1 mb-6 text-[#e11d48]">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-current drop-shadow-sm" />
                       ))}
                     </div>
 
-                    <Quote className="w-12 h-12 text-[#E51E2B]/20 mb-6" />
+                    <Quote className="w-12 h-12 text-[#e11d48]/20 mb-6" />
 
                     <p className={`text-lg sm:text-2xl font-light italic leading-relaxed max-w-2xl ${
                       isDark ? "text-zinc-200" : "text-zinc-800"
@@ -92,7 +92,7 @@ export default function TestimonialSlider({
                     <div className={`mt-10 flex items-center space-x-4 pt-8 border-t w-full justify-center ${
                       isDark ? "border-white/10" : "border-black/[0.08]"
                     }`}>
-                      <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#E51E2B]/50 shadow-md shadow-[#E51E2B]/15">
+                      <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#e11d48]/50 shadow-md shadow-[#e11d48]/15">
                         <img
                           src={t.photoUrl}
                           alt={t.name}
@@ -105,7 +105,7 @@ export default function TestimonialSlider({
                         }`}>
                           {t.name}
                         </h4>
-                        <p className="text-xs font-bold text-[#E51E2B] tracking-wider uppercase">
+                        <p className="text-xs font-bold text-[#e11d48] tracking-wider uppercase">
                           {t.role}
                         </p>
                       </div>
@@ -121,7 +121,7 @@ export default function TestimonialSlider({
             <button
               onClick={scrollPrev}
               id="testimonial-prev-button"
-              className={`w-12 h-12 rounded-full border flex items-center justify-center hover:text-[#E51E2B] hover:border-[#E51E2B] hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-md ${
+              className={`w-12 h-12 rounded-full border flex items-center justify-center hover:text-[#e11d48] hover:border-[#e11d48] hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-md ${
                 isDark
                   ? "bg-[#16161D] border-white/10 text-zinc-200"
                   : "bg-white border-black/10 text-zinc-700"
@@ -138,7 +138,7 @@ export default function TestimonialSlider({
                   onClick={() => emblaApi && emblaApi.scrollTo(i)}
                   className={`transition-all duration-300 rounded-full cursor-pointer ${
                     selectedIndex === i
-                      ? "w-8 h-2 bg-[#E51E2B]"
+                      ? "w-8 h-2 bg-[#e11d48]"
                       : isDark
                       ? "w-2 h-2 bg-zinc-700 hover:bg-zinc-500"
                       : "w-2 h-2 bg-zinc-300 hover:bg-zinc-400"
@@ -151,7 +151,7 @@ export default function TestimonialSlider({
             <button
               onClick={scrollNext}
               id="testimonial-next-button"
-              className={`w-12 h-12 rounded-full border flex items-center justify-center hover:text-[#E51E2B] hover:border-[#E51E2B] hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-md ${
+              className={`w-12 h-12 rounded-full border flex items-center justify-center hover:text-[#e11d48] hover:border-[#e11d48] hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-md ${
                 isDark
                   ? "bg-[#16161D] border-white/10 text-zinc-200"
                   : "bg-white border-black/10 text-zinc-700"

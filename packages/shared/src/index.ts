@@ -234,7 +234,7 @@ export const MovieItemSchema = z.object({
   description: z.string().min(1, "Movie description is required"),
   youtubeUrl: z.string().min(1, "YouTube URL or Video ID is required"),
   thumbnailUrl: z.string().min(1, "Thumbnail image URL is required"),
-  director: z.string().default("Velvet Noir Studios"),
+  director: z.string().default("One Roof Studios"),
   year: z.string().default("2026"),
   duration: z.string().default("1h 45m"),
   genre: z.string().default("Cinematic / Documentary"),

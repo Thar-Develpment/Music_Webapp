@@ -15,6 +15,7 @@ import { InstagramIcon, YoutubeIcon, FacebookIcon } from "@/components/ui/Social
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import GlobalSearchModal from "./GlobalSearchModal";
+import OneRoofLogo from "@/components/ui/OneRoofLogo";
 
 interface NavbarProps {
   siteName?: string;
@@ -37,7 +38,7 @@ const navLinks = [
 ];
 
 export default function Navbar({
-  siteName = "VELVET NOIR",
+  siteName = "ONE ROOF",
   socialLinks = {
     instagram: "https://instagram.com",
     youtube: "https://youtube.com",
@@ -87,24 +88,10 @@ export default function Navbar({
           {/* Brand Logo */}
           <Link
             href="/"
-            className="group flex items-center space-x-3 transition-opacity hover:opacity-90"
+            className="group flex items-center transition-opacity hover:opacity-95"
             id="brand-logo"
           >
-            <div className={`w-10 h-10 rounded-full border border-[#E51E2B]/50 flex items-center justify-center text-[#E51E2B] group-hover:scale-105 group-hover:border-[#E51E2B] transition-all duration-300 shadow-md shadow-[#E51E2B]/15 ${
-              isDark ? "bg-red-950/40" : "bg-red-50"
-            }`}>
-              <Disc3 className="w-5 h-5 animate-[spin_10s_linear_infinite]" />
-            </div>
-            <div className="flex flex-col">
-              <span className={`font-heading font-extrabold text-xl tracking-[0.18em] ${
-                isDark ? "text-white" : "text-black"
-              }`}>
-                {siteName}
-              </span>
-              <span className="text-[10px] tracking-[0.25em] text-[#E51E2B] uppercase font-bold">
-                Recordings & Film
-              </span>
-            </div>
+            <OneRoofLogo size="md" variant="horizontal" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -119,8 +106,8 @@ export default function Navbar({
                   className={`relative px-2.5 xl:px-4 py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-all duration-200 rounded-full ${
                     isActive
                       ? isDark
-                        ? "text-[#E51E2B] bg-red-950/40"
-                        : "text-[#E51E2B] bg-red-50"
+                        ? "text-[#e11d48] bg-rose-950/40"
+                        : "text-[#e11d48] bg-rose-50"
                       : isDark
                       ? "text-zinc-300 hover:text-white hover:bg-white/[0.06]"
                       : "text-zinc-600 hover:text-black hover:bg-black/[0.04]"
@@ -130,7 +117,7 @@ export default function Navbar({
                   {isActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
-                      className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#E51E2B]"
+                      className="absolute bottom-1 left-4 right-4 h-[2px] rounded-full bg-gradient-to-r from-[#2563EB] via-[#7C3AED] via-[#E11D48] via-[#EA580C] to-[#FACC15]"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -151,13 +138,13 @@ export default function Navbar({
                 id="global-search-trigger"
                 className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border text-xs transition-all duration-200 cursor-pointer ${
                   isDark
-                    ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-white hover:border-[#E51E2B]/50 hover:bg-white/[0.08]"
-                    : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-black hover:border-[#E51E2B]/50 hover:bg-black/[0.05]"
+                    ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-white hover:border-[#e11d48]/50 hover:bg-white/[0.08]"
+                    : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-black hover:border-[#e11d48]/50 hover:bg-black/[0.05]"
                 }`}
                 aria-label="Global Search"
                 title="Search movies, music, and site (Ctrl+K)"
               >
-                <Search className="w-3.5 h-3.5 text-[#E51E2B]" />
+                <Search className="w-3.5 h-3.5 text-[#e11d48]" />
                 <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Search</span>
                 <kbd className="hidden xl:inline-block px-1.5 py-0.2 rounded bg-black/30 text-[9px] font-mono text-zinc-400 border border-white/10">
                   ⌘K
@@ -171,8 +158,8 @@ export default function Navbar({
                   rel="noopener noreferrer"
                   className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
-                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]/40"
                   }`}
                   aria-label="Instagram"
                 >
@@ -186,8 +173,8 @@ export default function Navbar({
                   rel="noopener noreferrer"
                   className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
-                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]/40"
                   }`}
                   aria-label="YouTube"
                 >
@@ -201,8 +188,8 @@ export default function Navbar({
                   rel="noopener noreferrer"
                   className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
-                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]/40"
                   }`}
                   aria-label="Facebook"
                 >
@@ -215,7 +202,7 @@ export default function Navbar({
             <Link
               href="/admin"
               id="admin-portal-button"
-              className="group flex items-center space-x-2 text-xs font-bold tracking-wider uppercase px-4 py-2 rounded-full bg-[#E51E2B] text-white hover:bg-[#D81A26] transition-all duration-200 shadow-md shadow-[#E51E2B]/20"
+              className="group flex items-center space-x-2 text-xs font-bold tracking-wider uppercase px-4 py-2 rounded-full bg-[#e11d48] text-white hover:bg-[#D81A26] transition-all duration-200 shadow-md shadow-[#e11d48]/20"
             >
               <Lock className="w-3.5 h-3.5 text-white" />
               <span>Admin Panel</span>
@@ -236,7 +223,7 @@ export default function Navbar({
               aria-label="Open Global Search"
               title="Global Search"
             >
-              <Search className="w-4 h-4 text-[#E51E2B]" />
+              <Search className="w-4 h-4 text-[#e11d48]" />
             </button>
 
             <button
@@ -280,8 +267,8 @@ export default function Navbar({
                     className={`px-4 py-3 rounded-xl text-base font-bold tracking-wider uppercase transition-colors ${
                       isActive
                         ? isDark
-                          ? "bg-red-950/40 text-[#E51E2B]"
-                          : "bg-red-50 text-[#E51E2B]"
+                          ? "bg-red-950/40 text-[#e11d48]"
+                          : "bg-red-50 text-[#e11d48]"
                         : isDark
                         ? "text-zinc-200 hover:bg-white/[0.06]"
                         : "text-zinc-800 hover:bg-black/[0.04]"
@@ -301,11 +288,11 @@ export default function Navbar({
                 }}
                 className={`w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
                   isDark
-                    ? "border-white/10 bg-white/5 text-zinc-200 hover:text-white hover:border-[#E51E2B]/50"
-                    : "border-black/10 bg-black/5 text-zinc-800 hover:text-black hover:border-[#E51E2B]/50"
+                    ? "border-white/10 bg-white/5 text-zinc-200 hover:text-white hover:border-[#e11d48]/50"
+                    : "border-black/10 bg-black/5 text-zinc-800 hover:text-black hover:border-[#e11d48]/50"
                 }`}
               >
-                <Search className="w-4 h-4 text-[#E51E2B]" />
+                <Search className="w-4 h-4 text-[#e11d48]" />
                 <span>Search Films, Tracks &amp; Site</span>
               </button>
 
@@ -315,7 +302,7 @@ export default function Navbar({
                 <Link
                   href="/admin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#E51E2B]"
+                  className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#e11d48]"
                 >
                   <Lock className="w-3.5 h-3.5" />
                   <span>Access CMS</span>

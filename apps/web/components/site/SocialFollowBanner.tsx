@@ -20,12 +20,12 @@ export default function SocialFollowBanner({ socialLinks }: SocialFollowBannerPr
     }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center relative z-10">
         <MotionReveal direction="up">
-          <div className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-[#E51E2B]/40 mb-6 ${
-            isDark ? "bg-red-950/40" : "bg-red-50/50"
+          <div className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-[#e11d48]/40 mb-6 ${
+            isDark ? "bg-rose-950/40" : "bg-rose-50/50"
           }`}>
-            <Radio className="w-3.5 h-3.5 text-[#E51E2B] animate-pulse" />
-            <span className="text-xs font-semibold tracking-[0.25em] text-[#E51E2B] uppercase">
-              Stay Synced With Velvet Noir
+            <Radio className="w-3.5 h-3.5 text-[#e11d48] animate-pulse" />
+            <span className="text-xs font-semibold tracking-[0.25em] text-[#e11d48] uppercase">
+              Stay Synced With One Roof Entertainment
             </span>
           </div>
 
@@ -47,15 +47,15 @@ export default function SocialFollowBanner({ socialLinks }: SocialFollowBannerPr
                 href={socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group inline-flex items-center space-x-3 px-6 py-3.5 rounded-full border hover:border-[#E51E2B] font-medium text-sm transition-all shadow-sm ${
+                className={`group inline-flex items-center space-x-3 px-6 py-3.5 rounded-full border hover:border-[#e11d48] font-medium text-sm transition-all shadow-sm ${
                   isDark
                     ? "bg-[#121217] border-white/10 text-white"
                     : "bg-white border-black/10 text-zinc-900"
                 }`}
               >
-                <InstagramIcon className="w-4 h-4 text-[#E51E2B]" />
+                <InstagramIcon className="w-4 h-4 text-[#e11d48]" />
                 <span>Instagram</span>
-                <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#E51E2B]" />
+                <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#e11d48]" />
               </a>
             )}
 
@@ -64,15 +64,15 @@ export default function SocialFollowBanner({ socialLinks }: SocialFollowBannerPr
                 href={socialLinks.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group inline-flex items-center space-x-3 px-6 py-3.5 rounded-full border hover:border-[#E51E2B] font-medium text-sm transition-all shadow-sm ${
+                className={`group inline-flex items-center space-x-3 px-6 py-3.5 rounded-full border hover:border-[#e11d48] font-medium text-sm transition-all shadow-sm ${
                   isDark
                     ? "bg-[#121217] border-white/10 text-white"
                     : "bg-white border-black/10 text-zinc-900"
                 }`}
               >
-                <YoutubeIcon className="w-4 h-4 text-[#E51E2B]" />
+                <YoutubeIcon className="w-4 h-4 text-[#e11d48]" />
                 <span>YouTube Showreels</span>
-                <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#E51E2B]" />
+                <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#e11d48]" />
               </a>
             )}
 
@@ -81,15 +81,15 @@ export default function SocialFollowBanner({ socialLinks }: SocialFollowBannerPr
                 href={socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group inline-flex items-center space-x-3 px-6 py-3.5 rounded-full border hover:border-[#E51E2B] font-medium text-sm transition-all shadow-sm ${
+                className={`group inline-flex items-center space-x-3 px-6 py-3.5 rounded-full border hover:border-[#e11d48] font-medium text-sm transition-all shadow-sm ${
                   isDark
                     ? "bg-[#121217] border-white/10 text-white"
                     : "bg-white border-black/10 text-zinc-900"
                 }`}
               >
-                <FacebookIcon className="w-4 h-4 text-[#E51E2B]" />
+                <FacebookIcon className="w-4 h-4 text-[#e11d48]" />
                 <span>Community Facebook</span>
-                <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#E51E2B]" />
+                <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#e11d48]" />
               </a>
             )}
           </div>

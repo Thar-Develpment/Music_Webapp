@@ -92,10 +92,10 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
     <div className="w-full pb-24">
       {/* 1. Cinematic Hero Header */}
       <section className="relative pt-32 pb-16 px-6 lg:px-12 overflow-hidden border-b border-[var(--subtle-border)]">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-96 bg-[#E51E2B]/10 blur-[150px] pointer-events-none rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-96 bg-[#e11d48]/10 blur-[150px] pointer-events-none rounded-full" />
 
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#E51E2B]/40 bg-[#E51E2B]/10 text-[#E51E2B] text-xs font-bold tracking-[0.2em] uppercase mb-6 shadow-sm">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#e11d48]/40 bg-[#e11d48]/10 text-[#e11d48] text-xs font-bold tracking-[0.2em] uppercase mb-6 shadow-sm">
             <Clapperboard className="w-3.5 h-3.5" />
             <span>Cinematic Noir Visual Archive</span>
           </div>
@@ -120,8 +120,8 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                   onClick={() => setActiveGenre(genre)}
                   className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                     active
-                      ? "bg-[#E51E2B] text-white shadow-lg shadow-[#E51E2B]/30 font-bold"
-                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#E51E2B]/40"
+                      ? "bg-[#e11d48] text-white shadow-lg shadow-[#e11d48]/30 font-bold"
+                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48]/40"
                   }`}
                 >
                   {genre}
@@ -157,7 +157,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
             <button
               type="button"
               onClick={() => setActiveGenre("All")}
-              className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#E51E2B] text-white hover:bg-[#D81A26] transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#e11d48] text-white hover:bg-[#D81A26] transition-colors"
             >
               Show All Films
             </button>
@@ -168,7 +168,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
               return (
                 <div
                   key={movie.id}
-                  className="group rounded-2xl overflow-hidden border border-[var(--subtle-border)] bg-[var(--card)] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-[#E51E2B]/50 hover:shadow-2xl hover:shadow-[#E51E2B]/10 cursor-pointer"
+                  className="group rounded-2xl overflow-hidden border border-[var(--subtle-border)] bg-[var(--card)] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-[#e11d48]/50 hover:shadow-2xl hover:shadow-[#e11d48]/10 cursor-pointer"
                   onClick={() => handleOpenPanel(movie)}
                 >
                   <div>
@@ -183,7 +183,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
 
                       {/* Play Hover Overlay */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity">
-                        <div className="w-12 h-12 rounded-full bg-[#E51E2B] text-white flex items-center justify-center shadow-lg shadow-[#E51E2B]/40 transform group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-full bg-[#e11d48] text-white flex items-center justify-center shadow-lg shadow-[#e11d48]/40 transform group-hover:scale-110 transition-transform">
                           <Play className="w-4 h-4 fill-white ml-0.5" />
                         </div>
                       </div>
@@ -207,7 +207,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                         <span>Dir. {movie.director}</span>
                       </div>
 
-                      <h3 className="font-heading font-extrabold text-xl uppercase tracking-wider text-[var(--foreground)] group-hover:text-[#E51E2B] transition-colors line-clamp-1">
+                      <h3 className="font-heading font-extrabold text-xl uppercase tracking-wider text-[var(--foreground)] group-hover:text-[#e11d48] transition-colors line-clamp-1">
                         {movie.title}
                       </h3>
 
@@ -222,7 +222,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
 
                   {/* Card Action Footer */}
                   <div className="px-6 pb-6 pt-3 border-t border-[var(--subtle-border)] flex items-center justify-between text-xs">
-                    <span className="text-[#E51E2B] font-bold tracking-wider uppercase flex items-center space-x-1 group-hover:underline">
+                    <span className="text-[#e11d48] font-bold tracking-wider uppercase flex items-center space-x-1 group-hover:underline">
                       <span>View Details &amp; Stream</span>
                       <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </span>
@@ -259,7 +259,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
               <button
                 type="button"
                 onClick={handleClosePanel}
-                className="group flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white bg-white/5 hover:bg-[#E51E2B] transition-all cursor-pointer"
+                className="group flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white bg-white/5 hover:bg-[#e11d48] transition-all cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 <span>← Back to Movies</span>
@@ -287,7 +287,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                 <div>
                   {/* Genre, Duration, Year, Featured Badges */}
                   <div className="flex flex-wrap items-center gap-2 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-[#E51E2B] text-white text-[11px] font-bold uppercase tracking-wider shadow-md shadow-[#E51E2B]/20">
+                    <span className="px-3 py-1 rounded-full bg-[#e11d48] text-white text-[11px] font-bold uppercase tracking-wider shadow-md shadow-[#e11d48]/20">
                       {selectedMovie.genre}
                     </span>
                     <span
@@ -323,7 +323,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
 
                   {/* Director Credit */}
                   <div className="flex items-center space-x-2 text-xs sm:text-sm text-zinc-400 mb-6">
-                    <User className="w-4 h-4 text-[#E51E2B]" />
+                    <User className="w-4 h-4 text-[#e11d48]" />
                     <span>
                       Directed by{" "}
                       <strong className={isDark ? "text-zinc-200" : "text-zinc-800"}>
@@ -338,7 +338,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                       isDark ? "border-white/10" : "border-black/10"
                     }`}
                   >
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-[#E51E2B] flex items-center gap-1.5">
+                    <h3 className="text-xs font-bold uppercase tracking-widest text-[#e11d48] flex items-center gap-1.5">
                       <Clapperboard className="w-3.5 h-3.5" />
                       <span>Synopsis &amp; Narrative</span>
                     </h3>
@@ -394,7 +394,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                     <button
                       type="button"
                       onClick={() => setIsPlayingTrailer(true)}
-                      className="px-6 py-3 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#E51E2B]/30 transition-all flex items-center space-x-2 cursor-pointer hover:scale-105"
+                      className="px-6 py-3 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/30 transition-all flex items-center space-x-2 cursor-pointer hover:scale-105"
                     >
                       <Play className="w-3.5 h-3.5 fill-white" />
                       <span>Stream Trailer</span>
@@ -407,8 +407,8 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                     rel="noopener noreferrer"
                     className={`px-5 py-3 rounded-full border text-xs font-bold uppercase tracking-wider transition-all flex items-center space-x-2 ${
                       isDark
-                        ? "border-white/15 bg-white/5 text-zinc-200 hover:text-white hover:border-[#E51E2B]/50"
-                        : "border-black/15 bg-black/5 text-zinc-800 hover:text-black hover:border-[#E51E2B]/50"
+                        ? "border-white/15 bg-white/5 text-zinc-200 hover:text-white hover:border-[#e11d48]/50"
+                        : "border-black/15 bg-black/5 text-zinc-800 hover:text-black hover:border-[#e11d48]/50"
                     }`}
                   >
                     <span>Open in YouTube</span>
@@ -452,7 +452,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                         <button
                           type="button"
                           onClick={() => setIsPlayingTrailer(true)}
-                          className="px-7 py-4 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white font-bold text-xs uppercase tracking-wider shadow-2xl shadow-[#E51E2B]/60 transition-all flex items-center space-x-3 cursor-pointer hover:scale-105"
+                          className="px-7 py-4 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white font-bold text-xs uppercase tracking-wider shadow-2xl shadow-[#e11d48]/60 transition-all flex items-center space-x-3 cursor-pointer hover:scale-105"
                         >
                           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                             <Play className="w-4 h-4 fill-white ml-0.5" />
@@ -477,7 +477,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                     <button
                       type="button"
                       onClick={() => setIsPlayingTrailer(false)}
-                      className="text-[#E51E2B] hover:underline font-bold text-[11px] uppercase tracking-wider cursor-pointer"
+                      className="text-[#e11d48] hover:underline font-bold text-[11px] uppercase tracking-wider cursor-pointer"
                     >
                       Show Poster
                     </button>

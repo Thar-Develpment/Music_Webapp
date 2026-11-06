@@ -3,7 +3,7 @@ import GalleryPageView from "@/components/site/GalleryPageView";
 import { getGalleryCategories, getGalleryItems } from "@/lib/supabase/service";
 
 export const metadata = {
-  title: "Gallery | Velvet Noir Recordings — Visual Archive",
+  title: "Gallery | One Roof Entertainment — Visual Archive",
   description:
     "Visual archive of live tours, recording sessions, orchestral tracking, and documentary stills.",
 };

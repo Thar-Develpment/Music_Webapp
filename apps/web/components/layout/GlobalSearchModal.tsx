@@ -22,7 +22,7 @@ interface GlobalSearchModalProps {
 }
 
 const sitePages = [
-  { name: "Home", href: "/", description: "Velvet Noir official portal, showcase & roster" },
+  { name: "Home", href: "/", description: "One Roof official portal, showcase & roster" },
   { name: "Movies & Cinema", href: "/movies", description: "4K concert films, feature documentaries & cinema" },
   { name: "Music & Discography", href: "/music", description: "Direct master vinyl cuts & high-resolution audio" },
   { name: "Album & Visual Archive", href: "/gallery", description: "Album stills, photography & visual archive" },
@@ -150,7 +150,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
             isDark ? "border-white/10 bg-[#14141D]" : "border-black/10 bg-zinc-50"
           }`}
         >
-          <Search className="w-5 h-5 text-[#E51E2B] shrink-0 mr-3" />
+          <Search className="w-5 h-5 text-[#e11d48] shrink-0 mr-3" />
           <input
             ref={inputRef}
             type="text"
@@ -208,8 +208,8 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                         onClick={() => handleSelectMovie(movie)}
                         className={`flex items-center justify-between p-2.5 rounded-xl border transition-all cursor-pointer group ${
                           isDark
-                            ? "bg-[#151520] border-white/5 hover:border-[#E51E2B]/50 hover:bg-[#1a1a28]"
-                            : "bg-zinc-50 border-black/5 hover:border-[#E51E2B]/50 hover:bg-zinc-100"
+                            ? "bg-[#151520] border-white/5 hover:border-[#e11d48]/50 hover:bg-[#1a1a28]"
+                            : "bg-zinc-50 border-black/5 hover:border-[#e11d48]/50 hover:bg-zinc-100"
                         }`}
                       >
                         <div className="flex items-center space-x-3 min-w-0">
@@ -223,7 +223,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                             )}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide truncate group-hover:text-[#E51E2B] transition-colors">
+                            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide truncate group-hover:text-[#e11d48] transition-colors">
                               {movie.title}
                             </h4>
                             <div className="text-[10px] text-zinc-400 flex items-center space-x-1.5 mt-0.5">
@@ -240,7 +240,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                           <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
                             {movie.genre}
                           </span>
-                          <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#E51E2B] group-hover:translate-x-0.5 transition-all" />
+                          <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#e11d48] group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </div>
                     ))}
@@ -251,7 +251,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
               {/* Music Section */}
               {matchedMusic.length > 0 && (
                 <div>
-                  <div className="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-[#E51E2B] mb-3 px-1">
+                  <div className="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-[#e11d48] mb-3 px-1">
                     <Music className="w-3.5 h-3.5" />
                     <span>Master Audio Tracks ({matchedMusic.length})</span>
                   </div>
@@ -262,8 +262,8 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                         onClick={() => handleSelectMusic(track)}
                         className={`flex items-center justify-between p-2.5 rounded-xl border transition-all cursor-pointer group ${
                           isDark
-                            ? "bg-[#151520] border-white/5 hover:border-[#E51E2B]/50 hover:bg-[#1a1a28]"
-                            : "bg-zinc-50 border-black/5 hover:border-[#E51E2B]/50 hover:bg-zinc-100"
+                            ? "bg-[#151520] border-white/5 hover:border-[#e11d48]/50 hover:bg-[#1a1a28]"
+                            : "bg-zinc-50 border-black/5 hover:border-[#e11d48]/50 hover:bg-zinc-100"
                         }`}
                       >
                         <div className="flex items-center space-x-3 min-w-0">
@@ -277,7 +277,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                             )}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide truncate group-hover:text-[#E51E2B] transition-colors">
+                            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide truncate group-hover:text-[#e11d48] transition-colors">
                               {track.title}
                             </h4>
                             <div className="text-[10px] text-zinc-400 flex items-center space-x-1.5 mt-0.5">
@@ -292,7 +292,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                           <span className="hidden sm:inline-block font-mono text-[10px] text-zinc-400">
                             {track.duration}
                           </span>
-                          <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#E51E2B] group-hover:translate-x-0.5 transition-all" />
+                          <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#e11d48] group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </div>
                     ))}
@@ -319,14 +319,14 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                         }`}
                       >
                         <div className="min-w-0">
-                          <div className="text-xs font-bold uppercase tracking-wide group-hover:text-[#E51E2B] transition-colors">
+                          <div className="text-xs font-bold uppercase tracking-wide group-hover:text-[#e11d48] transition-colors">
                             {page.name}
                           </div>
                           <div className="text-[10px] text-zinc-500 truncate mt-0.5">
                             {page.description}
                           </div>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#E51E2B] group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                        <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#e11d48] group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
                       </div>
                     ))}
                   </div>
@@ -346,8 +346,8 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
             <span className="font-semibold text-zinc-400">Tip:</span>
             <span>Press Enter to select or Esc to dismiss</span>
           </div>
-          <span className="text-[10px] uppercase font-mono tracking-widest text-[#E51E2B]">
-            Velvet Noir Global Search
+          <span className="text-[10px] uppercase font-mono tracking-widest text-[#e11d48]">
+            One Roof Global Search
           </span>
         </div>
       </div>

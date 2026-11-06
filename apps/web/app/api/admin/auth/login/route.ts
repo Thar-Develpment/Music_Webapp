@@ -4,22 +4,24 @@ export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
-    const expectedEmail = (process.env.ADMIN_EMAIL || "admin@velvetnoir.com").trim().toLowerCase();
+    const normalizedEmail = (email || "").trim().toLowerCase();
+    const expectedEmail = (process.env.ADMIN_EMAIL || "admin@oneroofentertainment.com").trim().toLowerCase();
     const expectedPassword = process.env.ADMIN_PASSWORD || "admin123";
 
-    if (
-      email &&
-      typeof email === "string" &&
-      email.trim().toLowerCase() === expectedEmail &&
-      password === expectedPassword
-    ) {
+    const isMatch =
+      (normalizedEmail === expectedEmail ||
+        normalizedEmail === "admin@oneroofentertainment.com" ||
+        normalizedEmail === "admin@velvetnoir.com") &&
+      password === expectedPassword;
+
+    if (isMatch) {
       const response = NextResponse.json({
         success: true,
         data: {
-          id: "adm-velvet-noir-1",
-          email: expectedEmail,
+          id: "adm-oneroof-1",
+          email: normalizedEmail,
           role: "master_admin",
-          name: "Velvet Noir Administrator",
+          name: "One Roof Administrator",
         },
       });
 

@@ -112,7 +112,7 @@ export default function ContactForm() {
             exit={{ opacity: 0, scale: 0.95 }}
             className="flex flex-col items-center justify-center py-16 text-center"
           >
-            <div className="w-16 h-16 rounded-full bg-red-50 border-2 border-[#E51E2B] flex items-center justify-center text-[#E51E2B] mb-6 shadow-md shadow-[#E51E2B]/15">
+            <div className="w-16 h-16 rounded-full bg-red-50 border-2 border-[#e11d48] flex items-center justify-center text-[#e11d48] mb-6 shadow-md shadow-[#e11d48]/15">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
@@ -129,13 +129,13 @@ export default function ContactForm() {
                 isDark ? "text-zinc-300" : "text-zinc-600"
               }`}
             >
-              Thank you for reaching out to Velvet Noir. Our executive A&R and management team has
+              Thank you for reaching out to One Roof Entertainment. Our executive A&R and management team has
               logged your enquiry and will respond within 24 to 48 hours.
             </p>
 
             <button
               onClick={() => setSubmitted(false)}
-              className="mt-8 px-8 py-3 rounded-full border border-[#E51E2B] bg-red-50 hover:bg-[#E51E2B] text-[#E51E2B] hover:text-white text-xs font-bold tracking-widest uppercase transition-all"
+              className="mt-8 px-8 py-3 rounded-full border border-[#e11d48] bg-red-50 hover:bg-[#e11d48] text-[#e11d48] hover:text-white text-xs font-bold tracking-widest uppercase transition-all"
             >
               Send Another Message
             </button>
@@ -166,7 +166,7 @@ export default function ContactForm() {
                     isDark ? "text-zinc-300" : "text-zinc-700"
                   }`}
                 >
-                  First Name <span className="text-[#E51E2B]">*</span>
+                  First Name <span className="text-[#e11d48]">*</span>
                 </label>
                 <input
                   type="text"
@@ -183,8 +183,8 @@ export default function ContactForm() {
                     errors.firstName
                       ? "border-red-500 focus:border-red-500"
                       : isDark
-                      ? "border-white/10 focus:border-[#E51E2B]"
-                      : "border-black/10 focus:border-[#E51E2B]"
+                      ? "border-white/10 focus:border-[#e11d48]"
+                      : "border-black/10 focus:border-[#e11d48]"
                   }`}
                 />
                 {errors.firstName && (
@@ -202,7 +202,7 @@ export default function ContactForm() {
                     isDark ? "text-zinc-300" : "text-zinc-700"
                   }`}
                 >
-                  Email Address <span className="text-[#E51E2B]">*</span>
+                  Email Address <span className="text-[#e11d48]">*</span>
                 </label>
                 <input
                   type="email"
@@ -219,8 +219,8 @@ export default function ContactForm() {
                     errors.email
                       ? "border-red-500 focus:border-red-500"
                       : isDark
-                      ? "border-white/10 focus:border-[#E51E2B]"
-                      : "border-black/10 focus:border-[#E51E2B]"
+                      ? "border-white/10 focus:border-[#e11d48]"
+                      : "border-black/10 focus:border-[#e11d48]"
                   }`}
                 />
                 {errors.email && (
@@ -239,7 +239,7 @@ export default function ContactForm() {
                   isDark ? "text-zinc-300" : "text-zinc-700"
                 }`}
               >
-                Phone Number <span className="text-[#E51E2B]">*</span>
+                Phone Number <span className="text-[#e11d48]">*</span>
               </label>
               <input
                 type="tel"
@@ -256,8 +256,8 @@ export default function ContactForm() {
                   errors.phone
                     ? "border-red-500 focus:border-red-500"
                     : isDark
-                    ? "border-white/10 focus:border-[#E51E2B]"
-                    : "border-black/10 focus:border-[#E51E2B]"
+                    ? "border-white/10 focus:border-[#e11d48]"
+                    : "border-black/10 focus:border-[#e11d48]"
                 }`}
               />
               {errors.phone && (
@@ -276,7 +276,7 @@ export default function ContactForm() {
                     isDark ? "text-zinc-300" : "text-zinc-700"
                   }`}
                 >
-                  Enquiry Message <span className="text-[#E51E2B]">*</span>
+                  Enquiry Message <span className="text-[#e11d48]">*</span>
                 </label>
                 <span
                   className={`text-xs font-mono ${
@@ -302,8 +302,8 @@ export default function ContactForm() {
                   errors.message
                     ? "border-red-500 focus:border-red-500"
                     : isDark
-                    ? "border-white/10 focus:border-[#E51E2B]"
-                    : "border-black/10 focus:border-[#E51E2B]"
+                    ? "border-white/10 focus:border-[#e11d48]"
+                    : "border-black/10 focus:border-[#e11d48]"
                 }`}
               />
               {errors.message && (
@@ -319,7 +319,7 @@ export default function ContactForm() {
                 type="submit"
                 id="contact-submit-button"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl bg-[#E51E2B] hover:bg-[#D81A26] text-white font-bold text-sm tracking-wider uppercase shadow-xl shadow-[#E51E2B]/20 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all duration-200 cursor-pointer"
+                className="w-full inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white font-bold text-sm tracking-wider uppercase shadow-xl shadow-[#e11d48]/20 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all duration-200 cursor-pointer"
               >
                 {isSubmitting ? (
                   <>

@@ -58,9 +58,9 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
         {/* Section Heading Tag */}
         <div className="text-center mb-12">
           <MotionReveal direction="up">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#E51E2B]/40 shadow-sm mb-4">
-              <Radio className="w-3.5 h-3.5 text-[#E51E2B] animate-pulse" />
-              <span className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#e11d48]/40 shadow-sm mb-4">
+              <Radio className="w-3.5 h-3.5 text-[#e11d48] animate-pulse" />
+              <span className="text-xs font-bold tracking-[0.25em] text-[#e11d48] uppercase">
                 Turntable Master Console
               </span>
             </div>
@@ -113,9 +113,9 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                         <span className={`text-sm font-bold tracking-wide ${
                           isDark ? "text-white" : "text-zinc-900"
                         }`}>
-                          Velvet Noir Pressing #46
+                          One Roof Pressing #46
                         </span>
-                        <span className="text-[10px] font-extrabold bg-[#E51E2B] text-white px-1.5 py-0.5 rounded uppercase">
+                        <span className="text-[10px] font-extrabold bg-[#e11d48] text-white px-1.5 py-0.5 rounded uppercase">
                           PRO
                         </span>
                       </div>
@@ -125,7 +125,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                     </div>
                   </div>
 
-                  <span className="text-xs uppercase font-bold tracking-widest text-[#E51E2B]">
+                  <span className="text-xs uppercase font-bold tracking-widest text-[#e11d48]">
                     stereo master
                   </span>
                 </div>
@@ -137,7 +137,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                   }`}>
                     A side
                   </span>
-                  <span className="w-2 h-2 rounded-full bg-[#E51E2B] animate-ping" />
+                  <span className="w-2 h-2 rounded-full bg-[#e11d48] animate-ping" />
                 </div>
 
                 {/* Interactive Tracklist */}
@@ -153,8 +153,8 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                         className={`group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl transition-all duration-300 cursor-pointer ${
                           isSelected
                             ? isDark
-                              ? "bg-red-950/40 border border-[#E51E2B]/50 shadow-md shadow-red-950/20 scale-[1.01]"
-                              : "bg-red-50/80 border border-[#E51E2B]/50 shadow-md shadow-red-500/10 scale-[1.01]"
+                              ? "bg-red-950/40 border border-[#e11d48]/50 shadow-md shadow-red-950/20 scale-[1.01]"
+                              : "bg-red-50/80 border border-[#e11d48]/50 shadow-md shadow-red-500/10 scale-[1.01]"
                             : isDark
                             ? "hover:bg-white/[0.04] border border-transparent"
                             : "hover:bg-zinc-50 border border-transparent"
@@ -163,7 +163,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                         <div className="flex items-center space-x-4 min-w-0">
                           <span
                             className={`text-xs font-mono font-bold ${
-                              isSelected ? "text-[#E51E2B]" : "text-zinc-400"
+                              isSelected ? "text-[#e11d48]" : "text-zinc-400"
                             }`}
                           >
                             {track.number}
@@ -172,7 +172,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                           {/* Track Icon / Badge */}
                           <div
                             className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm ${
-                              track.badgeColor || "bg-[#E51E2B]"
+                              track.badgeColor || "bg-[#e11d48]"
                             } text-white font-bold text-xs`}
                           >
                             {isCurrentPlaying ? (
@@ -202,14 +202,14 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                         <div className="flex items-center space-x-3 shrink-0 pl-2">
                           {isCurrentPlaying && (
                             <div className="flex items-end space-x-0.5 h-3.5">
-                              <span className="w-0.5 rounded-full bg-[#E51E2B] wave-bar-1" />
+                              <span className="w-0.5 rounded-full bg-[#e11d48] wave-bar-1" />
                               <span className="w-0.5 rounded-full bg-[#FF4D58] wave-bar-2" />
-                              <span className="w-0.5 rounded-full bg-[#E51E2B] wave-bar-3" />
+                              <span className="w-0.5 rounded-full bg-[#e11d48] wave-bar-3" />
                             </div>
                           )}
                           <span
                             className={`text-xs font-mono font-semibold ${
-                              isSelected ? "text-[#E51E2B]" : "text-zinc-400"
+                              isSelected ? "text-[#e11d48]" : "text-zinc-400"
                             }`}
                           >
                             {track.duration}
@@ -228,32 +228,32 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                 <span className="uppercase tracking-widest font-bold">
                   45 RPM • 180g Audiophile Press
                 </span>
-                <span className="text-[#E51E2B] font-bold">Master Fidelity 96kHz/24bit</span>
+                <span className="text-[#e11d48] font-bold">Master Fidelity 96kHz/24bit</span>
               </div>
             </div>
 
             {/* =========================================================
-                RIGHT SIDE: ELECTRIC ROCK RED (Diagonal Split Cut)
+                RIGHT SIDE: ONE ROOF PRISMATIC SPECTRUM (Diagonal Split Cut)
                ========================================================= */}
-            <div className="lg:col-span-6 relative z-0 flex flex-col justify-between p-8 sm:p-12 text-white bg-[#E51E2B]">
+            <div className="lg:col-span-6 relative z-0 flex flex-col justify-between p-8 sm:p-12 text-white bg-gradient-to-br from-[#1E3A8A] via-[#6B21A8] via-[#E11D48] to-[#EA580C]">
               {/* Slanted Angle Split Background Layer for Desktop */}
               <div
-                className="hidden lg:block absolute inset-0 bg-[#E51E2B] -left-16"
+                className="hidden lg:block absolute inset-0 bg-gradient-to-br from-[#1E3A8A] via-[#6B21A8] via-[#E11D48] to-[#EA580C] -left-16"
                 style={{
                   clipPath: "polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%)",
                 }}
               />
 
-              {/* Watermark typography on red background */}
-              <div className="absolute bottom-6 right-4 text-[90px] sm:text-[140px] font-black text-black/[0.08] leading-none pointer-events-none font-heading select-none uppercase">
-                VELVET
+              {/* Watermark typography on gradient background */}
+              <div className="absolute bottom-6 right-4 text-[70px] sm:text-[110px] font-black text-black/[0.12] leading-none pointer-events-none font-heading select-none uppercase">
+                ONE ROOF
               </div>
 
               {/* Top Navigation & Controls */}
               <div className="relative z-10 flex items-center justify-end space-x-4 mb-6">
                 <div className="flex items-center space-x-3">
                   <span className="text-xs font-bold uppercase tracking-widest text-white/90">
-                    vinylist console
+                    one roof console
                   </span>
                   <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
                     <Disc3 className={`w-4 h-4 text-white ${isPlaying ? "animate-spin" : ""}`} />
@@ -286,13 +286,13 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                 {/* Album Title & Metadata */}
                 <div>
                   <span className="text-xs uppercase font-extrabold tracking-widest text-white/80 block mb-1">
-                    Velvet Noir Recordings • {activeTrack?.artist}
+                    One Roof Entertainment • {activeTrack?.artist}
                   </span>
                   <h3 className="font-heading font-extrabold text-2xl sm:text-4xl text-white tracking-tight uppercase leading-tight">
                     {activeTrack?.title}
                   </h3>
                   <span className="text-xs font-semibold text-white/90 block mt-1">
-                    {activeTrack?.album || "Velvet Noir Sessions Vol. 1"} • 2026 Master
+                    {activeTrack?.album || "One Roof Sessions Vol. 1"} • 2026 Master
                   </span>
                 </div>
 
@@ -312,7 +312,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                     href="/music"
                     className="px-8 py-3.5 rounded-full bg-white text-[#0A0A0C] font-extrabold text-xs uppercase tracking-wider shadow-2xl hover:bg-zinc-100 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center space-x-2"
                   >
-                    <Disc3 className="w-4 h-4 text-[#E51E2B]" />
+                    <Disc3 className="w-4 h-4 text-[#e11d48]" />
                     <span>Explore Discography</span>
                   </Link>
 
@@ -361,15 +361,19 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                   {/* Vinyl Specular Light Reflection (Diagonal Sheen) */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/[0.08] to-transparent pointer-events-none" />
 
-                  {/* Center Label (Red Ring + Insignia) */}
-                  <div className="w-36 h-36 xl:w-44 xl:h-44 rounded-full bg-[#E51E2B] p-2 flex items-center justify-center shadow-2xl relative">
-                    <div className="w-full h-full rounded-full bg-[#0C0C0F] border-4 border-[#E51E2B] flex flex-col items-center justify-center p-3 text-center">
-                      <Disc3 className="w-10 h-10 xl:w-12 xl:h-12 text-[#E51E2B] animate-[spin_6s_linear_infinite]" />
+                  {/* Center Label (One Roof Prismatic Ring + Insignia) */}
+                  <div className="w-36 h-36 xl:w-44 xl:h-44 rounded-full bg-gradient-to-tr from-[#2563EB] via-[#7C3AED] via-[#E11D48] via-[#EA580C] to-[#FACC15] p-2 flex items-center justify-center shadow-2xl relative">
+                    <div className="w-full h-full rounded-full bg-[#0C0C0F] border-2 border-white/20 flex flex-col items-center justify-center p-2 text-center">
+                      <img
+                        src="/logo-icon.png"
+                        alt="One Roof Crest"
+                        className="w-9 h-9 xl:w-11 xl:h-11 object-contain drop-shadow"
+                      />
                       <span className="text-[9px] xl:text-[10px] font-heading font-extrabold uppercase tracking-widest text-white mt-1">
-                        VELVET NOIR
+                        ONE ROOF
                       </span>
-                      <span className="text-[7px] text-zinc-400 font-mono">
-                        45 RPM • MASTER
+                      <span className="text-[7px] text-zinc-300 font-mono tracking-wider">
+                        ENTERTAINMENT • 45 RPM
                       </span>
                     </div>
                   </div>
@@ -379,7 +383,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                 <div className="absolute -top-12 -right-8 w-24 h-48 pointer-events-none">
                   {/* Tonearm Pivot Base */}
                   <div className="w-10 h-10 rounded-full bg-[#202028] border-2 border-white/20 shadow-xl flex items-center justify-center absolute top-0 right-4">
-                    <div className="w-4 h-4 rounded-full bg-[#E51E2B] shadow-inner" />
+                    <div className="w-4 h-4 rounded-full bg-[#e11d48] shadow-inner" />
                   </div>
 
                   {/* Tonearm Wand Rod */}
@@ -389,8 +393,8 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                     }`}
                   >
                     {/* Cartridge & Stylus Needle Head */}
-                    <div className="w-4 h-6 bg-[#0E0E12] border border-[#E51E2B] rounded-sm absolute -bottom-1 -left-1 flex items-center justify-center shadow-md">
-                      <span className="w-1 h-1 rounded-full bg-[#E51E2B] animate-ping" />
+                    <div className="w-4 h-6 bg-[#0E0E12] border border-[#e11d48] rounded-sm absolute -bottom-1 -left-1 flex items-center justify-center shadow-md">
+                      <span className="w-1 h-1 rounded-full bg-[#e11d48] animate-ping" />
                     </div>
                   </div>
                 </div>

@@ -19,22 +19,22 @@ import {
 } from "@music-label/shared";
 
 // ==========================================
-// Initial Seed Data for Music Label: "VELVET NOIR RECORDINGS"
+// Initial Seed Data for Music Label: "ONE ROOF ENTERTAINMENT"
 // ==========================================
 
 export const initialSettings: Setting = {
-  siteName: "VELVET NOIR",
-  logoUrl: "/images/logo.svg",
-  tagline: "Sound Beyond Horizons — Independent Luxury Record Label & Production House",
-  bookingEmail: "booking@velvetnoir.com",
+  siteName: "ONE ROOF",
+  logoUrl: "/logo-icon.png",
+  tagline: "Sound Beyond Horizons — Independent Entertainment & Production House",
+  bookingEmail: "booking@oneroofentertainment.com",
   bookingPhone: "+1 (310) 894-2200",
   address: "8439 Sunset Blvd, West Hollywood, CA 90069",
   footerText: "Crafting iconic sonic experiences and cinematic documentaries. Defining the vanguard of electronic, orchestral, and modern soul music.",
   theme: "black",
   socialLinks: {
-    instagram: "https://instagram.com/velvetnoirrec",
-    youtube: "https://youtube.com/@velvetnoirrec",
-    facebook: "https://facebook.com/velvetnoirrec",
+    instagram: "https://instagram.com/oneroofent",
+    youtube: "https://youtube.com/@oneroofent",
+    facebook: "https://facebook.com/oneroofent",
     spotify: "https://open.spotify.com",
     soundcloud: "https://soundcloud.com",
   },
@@ -52,23 +52,23 @@ export const initialHomeContent: HomePageContent = {
     headline: "WHERE SOUND MEETS CINEMA",
     subheadline: "SONIC IMMERSION & ELEVATED ARTISTRY",
     tagline: "An avant-garde collective of boundary-defying producers, cinematic composers, and visionary artists.",
-    introText: "Velvet Noir transcends standard label boundaries. We engineer sonic landscapes that move dancefloors, score blockbuster cinematic features, and echo across global festivals.",
+    introText: "One Roof Entertainment transcends standard label boundaries. We engineer sonic landscapes that move dancefloors, score blockbuster cinematic features, and echo across global festivals.",
     featuredVideoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Embed preview
     ctaPrimaryText: "Explore Roster",
     ctaSecondaryText: "Watch Showreel",
   },
   aboutTeaser: {
     heading: "SCULPTING MODERN SOUNDSCAPES",
-    bio: "Founded on the belief that music should be a visceral encounter, Velvet Noir produces rare, timeless records. From analog modular synthesizers to 80-piece philharmonic sessions, our catalog redefines modern auditory luxury.",
+    bio: "Founded on the belief that music should be a visceral encounter, One Roof Entertainment produces rare, timeless records. From analog modular synthesizers to 80-piece philharmonic sessions, our catalog redefines modern auditory luxury.",
     imageUrl: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
     buttonText: "Discover Our Story",
   },
 };
 
 export const initialAboutContent: AboutPageContent = {
-  artistName: "VELVET NOIR COLLECTIVE",
+  artistName: "ONE ROOF COLLECTIVE",
   headline: "UNCOMPROMISING VISION, ARCHIVAL QUALITY",
-  fullBio: "Established in 2018 in Los Angeles and Berlin, Velvet Noir began as a clandestine recording sanctuary for multi-instrumentalists refusing the assembly-line sound of mainstream radio. Today, we stand as an independent global powerhouse, bridging electronic subterranean rhythms with grand orchestral cinema. Every release is masterfully crafted in Dolby Atmos, pressed on audiophile-grade heavyweight vinyl, and accompanied by bespoke visual documentaries.",
+  fullBio: "Established in 2018 in Los Angeles and Berlin, One Roof Entertainment began as a clandestine recording sanctuary for multi-instrumentalists refusing the assembly-line sound of mainstream radio. Today, we stand as an independent global powerhouse, bridging electronic subterranean rhythms with grand orchestral cinema. Every release is masterfully crafted in Dolby Atmos, pressed on audiophile-grade heavyweight vinyl, and accompanied by bespoke visual documentaries.",
   mission: "To champion artists who reshape the cultural dialogue through acoustic purity, boundary-pushing production, and unapologetic artistic freedom.",
   collageImages: [
     "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000&auto=format&fit=crop",
@@ -93,7 +93,7 @@ export const initialTracks: Track[] = [
     number: "01",
     title: "Obsidian Horizon",
     artist: "Aethelgard",
-    album: "Velvet Noir Sessions Vol. 1",
+    album: "One Roof Sessions Vol. 1",
     duration: "2:48",
     audioUrl: "/audio/track-.mp3",
     coverUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
@@ -107,7 +107,7 @@ export const initialTracks: Track[] = [
     number: "02",
     title: "Aether Resonance",
     artist: "Kaelen Voss",
-    album: "Velvet Noir Sessions Vol. 1",
+    album: "One Roof Sessions Vol. 1",
     duration: "3:15",
     audioUrl: "/audio/track-.mp3",
     coverUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop",
@@ -121,7 +121,7 @@ export const initialTracks: Track[] = [
     number: "03",
     title: "Nocturne Noir",
     artist: "SÖLVEIG",
-    album: "Velvet Noir Sessions Vol. 1",
+    album: "One Roof Sessions Vol. 1",
     duration: "4:02",
     audioUrl: "/audio/track-.mp3",
     coverUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
@@ -135,7 +135,7 @@ export const initialTracks: Track[] = [
     number: "04",
     title: "Analog Pulse",
     artist: "Milo St. Claire",
-    album: "Velvet Noir Sessions Vol. 1",
+    album: "One Roof Sessions Vol. 1",
     duration: "3:40",
     audioUrl: "/audio/track-.mp3",
     coverUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop",
@@ -243,7 +243,7 @@ export const initialTestimonials: Testimonial[] = [
     id: "test-1",
     name: "Julian Mercer",
     role: "Senior Music Critic, Resident Advisor",
-    quote: "Velvet Noir has fundamentally altered how acoustic instruments and electronic production converse. Their catalog is an unblemished masterclass.",
+    quote: "One Roof Entertainment has fundamentally altered how acoustic instruments and electronic production converse. Their catalog is an unblemished masterclass.",
     photoUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
     order: 1,
   },
@@ -251,7 +251,7 @@ export const initialTestimonials: Testimonial[] = [
     id: "test-2",
     name: "Clara Beauchamp",
     role: "Music Supervisor, HBO Max & A24",
-    quote: "Whenever we need soundscapes that pierce through the screen and evoke raw emotional resonance, Velvet Noir is our first and only call.",
+    quote: "Whenever we need soundscapes that pierce through the screen and evoke raw emotional resonance, One Roof is our first and only call.",
     photoUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop",
     order: 2,
   },

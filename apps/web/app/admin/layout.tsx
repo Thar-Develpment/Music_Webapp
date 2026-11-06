@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { SiteTheme } from "@music-label/shared";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import OneRoofLogo from "@/components/ui/OneRoofLogo";
 
 const adminNav = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -122,22 +123,8 @@ export default function AdminLayout({
             isDark ? "border-white/10" : "border-black/[0.08]"
           }`}
         >
-          <Link href="/admin" className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-full border border-[#E51E2B]/30 bg-[#FEF2F2]/10 flex items-center justify-center text-[#E51E2B]">
-              <Disc3 className="w-4 h-4 animate-[spin_10s_linear_infinite]" />
-            </div>
-            <div className="flex flex-col">
-              <span
-                className={`font-heading font-extrabold text-sm tracking-wider ${
-                  isDark ? "text-white" : "text-[#09090B]"
-                }`}
-              >
-                VELVET NOIR
-              </span>
-              <span className="text-[9px] tracking-widest text-[#E51E2B] uppercase font-bold">
-                Admin Console
-              </span>
-            </div>
+          <Link href="/admin" className="flex items-center">
+            <OneRoofLogo size="sm" variant="horizontal" />
           </Link>
         </div>
 
@@ -156,7 +143,7 @@ export default function AdminLayout({
                 id={`admin-nav-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-200 ${
                   isActive
-                    ? "bg-[#E51E2B] text-white shadow-md shadow-[#E51E2B]/20 font-bold"
+                    ? "bg-[#e11d48] text-white shadow-md shadow-[#e11d48]/20 font-bold"
                     : isDark
                     ? "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
                     : "text-zinc-600 hover:text-black hover:bg-black/[0.04]"
@@ -170,8 +157,8 @@ export default function AdminLayout({
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                       isActive
-                        ? "bg-white text-[#E51E2B]"
-                        : "bg-[#E51E2B] text-white"
+                        ? "bg-white text-[#e11d48]"
+                        : "bg-[#e11d48] text-white"
                     }`}
                   >
                     {unreadCount}
@@ -198,7 +185,7 @@ export default function AdminLayout({
             }`}
           >
             <div className="flex items-center space-x-2">
-              <ExternalLink className="w-3.5 h-3.5 text-[#E51E2B]" />
+              <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
               <span>View Live Website</span>
             </div>
           </Link>
@@ -234,7 +221,7 @@ export default function AdminLayout({
               {mobileSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
             <div className="flex items-center space-x-2">
-              <span className="text-xs uppercase tracking-widest text-[#E51E2B] font-semibold hidden sm:inline-block">
+              <span className="text-xs uppercase tracking-widest text-[#e11d48] font-semibold hidden sm:inline-block">
                 Label Management System
               </span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium hidden sm:inline-flex items-center gap-1">
@@ -268,7 +255,7 @@ export default function AdminLayout({
                       : "text-zinc-500 hover:text-black"
                   }`}
                 >
-                  <Sun className="w-3 h-3 text-[#E51E2B]" />
+                  <Sun className="w-3 h-3 text-[#e11d48]" />
                   <span>White</span>
                 </button>
                 <button
@@ -278,7 +265,7 @@ export default function AdminLayout({
                   title="Switch to Obsidian Black & Red theme (requires confirmation)"
                   className={`flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                     theme === "black"
-                      ? "bg-[#E51E2B] text-white shadow-sm font-extrabold"
+                      ? "bg-[#e11d48] text-white shadow-sm font-extrabold"
                       : isDark
                       ? "text-zinc-400 hover:text-white"
                       : "text-zinc-500 hover:text-black"
@@ -301,7 +288,7 @@ export default function AdminLayout({
             >
               <Bell className="w-4 h-4" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E51E2B] text-white text-[9px] font-bold flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#e11d48] text-white text-[9px] font-bold flex items-center justify-center">
                   {unreadCount}
                 </span>
               )}
@@ -312,7 +299,7 @@ export default function AdminLayout({
                 isDark ? "border-white/10" : "border-black/10"
               }`}
             >
-              <div className="w-7 h-7 rounded-full bg-[#FEF2F2]/10 border border-[#E51E2B]/40 flex items-center justify-center text-xs font-bold text-[#E51E2B]">
+              <div className="w-7 h-7 rounded-full bg-[#FEF2F2]/10 border border-[#e11d48]/40 flex items-center justify-center text-xs font-bold text-[#e11d48]">
                 A
               </div>
               <div className="hidden sm:flex flex-col">
@@ -321,7 +308,7 @@ export default function AdminLayout({
                 >
                   Administrator
                 </span>
-                <span className="text-[10px] text-zinc-400">admin@velvetnoir.com</span>
+                <span className="text-[10px] text-zinc-400">admin@oneroofentertainment.com</span>
               </div>
             </div>
           </div>
@@ -348,7 +335,7 @@ export default function AdminLayout({
                     onClick={() => setMobileSidebarOpen(false)}
                     className={`flex items-center justify-between p-3 rounded-xl text-sm font-semibold uppercase ${
                       isActive
-                        ? "bg-[#E51E2B] text-white"
+                        ? "bg-[#e11d48] text-white"
                         : isDark
                         ? "text-zinc-400 hover:bg-white/[0.06]"
                         : "text-zinc-600 hover:bg-black/5"
@@ -374,7 +361,7 @@ export default function AdminLayout({
                     isDark ? "text-zinc-400 hover:text-white" : "text-zinc-600 hover:text-black"
                   }`}
                 >
-                  <ExternalLink className="w-4 h-4 text-[#E51E2B]" />
+                  <ExternalLink className="w-4 h-4 text-[#e11d48]" />
                   <span>View Live Website</span>
                 </Link>
                 <button
@@ -400,7 +387,7 @@ export default function AdminLayout({
               }`}
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-[#E51E2B]/10 border border-[#E51E2B]/30 flex items-center justify-center text-[#E51E2B] shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#e11d48]/10 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48] shrink-0">
                   <AlertCircle className="w-5 h-5" />
                 </div>
                 <div>
@@ -417,7 +404,7 @@ export default function AdminLayout({
                 }`}
               >
                 Are you sure you want to change the active theme to{" "}
-                <span className="font-bold text-[#E51E2B] uppercase">
+                <span className="font-bold text-[#e11d48] uppercase">
                   {themeConfirmTarget === "black"
                     ? "Obsidian Black & Red"
                     : "Alabaster White & Red"}
@@ -442,7 +429,7 @@ export default function AdminLayout({
                   type="button"
                   id="confirm-theme-change-btn"
                   onClick={handleConfirmThemeSwitch}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#E51E2B] hover:bg-[#D81A26] text-white shadow-lg shadow-[#E51E2B]/30 transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#e11d48] hover:bg-[#D81A26] text-white shadow-lg shadow-[#e11d48]/30 transition-all cursor-pointer"
                 >
                   Confirm & Switch
                 </button>

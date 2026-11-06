@@ -43,11 +43,11 @@ export default function AboutView({
               <div
                 className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border shadow-sm mb-4 ${
                   isDark
-                    ? "bg-[#E51E2B]/10 border-[#E51E2B]/40 text-[#E51E2B]"
-                    : "bg-red-50/80 border-[#E51E2B]/30 text-[#E51E2B]"
+                    ? "bg-[#e11d48]/10 border-[#e11d48]/40 text-[#e11d48]"
+                    : "bg-red-50/80 border-[#e11d48]/30 text-[#e11d48]"
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E51E2B]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48]" />
                 <span className="text-xs font-bold tracking-[0.25em] uppercase">
                   Archival Identity
                 </span>
@@ -59,7 +59,7 @@ export default function AboutView({
               >
                 {about.headline}
               </h2>
-              <p className="first-letter:text-6xl first-letter:font-heading first-letter:font-extrabold first-letter:text-[#E51E2B] first-letter:float-left first-letter:mr-3.5 first-letter:leading-none">
+              <p className="first-letter:text-6xl first-letter:font-heading first-letter:font-extrabold first-letter:text-[#e11d48] first-letter:float-left first-letter:mr-3.5 first-letter:leading-none">
                 {about.fullBio}
               </p>
             </MotionReveal>
@@ -68,12 +68,12 @@ export default function AboutView({
               <div
                 className={`p-8 sm:p-10 rounded-3xl border shadow-md relative overflow-hidden my-8 glass-shimmer ${
                   isDark
-                    ? "bg-[#16161D]/90 border-[#E51E2B]/35 shadow-black/40"
-                    : "bg-red-50/80 border-[#E51E2B]/30"
+                    ? "bg-[#16161D]/90 border-[#e11d48]/35 shadow-black/40"
+                    : "bg-red-50/80 border-[#e11d48]/30"
                 }`}
               >
                 <div className="flex items-center space-x-2 mb-3">
-                  <ShieldCheck className="w-5 h-5 text-[#E51E2B]" />
+                  <ShieldCheck className="w-5 h-5 text-[#e11d48]" />
                   <h3
                     className={`font-heading font-extrabold text-base uppercase tracking-wider ${
                       isDark ? "text-white" : "text-zinc-900"
@@ -101,7 +101,7 @@ export default function AboutView({
                   isDark ? "text-white" : "text-[#09090B]"
                 }`}
               >
-                <Disc3 className="w-5 h-5 text-[#E51E2B] animate-[spin_8s_linear_infinite]" />
+                <Disc3 className="w-5 h-5 text-[#e11d48] animate-[spin_8s_linear_infinite]" />
                 <span>Executive Custodians</span>
               </h3>
 
@@ -111,12 +111,12 @@ export default function AboutView({
                     key={mgr.id}
                     className={`p-5 border shadow-md glass-shimmer rounded-2xl transition-all ${
                       isDark
-                        ? "border-white/10 bg-[#121217] hover:border-[#E51E2B]/60 shadow-black/40"
-                        : "border-black/10 bg-white hover:border-[#E51E2B]/60"
+                        ? "border-white/10 bg-[#121217] hover:border-[#e11d48]/60 shadow-black/40"
+                        : "border-black/10 bg-white hover:border-[#e11d48]/60"
                     }`}
                   >
                     <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#E51E2B]/40 shadow-sm shrink-0 aspect-square">
+                      <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#e11d48]/40 shadow-sm shrink-0 aspect-square">
                         <img
                           src={mgr.photoUrl}
                           alt={mgr.name}
@@ -131,7 +131,7 @@ export default function AboutView({
                         >
                           {mgr.name}
                         </h4>
-                        <p className="text-xs font-bold text-[#E51E2B] uppercase tracking-wider mt-0.5">
+                        <p className="text-xs font-bold text-[#e11d48] uppercase tracking-wider mt-0.5">
                           {mgr.role}
                         </p>
                       </div>
@@ -151,11 +151,11 @@ export default function AboutView({
             <div
               className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border shadow-sm mb-4 ${
                 isDark
-                  ? "bg-[#E51E2B]/10 border-[#E51E2B]/40 text-[#E51E2B]"
-                  : "bg-red-50/80 border-[#E51E2B]/30 text-[#E51E2B]"
+                  ? "bg-[#e11d48]/10 border-[#e11d48]/40 text-[#e11d48]"
+                  : "bg-red-50/80 border-[#e11d48]/30 text-[#e11d48]"
               }`}
             >
-              <Sliders className="w-3.5 h-3.5 text-[#E51E2B]" />
+              <Sliders className="w-3.5 h-3.5 text-[#e11d48]" />
               <span className="text-xs font-bold tracking-[0.25em] uppercase">
                 Behind The Glass
               </span>
@@ -179,13 +179,13 @@ export default function AboutView({
               <GlassTiltCard
                 className={`aspect-[4/5] border group shadow-md glass-shimmer rounded-3xl overflow-hidden transition-all ${
                   isDark
-                    ? "border-white/10 bg-[#121217] hover:border-[#E51E2B]/60 shadow-black/40"
-                    : "border-black/10 bg-white hover:border-[#E51E2B]/60"
+                    ? "border-white/10 bg-[#121217] hover:border-[#e11d48]/60 shadow-black/40"
+                    : "border-black/10 bg-white hover:border-[#e11d48]/60"
                 }`}
               >
                 <img
                   src={imgUrl}
-                  alt={`Velvet Noir studio collage ${idx + 1}`}
+                  alt={`One Roof studio collage ${idx + 1}`}
                   className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-108 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

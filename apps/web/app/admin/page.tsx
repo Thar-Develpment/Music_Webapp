@@ -66,13 +66,13 @@ export default function AdminDashboardPage() {
             : "bg-gradient-to-r from-red-50/40 via-white to-zinc-50 border-black/10 shadow-sm"
         }`}
       >
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#E51E2B]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#e11d48]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-[#E51E2B] bg-[#E51E2B]/10 px-2.5 py-0.5 rounded-full border border-[#E51E2B]/20">
-                Velvet Noir Central CMS
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#e11d48] bg-[#e11d48]/10 px-2.5 py-0.5 rounded-full border border-[#e11d48]/20">
+                One Roof Central CMS
               </span>
               <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 inline-flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3" />
@@ -91,14 +91,14 @@ export default function AdminDashboardPage() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/admin/movies"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#E51E2B] text-white hover:bg-[#D81A26] transition-colors shadow-md shadow-[#E51E2B]/20"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#e11d48] text-white hover:bg-[#D81A26] transition-colors shadow-md shadow-[#e11d48]/20"
             >
               <Film className="w-3.5 h-3.5" />
               <span>Add Movie</span>
             </Link>
             <Link
               href="/admin/music"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase border border-[#E51E2B]/40 hover:bg-[#E51E2B]/10 text-[#E51E2B] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase border border-[#e11d48]/40 hover:bg-[#e11d48]/10 text-[#e11d48] transition-colors"
             >
               <Music className="w-3.5 h-3.5" />
               <span>Add Music</span>
@@ -114,15 +114,15 @@ export default function AdminDashboardPage() {
           href="/admin/movies"
           className={`group rounded-2xl border p-6 transition-all duration-300 hover:scale-[1.01] ${
             isDark
-              ? "bg-[#14141A] border-white/10 hover:border-[#E51E2B]/40"
-              : "bg-white border-black/10 hover:border-[#E51E2B]/40 shadow-sm"
+              ? "bg-[#14141A] border-white/10 hover:border-[#e11d48]/40"
+              : "bg-white border-black/10 hover:border-[#e11d48]/40 shadow-sm"
           }`}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Film className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#E51E2B] transition-colors">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
               Manage <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
@@ -145,15 +145,15 @@ export default function AdminDashboardPage() {
           href="/admin/music"
           className={`group rounded-2xl border p-6 transition-all duration-300 hover:scale-[1.01] ${
             isDark
-              ? "bg-[#14141A] border-white/10 hover:border-[#E51E2B]/40"
-              : "bg-white border-black/10 hover:border-[#E51E2B]/40 shadow-sm"
+              ? "bg-[#14141A] border-white/10 hover:border-[#e11d48]/40"
+              : "bg-white border-black/10 hover:border-[#e11d48]/40 shadow-sm"
           }`}
         >
           <div className="flex items-center justify-between mb-4">
-            <div className="w-11 h-11 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[#E51E2B] flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="w-11 h-11 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[#e11d48] flex items-center justify-center group-hover:scale-110 transition-transform">
               <Music className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#E51E2B] transition-colors">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
               Manage <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
@@ -165,7 +165,7 @@ export default function AdminDashboardPage() {
           </div>
           <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500">
             <span>Live on /music</span>
-            <span className="text-[#E51E2B] font-semibold">
+            <span className="text-[#e11d48] font-semibold">
               {musicList.filter((m) => m.featured).length} Spotlight
             </span>
           </div>
@@ -176,15 +176,15 @@ export default function AdminDashboardPage() {
           href="/admin/enquiries"
           className={`group rounded-2xl border p-6 transition-all duration-300 hover:scale-[1.01] ${
             isDark
-              ? "bg-[#14141A] border-white/10 hover:border-[#E51E2B]/40"
-              : "bg-white border-black/10 hover:border-[#E51E2B]/40 shadow-sm"
+              ? "bg-[#14141A] border-white/10 hover:border-[#e11d48]/40"
+              : "bg-white border-black/10 hover:border-[#e11d48]/40 shadow-sm"
           }`}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Mail className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#E51E2B] transition-colors">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
               Inbox <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
@@ -197,7 +197,7 @@ export default function AdminDashboardPage() {
           <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500">
             <span>Inbound Messages</span>
             {unreadCount > 0 ? (
-              <span className="px-2 py-0.5 rounded-full bg-[#E51E2B] text-white font-bold text-[10px]">
+              <span className="px-2 py-0.5 rounded-full bg-[#e11d48] text-white font-bold text-[10px]">
                 {unreadCount} Unread
               </span>
             ) : (
@@ -225,7 +225,7 @@ export default function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/movies"
-                className="text-xs font-bold uppercase tracking-wider text-[#E51E2B] hover:underline flex items-center gap-1"
+                className="text-xs font-bold uppercase tracking-wider text-[#e11d48] hover:underline flex items-center gap-1"
               >
                 <span>Edit All</span>
                 <ArrowRight className="w-3 h-3" />
@@ -285,12 +285,12 @@ export default function AdminDashboardPage() {
               target="_blank"
               className="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-[#E51E2B]" />
+              <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
               <span>Preview Live Cinema Page</span>
             </Link>
             <Link
               href="/admin/movies"
-              className="text-xs font-bold uppercase tracking-wider text-[#E51E2B] flex items-center gap-1 hover:underline"
+              className="text-xs font-bold uppercase tracking-wider text-[#e11d48] flex items-center gap-1 hover:underline"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Upload Film</span>
@@ -307,14 +307,14 @@ export default function AdminDashboardPage() {
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-black/5 dark:border-white/5 mb-4">
               <div className="flex items-center gap-2">
-                <Music className="w-4 h-4 text-[#E51E2B]" />
+                <Music className="w-4 h-4 text-[#e11d48]" />
                 <h2 className="font-heading font-extrabold text-sm uppercase tracking-wider">
                   Audio & Vinyl Library
                 </h2>
               </div>
               <Link
                 href="/admin/music"
-                className="text-xs font-bold uppercase tracking-wider text-[#E51E2B] hover:underline flex items-center gap-1"
+                className="text-xs font-bold uppercase tracking-wider text-[#e11d48] hover:underline flex items-center gap-1"
               >
                 <span>Edit All</span>
                 <ArrowRight className="w-3 h-3" />
@@ -356,7 +356,7 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
                     {item.featured && (
-                      <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-[#E51E2B] border border-rose-500/20 shrink-0">
+                      <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-[#e11d48] border border-rose-500/20 shrink-0">
                         Spotlight
                       </span>
                     )}
@@ -372,12 +372,12 @@ export default function AdminDashboardPage() {
               target="_blank"
               className="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-[#E51E2B]" />
+              <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
               <span>Preview Live Audio Deck</span>
             </Link>
             <Link
               href="/admin/music"
-              className="text-xs font-bold uppercase tracking-wider text-[#E51E2B] flex items-center gap-1 hover:underline"
+              className="text-xs font-bold uppercase tracking-wider text-[#e11d48] flex items-center gap-1 hover:underline"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Upload Audio</span>

@@ -755,7 +755,7 @@ export async function getMovies(): Promise<MovieItem[]> {
       description: row.description,
       youtubeUrl: row.youtube_url,
       thumbnailUrl: row.thumbnail_url,
-      director: row.director || "Velvet Noir Studios",
+      director: row.director || "One Roof Studios",
       year: row.year || "2026",
       duration: row.duration || "1h 45m",
       genre: row.genre || "Cinematic / Documentary",

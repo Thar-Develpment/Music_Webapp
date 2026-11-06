@@ -185,10 +185,10 @@ export default function MusicClient({ tracks }: MusicClientProps) {
 
       {/* 1. Header Section */}
       <section className="relative pt-32 pb-16 px-6 lg:px-12 overflow-hidden border-b border-[var(--subtle-border)]">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-96 bg-[#E51E2B]/10 blur-[150px] pointer-events-none rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-96 bg-[#e11d48]/10 blur-[150px] pointer-events-none rounded-full" />
 
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#E51E2B]/40 bg-[#E51E2B]/10 text-[#E51E2B] text-xs font-bold tracking-[0.2em] uppercase mb-6 shadow-sm">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-[#e11d48]/40 bg-[#e11d48]/10 text-[#e11d48] text-xs font-bold tracking-[0.2em] uppercase mb-6 shadow-sm">
             <Radio className="w-3.5 h-3.5 animate-pulse" />
             <span>Sonic Vinyl &amp; Audio Archive</span>
           </div>
@@ -213,8 +213,8 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   onClick={() => setActiveGenre(genre)}
                   className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                     active
-                      ? "bg-[#E51E2B] text-white shadow-lg shadow-[#E51E2B]/30 font-bold"
-                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#E51E2B]/40"
+                      ? "bg-[#e11d48] text-white shadow-lg shadow-[#e11d48]/30 font-bold"
+                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48]/40"
                   }`}
                 >
                   {genre}
@@ -250,7 +250,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
             <button
               type="button"
               onClick={() => setActiveGenre("All")}
-              className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#E51E2B] text-white hover:bg-[#D81A26] transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#e11d48] text-white hover:bg-[#D81A26] transition-colors"
             >
               Show All Tracks
             </button>
@@ -284,7 +284,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                         className={`transition-colors cursor-pointer group ${
                           isSelected
                             ? isDark
-                              ? "bg-[#E51E2B]/10 text-white"
+                              ? "bg-[#e11d48]/10 text-white"
                               : "bg-red-50/70 text-black"
                             : isDark
                             ? "hover:bg-white/[0.04]"
@@ -301,8 +301,8 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                             }}
                             className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                               isCurrentlyPlaying
-                                ? "bg-[#E51E2B] text-white shadow-md shadow-[#E51E2B]/30"
-                                : "text-zinc-400 group-hover:text-[#E51E2B] group-hover:bg-[#E51E2B]/10"
+                                ? "bg-[#e11d48] text-white shadow-md shadow-[#e11d48]/30"
+                                : "text-zinc-400 group-hover:text-[#e11d48] group-hover:bg-[#e11d48]/10"
                             }`}
                           >
                             {isCurrentlyPlaying ? (
@@ -326,7 +326,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                             <div className="flex flex-col min-w-0">
                               <span
                                 className={`font-heading font-extrabold text-sm uppercase tracking-wide truncate ${
-                                  isSelected ? "text-[#E51E2B]" : "text-[var(--foreground)] group-hover:text-[#E51E2B]"
+                                  isSelected ? "text-[#e11d48]" : "text-[var(--foreground)] group-hover:text-[#e11d48]"
                                 }`}
                               >
                                 {track.title}
@@ -357,7 +357,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
 
                         {/* Open Details Action */}
                         <td className="py-4 pr-6 pl-4 text-right whitespace-nowrap">
-                          <span className="text-xs font-bold text-[#E51E2B] uppercase tracking-wider inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                          <span className="text-xs font-bold text-[#e11d48] uppercase tracking-wider inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                             <span>Open Details</span>
                             <ChevronRight className="w-3.5 h-3.5" />
                           </span>
@@ -395,7 +395,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
               <button
                 type="button"
                 onClick={handleClosePanel}
-                className="group flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white bg-white/5 hover:bg-[#E51E2B] transition-all cursor-pointer"
+                className="group flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white bg-white/5 hover:bg-[#e11d48] transition-all cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 <span>← Back to Tracklist</span>
@@ -425,7 +425,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   <div className="w-full h-full rounded-full border border-white/5 flex items-center justify-center">
                     <div className="w-44 h-44 rounded-full border border-white/5 flex items-center justify-center">
                       <div className="w-28 h-28 rounded-full border border-white/5 flex items-center justify-center">
-                        <div className="w-14 h-14 rounded-full bg-[#E51E2B] flex items-center justify-center shadow-lg shadow-[#E51E2B]/50">
+                        <div className="w-14 h-14 rounded-full bg-[#e11d48] flex items-center justify-center shadow-lg shadow-[#e11d48]/50">
                           <div className="w-3.5 h-3.5 rounded-full bg-black" />
                         </div>
                       </div>
@@ -442,16 +442,16 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3">
-                    <span className="px-2.5 py-1 rounded-full bg-[#E51E2B] text-white text-[10px] font-bold uppercase tracking-wider">
+                    <span className="px-2.5 py-1 rounded-full bg-[#e11d48] text-white text-[10px] font-bold uppercase tracking-wider">
                       {selectedTrack.genre}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="inline-flex items-center space-x-1.5 text-xs text-[#E51E2B] font-bold tracking-widest uppercase mb-1">
+              <div className="inline-flex items-center space-x-1.5 text-xs text-[#e11d48] font-bold tracking-widest uppercase mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Velvet Noir Master Audio</span>
+                <span>One Roof Master Audio</span>
               </div>
 
               <h3 className="font-heading font-extrabold text-2xl sm:text-3xl uppercase tracking-tight text-white">
@@ -465,8 +465,8 @@ export default function MusicClient({ tracks }: MusicClientProps) {
               {/* Animated Waveform Equalizer */}
               <div className="flex items-end justify-center space-x-1.5 h-8 py-1 bg-black/40 rounded-xl px-4 border border-white/5 mt-4 w-full max-w-sm">
                 <div className="flex items-center space-x-1 text-xs text-zinc-400 mr-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E51E2B] animate-ping" />
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-[#E51E2B]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48] animate-ping" />
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-[#e11d48]">
                     {isPlaying ? "Transmitting" : "Ready"}
                   </span>
                 </div>
@@ -475,7 +475,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   return (
                     <div
                       key={i}
-                      className={`w-1 rounded-full bg-gradient-to-t from-[#E51E2B] to-[#FF4D5A] transition-all duration-300 ${
+                      className={`w-1 rounded-full bg-gradient-to-t from-[#e11d48] to-[#FF4D5A] transition-all duration-300 ${
                         isPlaying ? waveClass : "h-1 opacity-30"
                       }`}
                     />
@@ -498,7 +498,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   max={duration || 180}
                   value={currentTime}
                   onChange={handleSeek}
-                  className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#E51E2B]"
+                  className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#e11d48]"
                 />
               </div>
 
@@ -517,7 +517,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   <button
                     type="button"
                     onClick={togglePlay}
-                    className="w-13 h-13 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white flex items-center justify-center shadow-xl shadow-[#E51E2B]/40 transition-transform hover:scale-105 cursor-pointer"
+                    className="w-13 h-13 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white flex items-center justify-center shadow-xl shadow-[#e11d48]/40 transition-transform hover:scale-105 cursor-pointer"
                     title={isPlaying ? "Pause" : "Play"}
                   >
                     {isPlaying ? (
@@ -553,14 +553,14 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                     step={0.05}
                     value={isMuted ? 0 : volume}
                     onChange={handleVolumeChange}
-                    className="w-20 h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#E51E2B]"
+                    className="w-20 h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#e11d48]"
                   />
                 </div>
               </div>
 
               {/* Detailed Acoustic Notes & Description */}
               <div className="pt-4 border-t border-white/10 space-y-2">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-[#E51E2B]">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-[#e11d48]">
                   Acoustic Details &amp; Liner Notes
                 </h4>
                 <p className="text-sm leading-relaxed text-zinc-300 font-light whitespace-pre-line">

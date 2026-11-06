@@ -19,14 +19,15 @@ const trench = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "VELVET NOIR RECORDINGS — Avant-Garde Music Label",
-    template: "%s | VELVET NOIR RECORDINGS",
+    default: "ONE ROOF ENTERTAINMENT — Avant-Garde Music & Film Label",
+    template: "%s | ONE ROOF ENTERTAINMENT",
   },
   description:
     "An avant-garde collective of boundary-defying producers, rock icons, and visionary recording artists. Archival records, live tours, and documentary productions.",
   keywords: [
+    "one roof entertainment",
     "music label",
-    "rock record label",
+    "entertainment production",
     "electronic music",
     "film scores",
     "audiophile vinyl",
@@ -74,7 +75,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#E51E2B] selection:text-white antialiased"
+        className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#e11d48] selection:text-white antialiased"
       >
         <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
       </body>

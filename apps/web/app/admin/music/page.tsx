@@ -238,7 +238,7 @@ export default function AdminMusicPage() {
     <div className="flex flex-col space-y-8">
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed top-20 right-6 z-50 p-4 rounded-xl bg-[#E51E2B] text-white text-xs font-semibold shadow-2xl flex items-center space-x-2 animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="fixed top-20 right-6 z-50 p-4 rounded-xl bg-[#e11d48] text-white text-xs font-semibold shadow-2xl flex items-center space-x-2 animate-in fade-in slide-in-from-top-4 duration-200">
           <CheckCircle className="w-4 h-4" />
           <span>{notification}</span>
         </div>
@@ -247,7 +247,7 @@ export default function AdminMusicPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#E51E2B] mb-1">
+          <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#e11d48] mb-1">
             <Radio className="w-3.5 h-3.5 animate-pulse" />
             <span>Audio &amp; Discography Manager</span>
           </div>
@@ -263,7 +263,7 @@ export default function AdminMusicPage() {
           type="button"
           onClick={handleOpenAddModal}
           id="admin-add-music-btn"
-          className="px-5 py-2.5 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#E51E2B]/20 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto"
+          className="px-5 py-2.5 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Track</span>
@@ -322,8 +322,8 @@ export default function AdminMusicPage() {
                           onClick={() => handleTogglePreview(track.id, track.audioUrl)}
                           className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                             isPlaying
-                              ? "bg-[#E51E2B] text-white"
-                              : "border border-[var(--subtle-border)] text-zinc-400 hover:text-[#E51E2B] hover:border-[#E51E2B]"
+                              ? "bg-[#e11d48] text-white"
+                              : "border border-[var(--subtle-border)] text-zinc-400 hover:text-[#e11d48] hover:border-[#e11d48]"
                           }`}
                           title={isPlaying ? "Stop preview" : "Play preview"}
                         >
@@ -351,7 +351,7 @@ export default function AdminMusicPage() {
                                 {track.title}
                               </span>
                               {track.featured && (
-                                <span className="px-2 py-0.5 rounded-full bg-[#E51E2B]/10 text-[#E51E2B] border border-[#E51E2B]/30 text-[9px] font-bold uppercase">
+                                <span className="px-2 py-0.5 rounded-full bg-[#e11d48]/10 text-[#e11d48] border border-[#e11d48]/30 text-[9px] font-bold uppercase">
                                   Featured
                                 </span>
                               )}
@@ -382,7 +382,7 @@ export default function AdminMusicPage() {
                           <button
                             type="button"
                             onClick={() => handleOpenEditModal(track)}
-                            className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#E51E2B] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48] transition-colors cursor-pointer"
                             title="Edit Track"
                           >
                             <Edit className="w-3.5 h-3.5" />
@@ -412,7 +412,7 @@ export default function AdminMusicPage() {
           <div className="relative w-full max-w-2xl rounded-3xl border border-[var(--subtle-border)] bg-[var(--card)] text-[var(--foreground)] p-6 sm:p-8 shadow-2xl my-8">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--subtle-border)] mb-6">
               <div className="flex items-center space-x-2">
-                <Music className="w-5 h-5 text-[#E51E2B]" />
+                <Music className="w-5 h-5 text-[#e11d48]" />
                 <h3 className="font-heading font-extrabold text-xl uppercase tracking-wide">
                   {editingMusic ? "Edit Audio Recording" : "Publish New Audio Track"}
                 </h3>
@@ -439,7 +439,7 @@ export default function AdminMusicPage() {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g. Obsidian Horizon"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
                 </div>
 
@@ -453,7 +453,7 @@ export default function AdminMusicPage() {
                     value={formData.artist}
                     onChange={(e) => setFormData({ ...formData, artist: e.target.value })}
                     placeholder="e.g. Aethelgard"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
                 </div>
               </div>
@@ -469,7 +469,7 @@ export default function AdminMusicPage() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Atmospheric acoustic flutter and valve tube saturation..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                 />
               </div>
 
@@ -485,10 +485,10 @@ export default function AdminMusicPage() {
                     value={formData.thumbnailUrl}
                     onChange={(e) => setFormData({ ...formData, thumbnailUrl: e.target.value })}
                     placeholder="https://... or upload image"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
-                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#E51E2B] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
-                    <Upload className="w-3.5 h-3.5 text-[#E51E2B]" />
+                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
+                    <Upload className="w-3.5 h-3.5 text-[#e11d48]" />
                     <span>{uploadingImage ? "Uploading..." : "Upload Cover"}</span>
                     <input
                       type="file"
@@ -522,10 +522,10 @@ export default function AdminMusicPage() {
                     value={formData.audioUrl}
                     onChange={(e) => setFormData({ ...formData, audioUrl: e.target.value })}
                     placeholder="/audio/track-1.mp3 or upload audio file"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
-                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#E51E2B] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
-                    <FileAudio className="w-3.5 h-3.5 text-[#E51E2B]" />
+                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
+                    <FileAudio className="w-3.5 h-3.5 text-[#e11d48]" />
                     <span>{uploadingAudio ? "Uploading..." : "Upload Audio (MP3/WAV)"}</span>
                     <input
                       type="file"
@@ -601,7 +601,7 @@ export default function AdminMusicPage() {
                   id="featured-music-checkbox"
                   checked={formData.featured}
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="rounded text-[#E51E2B] focus:ring-[#E51E2B] w-4 h-4 cursor-pointer"
+                  className="rounded text-[#e11d48] focus:ring-[#e11d48] w-4 h-4 cursor-pointer"
                 />
                 <label htmlFor="featured-music-checkbox" className="text-xs font-semibold text-[var(--foreground)] cursor-pointer">
                   Feature this track on the Master Audio Deck
@@ -619,7 +619,7 @@ export default function AdminMusicPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#E51E2B] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#E51E2B]/20"
+                  className="px-6 py-2.5 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20"
                 >
                   {editingMusic ? "Save Changes" : "Create Track"}
                 </button>

@@ -19,14 +19,14 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
       isDark ? "bg-[#08080A] border-white/10" : "bg-[#FAFAFC] border-black/[0.08]"
     }`}>
       {/* Background glow */}
-      <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#E51E2B]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#e11d48]/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20">
           <MotionReveal direction="left">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#E51E2B]/40 shadow-sm mb-5">
-              <Disc3 className="w-3.5 h-3.5 text-[#E51E2B] animate-spin" />
-              <span className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-frosted border border-[#e11d48]/40 shadow-sm mb-5">
+              <Disc3 className="w-3.5 h-3.5 text-[#e11d48] animate-spin" />
+              <span className="text-xs font-bold tracking-[0.25em] text-[#e11d48] uppercase">
                 Archival Pressings In Production
               </span>
             </div>
@@ -53,7 +53,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
         >
           {projects.map((proj) => (
             <StaggerItem key={proj.id}>
-              <GlassTiltCard className={`border hover:border-[#E51E2B]/60 group shadow-xl glass-shimmer flex flex-col h-full rounded-3xl overflow-hidden transition-colors ${
+              <GlassTiltCard className={`border hover:border-[#e11d48]/60 group shadow-xl glass-shimmer flex flex-col h-full rounded-3xl overflow-hidden transition-colors ${
                 isDark ? "border-white/10 bg-[#121217]" : "border-black/[0.08] bg-white"
               }`}>
                 {/* Artwork with vinyl sleeve gloss */}
@@ -72,7 +72,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
                       ? "bg-black/75 border-white/20 text-white"
                       : "bg-white/90 border-black/10 text-zinc-900"
                   }`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E51E2B]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48]" />
                     <span>{proj.category}</span>
                   </div>
 
@@ -87,7 +87,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
                   isDark ? "bg-[#121217]" : "bg-white"
                 }`}>
                   <div>
-                    <h3 className={`font-heading font-extrabold text-xl sm:text-2xl group-hover:text-[#E51E2B] transition-colors leading-snug ${
+                    <h3 className={`font-heading font-extrabold text-xl sm:text-2xl group-hover:text-[#e11d48] transition-colors leading-snug ${
                       isDark ? "text-white" : "text-zinc-900"
                     }`}>
                       {proj.title}
@@ -102,7 +102,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
                   <div className={`mt-6 pt-4 border-t flex items-center justify-between text-xs ${
                     isDark ? "border-white/10" : "border-black/[0.06]"
                   }`}>
-                    <span className="uppercase tracking-wider font-bold text-[#E51E2B]">
+                    <span className="uppercase tracking-wider font-bold text-[#e11d48]">
                       180g Vinyl & Atmos
                     </span>
                     <span className="text-zinc-500 font-mono">Archive Series</span>

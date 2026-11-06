@@ -3,9 +3,9 @@ import MoviesClient from "@/components/site/MoviesClient";
 import { getMovies } from "@/lib/supabase/service";
 
 export const metadata = {
-  title: "Movies & Cinema | Velvet Noir Recordings",
+  title: "Movies & Cinema | One Roof Entertainment",
   description:
-    "Explore feature-length documentaries, 4K concert films, and cinematic visual releases from Velvet Noir Studios.",
+    "Explore feature-length documentaries, 4K concert films, and cinematic visual releases from One Roof Studios.",
 };
 
 function MoviesPageSkeleton() {

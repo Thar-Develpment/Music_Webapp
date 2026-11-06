@@ -9,15 +9,15 @@ export async function GET() {
     return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
   }
 
-  const expectedEmail = process.env.ADMIN_EMAIL || "admin@velvetnoir.com";
+  const expectedEmail = process.env.ADMIN_EMAIL || "admin@oneroofentertainment.com";
 
   return NextResponse.json({
     success: true,
     data: {
-      id: "adm-velvet-noir-1",
+      id: "adm-oneroof-1",
       email: expectedEmail,
       role: "master_admin",
-      name: "Velvet Noir Administrator",
+      name: "One Roof Administrator",
     },
   });
 }

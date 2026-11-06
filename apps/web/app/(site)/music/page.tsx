@@ -3,9 +3,9 @@ import MusicClient from "@/components/site/MusicClient";
 import { getMusicItems } from "@/lib/supabase/service";
 
 export const metadata = {
-  title: "Music & Discography | Velvet Noir Recordings",
+  title: "Music & Discography | One Roof Entertainment",
   description:
-    "Listen to master analog cuts, high-resolution electronic releases, and orchestral compositions from Velvet Noir artists.",
+    "Listen to master analog cuts, high-resolution electronic releases, and orchestral compositions from One Roof artists.",
 };
 
 function MusicPageSkeleton() {

@@ -8,9 +8,9 @@ import {
 import { AboutPageContent } from "@music-label/shared";
 
 export const metadata = {
-  title: "About Us | Velvet Noir Recordings — Acoustic Architecture",
+  title: "About Us | One Roof Entertainment — Acoustic Architecture",
   description:
-    "The story, artistic philosophy, architectural acoustic sanctuary, and vision behind Velvet Noir Recordings.",
+    "The story, artistic philosophy, architectural acoustic sanctuary, and vision behind One Roof Entertainment.",
 };
 
 async function AboutDataFetcher() {

@@ -4,9 +4,9 @@ import { getSettings, getPageContent } from "@/lib/supabase/service";
 import { ContactPageContent } from "@music-label/shared";
 
 export const metadata = {
-  title: "Contact & Bookings | Velvet Noir Recordings",
+  title: "Contact & Bookings | One Roof Entertainment",
   description:
-    "Direct booking, sync licensing, and press management enquiries for Velvet Noir Recordings.",
+    "Direct booking, sync licensing, and press management enquiries for One Roof Entertainment.",
 };
 
 async function ContactDataFetcher() {

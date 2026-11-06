@@ -30,11 +30,11 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
             <div
               className={`inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border mb-6 ${
                 isDark
-                  ? "border-[#E51E2B]/40 bg-[#E51E2B]/10 text-[#E51E2B]"
-                  : "border-[#E51E2B]/40 bg-red-50/80 text-[#E51E2B]"
+                  ? "border-[#e11d48]/40 bg-[#e11d48]/10 text-[#e11d48]"
+                  : "border-[#e11d48]/40 bg-red-50/80 text-[#e11d48]"
               }`}
             >
-              <Headphones className="w-3.5 h-3.5 text-[#E51E2B]" />
+              <Headphones className="w-3.5 h-3.5 text-[#e11d48]" />
               <span className="text-xs font-semibold tracking-[0.25em] uppercase">
                 Direct Communications
               </span>
@@ -48,7 +48,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
               {content.headline}
             </h1>
 
-            <p className="mt-4 text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#E51E2B] uppercase">
+            <p className="mt-4 text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#e11d48] uppercase">
               {content.subheadline}
             </p>
 
@@ -70,8 +70,8 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
               <GlassTiltCard
                 className={`p-8 sm:p-10 border shadow-xl glass-shimmer rounded-3xl transition-all ${
                   isDark
-                    ? "border-white/10 bg-[#121217] hover:border-[#E51E2B]/60 shadow-black/50"
-                    : "border-black/10 bg-white hover:border-[#E51E2B]/60"
+                    ? "border-white/10 bg-[#121217] hover:border-[#e11d48]/60 shadow-black/50"
+                    : "border-black/10 bg-white hover:border-[#e11d48]/60"
                 }`}
               >
                 <h3
@@ -86,7 +86,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
 
                 <div className="space-y-6 text-sm mt-6">
                   <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-[#E51E2B]/30 flex items-center justify-center text-[#E51E2B] shrink-0 mt-0.5 shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48] shrink-0 mt-0.5 shadow-sm">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
@@ -101,8 +101,8 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                         href={`mailto:${settings.bookingEmail}`}
                         className={`font-semibold transition-colors text-base ${
                           isDark
-                            ? "text-white hover:text-[#E51E2B]"
-                            : "text-zinc-900 hover:text-[#E51E2B]"
+                            ? "text-white hover:text-[#e11d48]"
+                            : "text-zinc-900 hover:text-[#e11d48]"
                         }`}
                       >
                         {settings.bookingEmail}
@@ -111,7 +111,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-[#E51E2B]/30 flex items-center justify-center text-[#E51E2B] shrink-0 mt-0.5 shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48] shrink-0 mt-0.5 shadow-sm">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
@@ -126,8 +126,8 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                         href={`tel:${settings.bookingPhone}`}
                         className={`font-semibold transition-colors text-base ${
                           isDark
-                            ? "text-white hover:text-[#E51E2B]"
-                            : "text-zinc-900 hover:text-[#E51E2B]"
+                            ? "text-white hover:text-[#e11d48]"
+                            : "text-zinc-900 hover:text-[#e11d48]"
                         }`}
                       >
                         {settings.bookingPhone}
@@ -137,7 +137,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
 
                   {settings.address && (
                     <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-[#E51E2B]/30 flex items-center justify-center text-[#E51E2B] shrink-0 mt-0.5 shadow-sm">
+                      <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48] shrink-0 mt-0.5 shadow-sm">
                         <MapPin className="w-5 h-5" />
                       </div>
                       <div>
@@ -171,7 +171,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                     : "bg-white border-black/10"
                 }`}
               >
-                <h4 className="text-xs font-bold tracking-[0.25em] text-[#E51E2B] uppercase mb-4">
+                <h4 className="text-xs font-bold tracking-[0.25em] text-[#e11d48] uppercase mb-4">
                   Official Channels
                 </h4>
                 <div className="flex items-center space-x-4">
@@ -182,8 +182,8 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                       rel="noopener noreferrer"
                       className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition-all shadow-sm ${
                         isDark
-                          ? "bg-[#181820] border-white/10 text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]"
-                          : "bg-zinc-50 border-black/10 text-zinc-700 hover:text-[#E51E2B] hover:border-[#E51E2B]"
+                          ? "bg-[#181820] border-white/10 text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]"
+                          : "bg-zinc-50 border-black/10 text-zinc-700 hover:text-[#e11d48] hover:border-[#e11d48]"
                       }`}
                       aria-label="Instagram"
                     >
@@ -197,8 +197,8 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                       rel="noopener noreferrer"
                       className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition-all shadow-sm ${
                         isDark
-                          ? "bg-[#181820] border-white/10 text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]"
-                          : "bg-zinc-50 border-black/10 text-zinc-700 hover:text-[#E51E2B] hover:border-[#E51E2B]"
+                          ? "bg-[#181820] border-white/10 text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]"
+                          : "bg-zinc-50 border-black/10 text-zinc-700 hover:text-[#e11d48] hover:border-[#e11d48]"
                       }`}
                       aria-label="YouTube"
                     >
@@ -212,8 +212,8 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                       rel="noopener noreferrer"
                       className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition-all shadow-sm ${
                         isDark
-                          ? "bg-[#181820] border-white/10 text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]"
-                          : "bg-zinc-50 border-black/10 text-zinc-700 hover:text-[#E51E2B] hover:border-[#E51E2B]"
+                          ? "bg-[#181820] border-white/10 text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]"
+                          : "bg-zinc-50 border-black/10 text-zinc-700 hover:text-[#e11d48] hover:border-[#e11d48]"
                       }`}
                       aria-label="Facebook"
                     >

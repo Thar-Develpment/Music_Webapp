@@ -29,7 +29,7 @@ export default function AdminMoviesPage() {
     description: "",
     youtubeUrl: "",
     thumbnailUrl: "",
-    director: "Velvet Noir Studios",
+    director: "One Roof Studios",
     year: "2026",
     duration: "1h 45m",
     genre: "Documentary Feature",
@@ -68,7 +68,7 @@ export default function AdminMoviesPage() {
       description: "",
       youtubeUrl: "",
       thumbnailUrl: "",
-      director: "Velvet Noir Studios",
+      director: "One Roof Studios",
       year: "2026",
       duration: "1h 45m",
       genre: "Documentary Feature",
@@ -171,7 +171,7 @@ export default function AdminMoviesPage() {
     <div className="flex flex-col space-y-8">
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed top-20 right-6 z-50 p-4 rounded-xl bg-[#E51E2B] text-white text-xs font-semibold shadow-2xl flex items-center space-x-2 animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="fixed top-20 right-6 z-50 p-4 rounded-xl bg-[#e11d48] text-white text-xs font-semibold shadow-2xl flex items-center space-x-2 animate-in fade-in slide-in-from-top-4 duration-200">
           <CheckCircle className="w-4 h-4" />
           <span>{notification}</span>
         </div>
@@ -180,7 +180,7 @@ export default function AdminMoviesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#E51E2B] mb-1">
+          <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[#e11d48] mb-1">
             <Film className="w-3.5 h-3.5" />
             <span>Content Management</span>
           </div>
@@ -196,7 +196,7 @@ export default function AdminMoviesPage() {
           type="button"
           onClick={handleOpenAddModal}
           id="admin-add-movie-btn"
-          className="px-5 py-2.5 rounded-full bg-[#E51E2B] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#E51E2B]/20 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto"
+          className="px-5 py-2.5 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Movie</span>
@@ -264,7 +264,7 @@ export default function AdminMoviesPage() {
                           {movie.title}
                         </span>
                         {movie.featured && (
-                          <span className="px-2 py-0.5 rounded-full bg-[#E51E2B]/10 text-[#E51E2B] border border-[#E51E2B]/30 text-[9px] font-bold uppercase">
+                          <span className="px-2 py-0.5 rounded-full bg-[#e11d48]/10 text-[#e11d48] border border-[#e11d48]/30 text-[9px] font-bold uppercase">
                             Featured
                           </span>
                         )}
@@ -288,7 +288,7 @@ export default function AdminMoviesPage() {
                         href={movie.youtubeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-zinc-400 hover:text-[#E51E2B] flex items-center space-x-1"
+                        className="text-xs text-zinc-400 hover:text-[#e11d48] flex items-center space-x-1"
                       >
                         <span className="truncate">{movie.youtubeUrl}</span>
                         <ExternalLink className="w-3 h-3 shrink-0" />
@@ -301,7 +301,7 @@ export default function AdminMoviesPage() {
                         <button
                           type="button"
                           onClick={() => handleOpenEditModal(movie)}
-                          className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#E51E2B] transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48] transition-colors cursor-pointer"
                           title="Edit Movie"
                         >
                           <Edit className="w-3.5 h-3.5" />
@@ -330,7 +330,7 @@ export default function AdminMoviesPage() {
           <div className="relative w-full max-w-2xl rounded-3xl border border-[var(--subtle-border)] bg-[var(--card)] text-[var(--foreground)] p-6 sm:p-8 shadow-2xl my-8">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--subtle-border)] mb-6">
               <div className="flex items-center space-x-2">
-                <Film className="w-5 h-5 text-[#E51E2B]" />
+                <Film className="w-5 h-5 text-[#e11d48]" />
                 <h3 className="font-heading font-extrabold text-xl uppercase tracking-wide">
                   {editingMovie ? "Edit Cinema Release" : "Publish New Movie"}
                 </h3>
@@ -356,7 +356,7 @@ export default function AdminMoviesPage() {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="e.g. CHRONICLES OF RESONANCE"
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                 />
               </div>
 
@@ -371,7 +371,7 @@ export default function AdminMoviesPage() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Brief cinematic summary or documentary synopsis..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                 />
               </div>
 
@@ -386,7 +386,7 @@ export default function AdminMoviesPage() {
                   value={formData.youtubeUrl}
                   onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
                   placeholder="https://www.youtube.com/watch?v=..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                 />
               </div>
 
@@ -402,10 +402,10 @@ export default function AdminMoviesPage() {
                     value={formData.thumbnailUrl}
                     onChange={(e) => setFormData({ ...formData, thumbnailUrl: e.target.value })}
                     placeholder="https://... or upload below"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#E51E2B]"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
-                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#E51E2B] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
-                    <Upload className="w-3.5 h-3.5 text-[#E51E2B]" />
+                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
+                    <Upload className="w-3.5 h-3.5 text-[#e11d48]" />
                     <span>{uploadingImage ? "Uploading..." : "Upload File"}</span>
                     <input
                       type="file"
@@ -475,7 +475,7 @@ export default function AdminMoviesPage() {
                   id="featured-checkbox"
                   checked={formData.featured}
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="rounded text-[#E51E2B] focus:ring-[#E51E2B] w-4 h-4 cursor-pointer"
+                  className="rounded text-[#e11d48] focus:ring-[#e11d48] w-4 h-4 cursor-pointer"
                 />
                 <label htmlFor="featured-checkbox" className="text-xs font-semibold text-[var(--foreground)] cursor-pointer">
                   Feature this movie as the Hero Premiere Spotlight
@@ -493,7 +493,7 @@ export default function AdminMoviesPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#E51E2B] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#E51E2B]/20"
+                  className="px-6 py-2.5 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20"
                 >
                   {editingMovie ? "Save Changes" : "Create Movie"}
                 </button>

@@ -12,6 +12,7 @@ import {
 import { InstagramIcon, YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
 import { Setting } from "@music-label/shared";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import OneRoofLogo from "@/components/ui/OneRoofLogo";
 
 interface FooterProps {
   settings: Setting;
@@ -25,8 +26,8 @@ export default function Footer({ settings }: FooterProps) {
     <footer className={`relative border-t pt-20 pb-12 overflow-hidden transition-colors duration-300 ${
       isDark ? "bg-[#060608] border-white/[0.08] text-zinc-400" : "bg-[#F8F8FA] border-black/[0.08] text-zinc-600"
     }`}>
-      {/* Background subtle crimson warmth */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-32 bg-[#E51E2B]/5 blur-[120px] pointer-events-none rounded-full" />
+      {/* Background subtle multi-color spectrum ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-36 bg-gradient-to-r from-[#2563EB]/10 via-[#7C3AED]/10 via-[#E11D48]/15 via-[#EA580C]/10 to-[#FACC15]/10 blur-[120px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b ${
@@ -34,22 +35,8 @@ export default function Footer({ settings }: FooterProps) {
         }`}>
           {/* Col 1: Brand & Statement (5 cols) */}
           <div className="lg:col-span-5 flex flex-col space-y-6">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className={`w-10 h-10 rounded-full border border-[#E51E2B]/50 flex items-center justify-center text-[#E51E2B] ${
-                isDark ? "bg-red-950/40" : "bg-red-50"
-              }`}>
-                <Disc3 className="w-5 h-5 animate-[spin_12s_linear_infinite]" />
-              </div>
-              <div className="flex flex-col">
-                <span className={`font-heading font-extrabold text-2xl tracking-[0.16em] ${
-                  isDark ? "text-white" : "text-black"
-                }`}>
-                  {settings.siteName}
-                </span>
-                <span className="text-[10px] tracking-[0.25em] text-[#E51E2B] uppercase font-bold">
-                  Recordings & Film
-                </span>
-              </div>
+            <Link href="/" className="inline-flex items-center">
+              <OneRoofLogo size="lg" variant="horizontal" />
             </Link>
 
             <p className={`text-sm leading-relaxed max-w-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
@@ -64,8 +51,8 @@ export default function Footer({ settings }: FooterProps) {
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
-                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]/40"
                   }`}
                   aria-label="Instagram"
                 >
@@ -79,8 +66,8 @@ export default function Footer({ settings }: FooterProps) {
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
-                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]/40"
                   }`}
                   aria-label="YouTube"
                 >
@@ -94,8 +81,8 @@ export default function Footer({ settings }: FooterProps) {
                   rel="noopener noreferrer"
                   className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
-                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#E51E2B] hover:border-[#E51E2B]/40"
+                      ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-[#e11d48] hover:border-[#e11d48]/40"
+                      : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]/40"
                   }`}
                   aria-label="Facebook"
                 >
@@ -107,7 +94,7 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Col 2: Quick Links (3 cols) */}
           <div className="lg:col-span-3 flex flex-col space-y-4">
-            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#E51E2B] uppercase">
+            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#e11d48] uppercase">
               Navigation
             </h4>
             <ul className="flex flex-col space-y-2.5 text-sm">
@@ -146,20 +133,20 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Col 3: Contact & Headquarters (4 cols) */}
           <div className="lg:col-span-4 flex flex-col space-y-4">
-            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#E51E2B] uppercase">
+            <h4 className="font-heading text-sm font-semibold tracking-[0.15em] text-[#e11d48] uppercase">
               Headquarters
             </h4>
             <ul className="flex flex-col space-y-3 text-sm">
               <li className="flex items-start space-x-3">
-                <MapPin className="w-4 h-4 text-[#E51E2B] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#e11d48] shrink-0 mt-0.5" />
                 <span>{settings.address || "180 The Strand, Temple, London WC2R 1EA"}</span>
               </li>
               <li className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-[#E51E2B] shrink-0" />
+                <Phone className="w-4 h-4 text-[#e11d48] shrink-0" />
                 <span>{settings.bookingPhone}</span>
               </li>
               <li className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-[#E51E2B] shrink-0" />
+                <Mail className="w-4 h-4 text-[#e11d48] shrink-0" />
                 <span>{settings.bookingEmail}</span>
               </li>
             </ul>
@@ -167,7 +154,7 @@ export default function Footer({ settings }: FooterProps) {
             <div className="pt-2">
               <Link
                 href="/admin"
-                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider text-zinc-500 hover:text-[#E51E2B] transition-colors"
+                className="inline-flex items-center space-x-1.5 text-xs uppercase tracking-wider text-zinc-500 hover:text-[#e11d48] transition-colors"
               >
                 <span>Client CMS Portal</span>
                 <ArrowUpRight className="w-3 h-3" />
