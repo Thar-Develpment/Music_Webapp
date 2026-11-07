@@ -810,6 +810,11 @@ export async function upsertMovie(movie: MovieItem): Promise<MovieItem> {
 
     if (error) {
       console.error("Supabase upsertMovie error:", error);
+      if (error.message?.includes("schema cache") || error.code === "PGRST204" || error.code === "PGRST205") {
+        throw new Error(
+          "Table 'public.movies' does not exist in your Supabase database yet. Please run the SQL script in your Supabase SQL Editor (found in supabase/create_movies_and_music_tables.sql)."
+        );
+      }
       throw new Error(`Supabase error saving movie: ${error.message}`);
     }
   } catch (err) {
@@ -833,6 +838,11 @@ export async function deleteMovie(id: string): Promise<void> {
     const { error } = await supabase.from("movies").delete().eq("id", id);
     if (error) {
       console.error("Supabase deleteMovie error:", error);
+      if (error.message?.includes("schema cache") || error.code === "PGRST204" || error.code === "PGRST205") {
+        throw new Error(
+          "Table 'public.movies' does not exist in your Supabase database yet. Please run the SQL script in your Supabase SQL Editor (found in supabase/create_movies_and_music_tables.sql)."
+        );
+      }
       throw new Error(`Supabase error deleting movie: ${error.message}`);
     }
   } catch (err) {
@@ -917,6 +927,11 @@ export async function upsertMusicItem(music: MusicItem): Promise<MusicItem> {
 
     if (error) {
       console.error("Supabase upsertMusicItem error:", error);
+      if (error.message?.includes("schema cache") || error.code === "PGRST204" || error.code === "PGRST205") {
+        throw new Error(
+          "Table 'public.music_items' does not exist in your Supabase database yet. Please run the SQL script in your Supabase SQL Editor (found in supabase/create_movies_and_music_tables.sql)."
+        );
+      }
       throw new Error(`Supabase error saving track: ${error.message}`);
     }
   } catch (err) {
@@ -937,6 +952,11 @@ export async function deleteMusicItem(id: string): Promise<void> {
     const { error } = await supabase.from("music_items").delete().eq("id", id);
     if (error) {
       console.error("Supabase deleteMusicItem error:", error);
+      if (error.message?.includes("schema cache") || error.code === "PGRST204" || error.code === "PGRST205") {
+        throw new Error(
+          "Table 'public.music_items' does not exist in your Supabase database yet. Please run the SQL script in your Supabase SQL Editor (found in supabase/create_movies_and_music_tables.sql)."
+        );
+      }
       throw new Error(`Supabase error deleting track: ${error.message}`);
     }
   } catch (err) {
