@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { connection } from "next/server";
 import MusicClient from "@/components/site/MusicClient";
 import { getMusicItems } from "@/lib/supabase/service";
 
@@ -31,6 +32,7 @@ function MusicPageSkeleton() {
 }
 
 async function MusicDataFetcher() {
+  await connection();
   const tracks = await getMusicItems();
   return <MusicClient tracks={tracks} />;
 }

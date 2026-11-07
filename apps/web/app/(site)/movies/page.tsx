@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { connection } from "next/server";
 import MoviesClient from "@/components/site/MoviesClient";
 import { getMovies } from "@/lib/supabase/service";
 
@@ -29,6 +30,7 @@ function MoviesPageSkeleton() {
 }
 
 async function MoviesDataFetcher() {
+  await connection();
   const movies = await getMovies();
   return <MoviesClient movies={movies} />;
 }

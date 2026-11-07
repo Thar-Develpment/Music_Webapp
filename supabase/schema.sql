@@ -393,7 +393,7 @@ CREATE TABLE IF NOT EXISTS public.movies (
     description TEXT NOT NULL,
     youtube_url TEXT NOT NULL,
     thumbnail_url TEXT NOT NULL,
-    director TEXT NOT NULL DEFAULT 'Velvet Noir Studios',
+    director TEXT NOT NULL DEFAULT 'One Roof Studios',
     year TEXT NOT NULL DEFAULT '2026',
     duration TEXT NOT NULL DEFAULT '1h 45m',
     genre TEXT NOT NULL DEFAULT 'Cinematic / Documentary',

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { upsertMovie, deleteMovie } from "@/lib/supabase/service";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { MovieItemSchema } from "@music-label/shared";
 import { fetchYouTubeMetadata, extractYouTubeId, getYouTubeThumbnail } from "@/lib/youtube";
 
@@ -45,9 +47,23 @@ export async function PUT(
     }
 
     const saved = await upsertMovie(validated.data);
-    return NextResponse.json({ success: true, data: saved });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Failed to update movie" }, { status: 500 });
+
+    try {
+      revalidatePath("/movies");
+      revalidatePath("/admin/movies");
+      revalidatePath("/");
+      revalidatePath("/api/public/movies");
+    } catch (e) {
+      // quiet
+    }
+
+    return NextResponse.json({ success: true, data: saved, isSupabaseConfigured });
+  } catch (error: any) {
+    console.error("PUT /api/admin/movies/[id] error:", error);
+    return NextResponse.json(
+      { success: false, error: error?.message || "Failed to update movie" },
+      { status: 500 }
+    );
   }
 }
 
@@ -58,8 +74,26 @@ export async function DELETE(
   try {
     const { id } = await params;
     await deleteMovie(id);
-    return NextResponse.json({ success: true, message: "Movie deleted successfully" });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Failed to delete movie" }, { status: 500 });
+
+    try {
+      revalidatePath("/movies");
+      revalidatePath("/admin/movies");
+      revalidatePath("/");
+      revalidatePath("/api/public/movies");
+    } catch (e) {
+      // quiet
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Movie deleted successfully",
+      isSupabaseConfigured,
+    });
+  } catch (error: any) {
+    console.error("DELETE /api/admin/movies/[id] error:", error);
+    return NextResponse.json(
+      { success: false, error: error?.message || "Failed to delete movie" },
+      { status: 500 }
+    );
   }
 }

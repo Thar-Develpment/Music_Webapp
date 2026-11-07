@@ -24,6 +24,7 @@ export default function AdminMoviesPage() {
   const { isDark } = useTheme();
   const [movies, setMovies] = useState<MovieItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isDbConnected, setIsDbConnected] = useState<boolean | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingMovie, setEditingMovie] = useState<MovieItem | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -68,6 +69,11 @@ export default function AdminMoviesPage() {
       const json = await res.json();
       if (json.success) {
         setMovies(json.data);
+        if (json.isSupabaseConfigured !== undefined) {
+          setIsDbConnected(json.isSupabaseConfigured);
+        }
+      } else {
+        showNotification(json.error || "Failed to load movies");
       }
     } catch (err) {
       // quiet
@@ -303,9 +309,11 @@ export default function AdminMoviesPage() {
       if (json.success) {
         showNotification(`Movie "${title}" removed`);
         setMovies((prev) => prev.filter((m) => m.id !== id));
+      } else {
+        alert(json.error || "Failed to delete movie from database");
       }
-    } catch (err) {
-      alert("Failed to delete movie");
+    } catch (err: any) {
+      alert("Failed to delete movie: " + (err?.message || "Network error"));
     }
   };
 
@@ -316,6 +324,24 @@ export default function AdminMoviesPage() {
         <div className="fixed top-20 right-6 z-50 p-4 rounded-xl bg-[#e11d48] text-white text-xs font-semibold shadow-2xl flex items-center space-x-2 animate-in fade-in slide-in-from-top-4 duration-200">
           <CheckCircle className="w-4 h-4" />
           <span>{notification}</span>
+        </div>
+      )}
+
+      {/* Database Connection Warning */}
+      {isDbConnected === false && (
+        <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs flex items-start sm:items-center space-x-3">
+          <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 sm:mt-0" />
+          <div className="space-y-1">
+            <div className="font-bold uppercase tracking-wider text-amber-200">
+              Supabase Database Not Configured in Production
+            </div>
+            <p className="text-zinc-300 leading-relaxed text-[11px]">
+              The app is currently falling back to temporary in-memory storage because production environment variables
+              (<code className="bg-black/40 px-1 py-0.5 rounded text-amber-300 font-mono">NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
+              <code className="bg-black/40 px-1 py-0.5 rounded text-amber-300 font-mono">SUPABASE_SERVICE_ROLE_KEY</code>) are missing.
+              To ensure uploaded movies persist permanently across page refreshes and server restarts, set these variables in your Vercel/hosting dashboard.
+            </p>
+          </div>
         </div>
       )}
 

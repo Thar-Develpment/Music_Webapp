@@ -709,7 +709,5 @@ if (!db.movies) {
 if (!db.musicItems) {
   db.musicItems = [...initialMusicItems];
 }
-if (process.env.NODE_ENV !== "production") {
-  global.__mockDb = db;
-}
+global.__mockDb = db;
 

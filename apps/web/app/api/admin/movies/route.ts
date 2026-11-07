@@ -1,14 +1,23 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getMovies, upsertMovie } from "@/lib/supabase/service";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { MovieItemInputSchema, MovieItem } from "@music-label/shared";
 import { fetchYouTubeMetadata, extractYouTubeId, getYouTubeThumbnail } from "@/lib/youtube";
 
 export async function GET() {
   try {
     const movies = await getMovies();
-    return NextResponse.json({ success: true, data: movies });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Failed to fetch movies" }, { status: 500 });
+    return NextResponse.json({
+      success: true,
+      data: movies,
+      isSupabaseConfigured,
+    });
+  } catch (error: any) {
+    return NextResponse.json(
+      { success: false, error: error?.message || "Failed to fetch movies" },
+      { status: 500 }
+    );
   }
 }
 
@@ -62,8 +71,26 @@ export async function POST(request: Request) {
     };
 
     const saved = await upsertMovie(newMovie);
-    return NextResponse.json({ success: true, data: saved }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Failed to create movie" }, { status: 500 });
+
+    // Instantly invalidate caches so production reflects changes immediately
+    try {
+      revalidatePath("/movies");
+      revalidatePath("/admin/movies");
+      revalidatePath("/");
+      revalidatePath("/api/public/movies");
+    } catch (e) {
+      // quiet in non-request contexts
+    }
+
+    return NextResponse.json(
+      { success: true, data: saved, isSupabaseConfigured },
+      { status: 201 }
+    );
+  } catch (error: any) {
+    console.error("POST /api/admin/movies error:", error);
+    return NextResponse.json(
+      { success: false, error: error?.message || "Failed to create movie" },
+      { status: 500 }
+    );
   }
 }

@@ -748,7 +748,15 @@ export async function getMovies(): Promise<MovieItem[]> {
       .select("*")
       .order("order_num", { ascending: true });
 
-    if (error || !data || data.length === 0) return db.movies;
+    if (error) {
+      console.error("Supabase getMovies error:", error.message);
+      // Real DB error (e.g. table not created yet) -> fall back to memory
+      return db.movies;
+    }
+
+    // If table exists and user deleted/cleared movies (data.length === 0),
+    // NEVER re-inject mock seeds! Respect the user's database state.
+    if (!data) return [];
 
     return data.map((row) => ({
       id: row.id,
@@ -764,7 +772,8 @@ export async function getMovies(): Promise<MovieItem[]> {
       order: row.order_num ?? 0,
       createdAt: row.created_at,
     }));
-  } catch {
+  } catch (err) {
+    console.error("Supabase getMovies exception:", err);
     return db.movies;
   }
 }
@@ -777,11 +786,14 @@ export async function upsertMovie(movie: MovieItem): Promise<MovieItem> {
     db.movies.unshift(movie);
   }
 
-  if (!isSupabaseConfigured) return movie;
+  if (!isSupabaseConfigured) {
+    console.warn("Supabase is not configured! Movie is only saved in temporary memory.");
+    return movie;
+  }
 
   try {
     const supabase = getSupabaseAdmin();
-    await supabase.from("movies").upsert({
+    const { error } = await supabase.from("movies").upsert({
       id: movie.id,
       title: movie.title,
       description: movie.description,
@@ -795,8 +807,14 @@ export async function upsertMovie(movie: MovieItem): Promise<MovieItem> {
       order_num: movie.order,
       created_at: movie.createdAt || new Date().toISOString(),
     });
+
+    if (error) {
+      console.error("Supabase upsertMovie error:", error);
+      throw new Error(`Supabase error saving movie: ${error.message}`);
+    }
   } catch (err) {
-    console.warn("Supabase upsertMovie fallback to mock store:", err);
+    console.error("Supabase upsertMovie failed:", err);
+    throw err;
   }
 
   return movie;
@@ -805,13 +823,21 @@ export async function upsertMovie(movie: MovieItem): Promise<MovieItem> {
 export async function deleteMovie(id: string): Promise<void> {
   db.movies = db.movies.filter((m) => m.id !== id);
 
-  if (!isSupabaseConfigured) return;
+  if (!isSupabaseConfigured) {
+    console.warn("Supabase is not configured! Movie deleted from temporary memory only.");
+    return;
+  }
 
   try {
     const supabase = getSupabaseAdmin();
-    await supabase.from("movies").delete().eq("id", id);
+    const { error } = await supabase.from("movies").delete().eq("id", id);
+    if (error) {
+      console.error("Supabase deleteMovie error:", error);
+      throw new Error(`Supabase error deleting movie: ${error.message}`);
+    }
   } catch (err) {
-    console.warn("Supabase deleteMovie fallback:", err);
+    console.error("Supabase deleteMovie failed:", err);
+    throw err;
   }
 }
 
@@ -827,7 +853,12 @@ export async function getMusicItems(): Promise<MusicItem[]> {
       .select("*")
       .order("order_num", { ascending: true });
 
-    if (error || !data || data.length === 0) return db.musicItems;
+    if (error) {
+      console.error("Supabase getMusicItems error:", error.message);
+      return db.musicItems;
+    }
+
+    if (!data) return [];
 
     return data.map((row) => ({
       id: row.id,
@@ -847,7 +878,8 @@ export async function getMusicItems(): Promise<MusicItem[]> {
       order: row.order_num ?? 0,
       createdAt: row.created_at,
     }));
-  } catch {
+  } catch (err) {
+    console.error("Supabase getMusicItems exception:", err);
     return db.musicItems;
   }
 }
@@ -864,7 +896,7 @@ export async function upsertMusicItem(music: MusicItem): Promise<MusicItem> {
 
   try {
     const supabase = getSupabaseAdmin();
-    await supabase.from("music_items").upsert({
+    const { error } = await supabase.from("music_items").upsert({
       id: music.id,
       title: music.title,
       artist: music.artist,
@@ -882,8 +914,14 @@ export async function upsertMusicItem(music: MusicItem): Promise<MusicItem> {
       order_num: music.order,
       created_at: music.createdAt || new Date().toISOString(),
     });
+
+    if (error) {
+      console.error("Supabase upsertMusicItem error:", error);
+      throw new Error(`Supabase error saving track: ${error.message}`);
+    }
   } catch (err) {
-    console.warn("Supabase upsertMusicItem fallback to mock store:", err);
+    console.error("Supabase upsertMusicItem failed:", err);
+    throw err;
   }
 
   return music;
@@ -896,9 +934,14 @@ export async function deleteMusicItem(id: string): Promise<void> {
 
   try {
     const supabase = getSupabaseAdmin();
-    await supabase.from("music_items").delete().eq("id", id);
+    const { error } = await supabase.from("music_items").delete().eq("id", id);
+    if (error) {
+      console.error("Supabase deleteMusicItem error:", error);
+      throw new Error(`Supabase error deleting track: ${error.message}`);
+    }
   } catch (err) {
-    console.warn("Supabase deleteMusicItem fallback:", err);
+    console.error("Supabase deleteMusicItem failed:", err);
+    throw err;
   }
 }
 
