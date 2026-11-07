@@ -15,6 +15,8 @@ import {
   Loader2,
   RotateCcw,
   Info,
+  Clapperboard,
+  Play,
 } from "lucide-react";
 import { YoutubeIcon } from "@/components/ui/SocialIcons";
 import { useTheme } from "@/components/theme/ThemeProvider";
@@ -30,6 +32,7 @@ export default function AdminMoviesPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [fetchingYouTube, setFetchingYouTube] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Tracks which fields the user has manually changed
   const [userEditedFields, setUserEditedFields] = useState({
@@ -274,6 +277,7 @@ export default function AdminMoviesPage() {
     };
 
     try {
+      setIsSubmitting(true);
       const isEditing = !!editingMovie;
       const url = isEditing ? `/api/admin/movies/${editingMovie.id}` : "/api/admin/movies";
       const method = isEditing ? "PUT" : "POST";
@@ -294,6 +298,8 @@ export default function AdminMoviesPage() {
       }
     } catch (err) {
       alert("Network error saving movie");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -498,56 +504,66 @@ export default function AdminMoviesPage() {
         </div>
       )}
 
-      {/* Add / Edit Movie Modal */}
+      {/* Add / Edit Movie Modal - Clean, Responsive, Professional Glassmorphism Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-3xl border border-[var(--subtle-border)] bg-[var(--card)] text-[var(--foreground)] p-6 sm:p-8 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-[var(--subtle-border)] mb-6">
-              <div className="flex items-center space-x-2">
-                <Film className="w-5 h-5 text-[#e11d48]" />
-                <h3 className="font-heading font-extrabold text-xl uppercase tracking-wide">
-                  {editingMovie ? "Edit Cinema Release" : "Publish New Movie"}
-                </h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-hidden animate-in fade-in duration-200">
+          <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col rounded-3xl border border-[var(--subtle-border)] bg-[var(--card)] text-[var(--foreground)] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header (Sticky) */}
+            <div className="p-5 sm:p-6 pb-4 border-b border-[var(--subtle-border)] flex items-center justify-between shrink-0 bg-[var(--card)]/95 backdrop-blur-sm z-10">
+              <div className="flex items-center space-x-3.5">
+                <div className="w-10 h-10 rounded-2xl bg-[#e11d48]/10 text-[#e11d48] border border-[#e11d48]/25 flex items-center justify-center shrink-0">
+                  <Film className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-extrabold text-lg sm:text-xl uppercase tracking-wide text-[var(--foreground)]">
+                    {editingMovie ? "Edit Cinema Release" : "Publish New Movie"}
+                  </h3>
+                  <p className="text-[11px] text-zinc-400">
+                    Configure YouTube video stream, metadata, cinema poster, and hero spotlight
+                  </p>
+                </div>
               </div>
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="p-1.5 rounded-full border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)]"
+                className="w-8 h-8 rounded-full border border-[var(--subtle-border)] flex items-center justify-center text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
+                title="Close modal"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* YouTube URL (Primary) */}
-              <div className="space-y-2 p-4 rounded-2xl bg-zinc-500/5 border border-[var(--subtle-border)]">
+            {/* Modal Form Scrollable Body */}
+            <form onSubmit={handleSubmit} id="movie-modal-form" className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
+              {/* Section 1: YouTube Stream & Fallback Engine */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-3.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold uppercase tracking-wider text-[var(--foreground)] flex items-center space-x-1.5">
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
                     <YoutubeIcon className="w-4 h-4 text-red-500" />
-                    <span>YouTube Video / Trailer Link *</span>
-                  </label>
+                    <span>YouTube Stream &amp; Auto-Sync</span>
+                  </div>
                   {fetchingYouTube && (
-                    <span className="text-[11px] text-[#e11d48] flex items-center space-x-1">
-                      <Loader2 className="w-3 h-3 animate-spin" />
+                    <span className="text-[11px] text-[#e11d48] flex items-center space-x-1 font-medium">
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       <span>Syncing YouTube data...</span>
                     </span>
                   )}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2">
+                <div className="flex flex-col sm:flex-row gap-2.5">
                   <input
                     type="url"
                     required
                     value={formData.youtubeUrl}
                     onChange={(e) => handleYouTubeUrlChange(e.target.value)}
                     placeholder="https://www.youtube.com/watch?v=... or youtu.be/..."
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs sm:text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
                   />
                   <button
                     type="button"
                     onClick={() => syncYouTubeDetails(formData.youtubeUrl, true)}
                     disabled={fetchingYouTube || !formData.youtubeUrl}
-                    className="px-3.5 py-2 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold text-zinc-400 hover:text-[var(--foreground)] flex items-center justify-center space-x-1.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0 transition-colors"
+                    className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold text-zinc-400 hover:text-[var(--foreground)] flex items-center justify-center space-x-1.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0 transition-colors shadow-sm"
                     title="Force re-sync original YouTube title, synopsis, and thumbnail"
                   >
                     <RotateCcw className={`w-3.5 h-3.5 ${fetchingYouTube ? "animate-spin" : ""}`} />
@@ -556,11 +572,14 @@ export default function AdminMoviesPage() {
                 </div>
 
                 {youtubeMeta ? (
-                  <div className="flex items-center justify-between text-[11px] text-zinc-400 pt-1">
+                  <div className="flex items-center justify-between text-[11px] text-zinc-400 p-2.5 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05]">
                     <span className="truncate pr-2">
                       Linked: <strong className="text-[var(--foreground)]">{youtubeMeta.title}</strong>
                     </span>
-                    <span className="text-emerald-500 shrink-0 font-medium">Original YouTube linked</span>
+                    <span className="text-emerald-500 shrink-0 font-medium flex items-center space-x-1">
+                      <CheckCircle className="w-3.5 h-3.5" />
+                      <span>Original YouTube synced</span>
+                    </span>
                   </div>
                 ) : (
                   <p className="text-[11px] text-zinc-500">
@@ -569,128 +588,170 @@ export default function AdminMoviesPage() {
                 )}
               </div>
 
-              {/* Title */}
-              <div className="space-y-1.5">
+              {/* Section 2: Movie Metadata & Synopsis */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Movie Title
-                  </label>
-                  {userEditedFields.title ? (
-                    <div className="flex items-center space-x-2">
-                      <span className="text-[10px] font-semibold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
-                        Custom Title
-                      </span>
-                      {youtubeMeta?.title && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, title: youtubeMeta.title }));
-                            setUserEditedFields((prev) => ({ ...prev, title: false }));
-                          }}
-                          className="text-[10px] text-[#e11d48] hover:underline flex items-center space-x-1 cursor-pointer"
-                        >
-                          <RotateCcw className="w-2.5 h-2.5" />
-                          <span>Revert to YouTube</span>
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
-                      <Sparkles className="w-2.5 h-2.5" />
-                      <span>YouTube Fallback</span>
-                    </span>
-                  )}
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
+                    <Clapperboard className="w-4 h-4 text-[#e11d48]" />
+                    <span>Film Details &amp; Synopsis</span>
+                  </div>
+                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">Cinema Metadata</span>
                 </div>
-                <input
-                  type="text"
-                  value={formData.title}
-                  onChange={(e) => {
-                    setFormData({ ...formData, title: e.target.value });
-                    setUserEditedFields((prev) => ({ ...prev, title: true }));
-                  }}
-                  placeholder={youtubeMeta?.title ? `Original: ${youtubeMeta.title}` : "e.g. Chronicles of Resonance (Leave blank to use YouTube title)"}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                />
+
+                {/* Title */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                      Movie Title
+                    </label>
+                    {userEditedFields.title ? (
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[10px] font-semibold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                          Custom Title
+                        </span>
+                        {youtubeMeta?.title && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFormData((prev) => ({ ...prev, title: youtubeMeta.title }));
+                              setUserEditedFields((prev) => ({ ...prev, title: false }));
+                            }}
+                            className="text-[10px] text-[#e11d48] hover:underline flex items-center space-x-1 cursor-pointer"
+                          >
+                            <RotateCcw className="w-2.5 h-2.5" />
+                            <span>Revert to YouTube</span>
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
+                        <Sparkles className="w-2.5 h-2.5" />
+                        <span>YouTube Fallback</span>
+                      </span>
+                    )}
+                  </div>
+                  <input
+                    type="text"
+                    value={formData.title}
+                    onChange={(e) => {
+                      setFormData({ ...formData, title: e.target.value });
+                      setUserEditedFields((prev) => ({ ...prev, title: true }));
+                    }}
+                    placeholder={youtubeMeta?.title ? `Original: ${youtubeMeta.title}` : "e.g. Chronicles of Resonance (Leave blank to use YouTube title)"}
+                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                  />
+                </div>
+
+                {/* Description */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                      Synopsis / Description
+                    </label>
+                    {userEditedFields.description ? (
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[10px] font-semibold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
+                          Custom Description
+                        </span>
+                        {youtubeMeta?.description && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFormData((prev) => ({ ...prev, description: youtubeMeta.description }));
+                              setUserEditedFields((prev) => ({ ...prev, description: false }));
+                            }}
+                            className="text-[10px] text-[#e11d48] hover:underline flex items-center space-x-1 cursor-pointer"
+                          >
+                            <RotateCcw className="w-2.5 h-2.5" />
+                            <span>Revert to YouTube</span>
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
+                        <Sparkles className="w-2.5 h-2.5" />
+                        <span>YouTube Fallback</span>
+                      </span>
+                    )}
+                  </div>
+                  <textarea
+                    rows={3}
+                    value={formData.description}
+                    onChange={(e) => {
+                      setFormData({ ...formData, description: e.target.value });
+                      setUserEditedFields((prev) => ({ ...prev, description: true }));
+                    }}
+                    placeholder={youtubeMeta?.description || "Leave blank to use original YouTube description..."}
+                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs sm:text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all resize-y"
+                  />
+                </div>
+
+                {/* Director, Year, Duration (Clean 3-column layout; genre is permanently removed) */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Director / Creator
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.director}
+                      onChange={(e) => {
+                        setFormData({ ...formData, director: e.target.value });
+                        setUserEditedFields((prev) => ({ ...prev, director: true }));
+                      }}
+                      placeholder="e.g. One Roof Studios"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Release Year
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.year}
+                      onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                      placeholder="2026"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Duration
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.duration}
+                      onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                      placeholder="e.g. 1h 45m"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Description */}
-              <div className="space-y-1.5">
+              {/* Section 3: Cinematic Poster & Thumbnail Artwork */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Synopsis / Description
-                  </label>
-                  {userEditedFields.description ? (
-                    <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
+                    <Upload className="w-4 h-4 text-[#e11d48]" />
+                    <span>Cinematic Poster Artwork</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">16:9 Widescreen</span>
+                    {userEditedFields.thumbnailUrl ? (
                       <span className="text-[10px] font-semibold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
-                        Custom Description
+                        Custom File
                       </span>
-                      {youtubeMeta?.description && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, description: youtubeMeta.description }));
-                            setUserEditedFields((prev) => ({ ...prev, description: false }));
-                          }}
-                          className="text-[10px] text-[#e11d48] hover:underline flex items-center space-x-1 cursor-pointer"
-                        >
-                          <RotateCcw className="w-2.5 h-2.5" />
-                          <span>Revert to YouTube</span>
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
-                      <Sparkles className="w-2.5 h-2.5" />
-                      <span>YouTube Fallback</span>
-                    </span>
-                  )}
-                </div>
-                <textarea
-                  rows={3}
-                  value={formData.description}
-                  onChange={(e) => {
-                    setFormData({ ...formData, description: e.target.value });
-                    setUserEditedFields((prev) => ({ ...prev, description: true }));
-                  }}
-                  placeholder={youtubeMeta?.description || "Leave blank to use YouTube description..."}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                />
-              </div>
-
-              {/* Thumbnail Image */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Thumbnail Image
-                  </label>
-                  {userEditedFields.thumbnailUrl ? (
-                    <div className="flex items-center space-x-2">
-                      <span className="text-[10px] font-semibold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
-                        Custom Thumbnail
+                    ) : (
+                      <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                        YouTube Fallback
                       </span>
-                      {youtubeMeta?.thumbnailUrl && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, thumbnailUrl: youtubeMeta.thumbnailUrl }));
-                            setUserEditedFields((prev) => ({ ...prev, thumbnailUrl: false }));
-                          }}
-                          className="text-[10px] text-[#e11d48] hover:underline flex items-center space-x-1 cursor-pointer"
-                        >
-                          <RotateCcw className="w-2.5 h-2.5" />
-                          <span>Revert to YouTube</span>
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center space-x-1">
-                      <Sparkles className="w-2.5 h-2.5" />
-                      <span>YouTube Fallback</span>
-                    </span>
-                  )}
+                    )}
+                  </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-2.5">
                   <input
                     type="text"
                     value={formData.thumbnailUrl}
@@ -698,12 +759,16 @@ export default function AdminMoviesPage() {
                       setFormData({ ...formData, thumbnailUrl: e.target.value });
                       setUserEditedFields((prev) => ({ ...prev, thumbnailUrl: true }));
                     }}
-                    placeholder="https://... or auto-fetched from YouTube"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    placeholder="https://... or upload custom image (leave blank for YouTube thumbnail)"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs sm:text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
                   />
-                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0 transition-colors">
-                    <Upload className="w-3.5 h-3.5 text-[#e11d48]" />
-                    <span>{uploadingImage ? "Uploading..." : "Upload File"}</span>
+                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0 transition-colors shadow-sm">
+                    {uploadingImage ? (
+                      <Loader2 className="w-4 h-4 text-[#e11d48] animate-spin" />
+                    ) : (
+                      <Upload className="w-4 h-4 text-[#e11d48]" />
+                    )}
+                    <span>{uploadingImage ? "Uploading..." : "Upload Poster"}</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -714,101 +779,104 @@ export default function AdminMoviesPage() {
                   </label>
                 </div>
 
-                {formData.thumbnailUrl && (
-                  <div className="flex items-center space-x-3 mt-2">
-                    <div className="relative w-32 aspect-video rounded-lg overflow-hidden border border-[var(--subtle-border)] bg-black shrink-0">
-                      <img
-                        src={formData.thumbnailUrl}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="text-xs text-zinc-400">
-                      <div className="font-semibold text-[var(--foreground)]">
-                        {userEditedFields.thumbnailUrl ? "Custom Thumbnail Active" : "YouTube Default Thumbnail"}
-                      </div>
-                      <div className="text-[11px] text-zinc-500 truncate max-w-xs mt-0.5">
-                        {formData.thumbnailUrl}
-                      </div>
-                    </div>
+                {/* Poster Live Preview */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-3 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)]">
+                  <div className="relative w-full sm:w-48 aspect-[16/9] rounded-xl overflow-hidden border border-[var(--subtle-border)] bg-black shrink-0 shadow-md">
+                    <img
+                      src={formData.thumbnailUrl || (formData.youtubeUrl ? getYouTubeThumbnail(formData.youtubeUrl) : "/logo-icon.png")}
+                      alt="Cinema Poster Preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (formData.youtubeUrl) {
+                          const hq = getYouTubeThumbnail(formData.youtubeUrl, "hq");
+                          if (target.src !== hq) target.src = hq;
+                        }
+                      }}
+                    />
                   </div>
-                )}
-              </div>
-
-              {/* Director, Year, Duration Row (Clean 3-column layout) */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-                    Director / Creator
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.director}
-                    onChange={(e) => {
-                      setFormData({ ...formData, director: e.target.value });
-                      setUserEditedFields((prev) => ({ ...prev, director: true }));
-                    }}
-                    placeholder="e.g. One Roof Studios"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-                    Release Year
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.year}
-                    onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                    placeholder="2026"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-                    Duration
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.duration}
-                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                    placeholder="e.g. 1h 45m"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                  />
+                  <div className="space-y-1">
+                    <div className="text-xs font-bold text-[var(--foreground)] uppercase tracking-wide">
+                      {userEditedFields.thumbnailUrl ? "Custom Poster Active" : "Original YouTube Thumbnail"}
+                    </div>
+                    <p className="text-[11px] text-zinc-400">
+                      Standard 16:9 cinema aspect ratio. The thumbnail automatically adapts to desktop banners and mobile previews.
+                    </p>
+                    {userEditedFields.thumbnailUrl && youtubeMeta?.thumbnailUrl && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({ ...prev, thumbnailUrl: youtubeMeta.thumbnailUrl }));
+                          setUserEditedFields((prev) => ({ ...prev, thumbnailUrl: false }));
+                        }}
+                        className="text-[11px] text-[#e11d48] hover:underline font-semibold flex items-center space-x-1 cursor-pointer pt-0.5"
+                      >
+                        <RotateCcw className="w-3 h-3" />
+                        <span>Revert to original YouTube thumbnail</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Featured Checkbox */}
-              <div className="flex items-center space-x-2 pt-2">
-                <input
-                  type="checkbox"
-                  id="featured-checkbox"
-                  checked={formData.featured}
-                  onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="rounded text-[#e11d48] focus:ring-[#e11d48] w-4 h-4 cursor-pointer"
-                />
-                <label htmlFor="featured-checkbox" className="text-xs font-semibold text-[var(--foreground)] cursor-pointer">
-                  Feature this movie as the Hero Premiere Spotlight
+              {/* Section 4: Hero Spotlight Switch */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] flex items-center justify-between gap-4">
+                <div className="space-y-0.5">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[var(--foreground)] flex items-center space-x-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#e11d48]" />
+                    <span>Hero Premiere Spotlight</span>
+                  </div>
+                  <p className="text-[11px] text-zinc-400">
+                    Feature this film prominently in the hero video banner on the cinema portal.
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                  <input
+                    type="checkbox"
+                    id="featured-checkbox"
+                    checked={formData.featured}
+                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#e11d48]"></div>
                 </label>
               </div>
+            </form>
 
-              {/* Modal Buttons */}
-              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-[var(--subtle-border)]">
+            {/* Modal Footer (Sticky) */}
+            <div className="p-4 sm:p-5 border-t border-[var(--subtle-border)] bg-[var(--card)]/95 backdrop-blur-sm flex items-center justify-between shrink-0 z-10">
+              <div className="hidden sm:block text-[11px] text-zinc-400">
+                All cinema metadata persists to Supabase database.
+              </div>
+              <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-[var(--foreground)]"
+                  disabled={isSubmitting}
+                  className="px-5 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20"
+                  form="movie-modal-form"
+                  disabled={isSubmitting}
+                  className="px-6 py-2.5 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/25 flex items-center space-x-2 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                 >
-                  {editingMovie ? "Save Changes" : "Create Movie"}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Saving Movie...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-4 h-4" />
+                      <span>{editingMovie ? "Save Changes" : "Publish Movie"}</span>
+                    </>
+                  )}
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}

@@ -15,6 +15,11 @@ import {
   CheckCircle,
   Radio,
   FileAudio,
+  Disc3,
+  Sparkles,
+  Headphones,
+  Sliders,
+  Loader2,
 } from "lucide-react";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
@@ -28,7 +33,10 @@ export default function AdminMusicPage() {
   const [uploadingAudio, setUploadingAudio] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
   const [activePreviewId, setActivePreviewId] = useState<string | null>(null);
+  const [modalAudioPlaying, setModalAudioPlaying] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const modalAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -187,35 +195,92 @@ export default function AdminMusicPage() {
     }
   };
 
+  const handleCloseModal = () => {
+    if (modalAudioRef.current) {
+      modalAudioRef.current.pause();
+      modalAudioRef.current.src = "";
+    }
+    setModalAudioPlaying(false);
+    setModalOpen(false);
+  };
+
+  const handleToggleModalAudio = () => {
+    let audio = modalAudioRef.current;
+    if (!audio) {
+      audio = new Audio();
+      modalAudioRef.current = audio;
+    }
+
+    if (modalAudioPlaying) {
+      audio.pause();
+      setModalAudioPlaying(false);
+    } else {
+      const src = formData.audioUrl || "/audio/track-1.mp3";
+      audio.src = src;
+      audio.play().then(() => {
+        setModalAudioPlaying(true);
+        audio.onended = () => setModalAudioPlaying(false);
+      }).catch(() => {
+        setModalAudioPlaying(false);
+        alert("Unable to play audio. Check URL format or CORS permissions.");
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.artist || !formData.description || !formData.thumbnailUrl) {
-      alert("Please fill in Title, Artist, Description, and Cover Artwork.");
+    if (!formData.title?.trim()) {
+      alert("Please provide at least a Track Title.");
       return;
     }
 
     try {
+      setIsSubmitting(true);
       const isEditing = !!editingMusic;
       const url = isEditing ? `/api/admin/music/${editingMusic.id}` : "/api/admin/music";
       const method = isEditing ? "PUT" : "POST";
 
+      const resolvedTitle = formData.title.trim();
+      const resolvedArtist = formData.artist?.trim() || "Aethelgard";
+      const resolvedDescription =
+        formData.description?.trim() ||
+        `${resolvedTitle} — Master studio audio recording released by ${resolvedArtist}.`;
+      const resolvedThumbnail =
+        formData.thumbnailUrl?.trim() || "/logo-icon.png";
+      const resolvedDuration = formData.duration?.trim() || "3:45";
+      const resolvedGenre = formData.genre?.trim() || "Electronic / Orchestral";
+      const resolvedYear = formData.year?.trim() || new Date().getFullYear().toString();
+
+      const payload = {
+        ...formData,
+        title: resolvedTitle,
+        artist: resolvedArtist,
+        description: resolvedDescription,
+        thumbnailUrl: resolvedThumbnail,
+        duration: resolvedDuration,
+        genre: resolvedGenre,
+        year: resolvedYear,
+      };
+
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const json = await res.json();
       if (json.success) {
-        showNotification(isEditing ? "Track updated successfully" : "New audio track added successfully");
-        setModalOpen(false);
+        showNotification(isEditing ? "Track updated successfully" : "New audio track published successfully");
+        handleCloseModal();
         fetchMusic();
       } else {
         alert(json.error || "Failed to save track");
       }
     } catch (err) {
       alert("Network error saving track");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -263,7 +328,7 @@ export default function AdminMusicPage() {
           type="button"
           onClick={handleOpenAddModal}
           id="admin-add-music-btn"
-          className="px-5 py-2.5 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto"
+          className="px-5 py-2.5 rounded-full bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20 transition-all flex items-center space-x-2 cursor-pointer self-start sm:self-auto active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Track</span>
@@ -322,7 +387,7 @@ export default function AdminMusicPage() {
                           onClick={() => handleTogglePreview(track.id, track.audioUrl)}
                           className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                             isPlaying
-                              ? "bg-[#e11d48] text-white"
+                              ? "bg-[#e11d48] text-white shadow-md shadow-[#e11d48]/30"
                               : "border border-[var(--subtle-border)] text-zinc-400 hover:text-[#e11d48] hover:border-[#e11d48]"
                           }`}
                           title={isPlaying ? "Stop preview" : "Play preview"}
@@ -406,89 +471,234 @@ export default function AdminMusicPage() {
         </div>
       )}
 
-      {/* Add / Edit Music Modal */}
+      {/* Add / Edit Music Modal - Clean, Responsive, Professional Glassmorphism Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-3xl border border-[var(--subtle-border)] bg-[var(--card)] text-[var(--foreground)] p-6 sm:p-8 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-[var(--subtle-border)] mb-6">
-              <div className="flex items-center space-x-2">
-                <Music className="w-5 h-5 text-[#e11d48]" />
-                <h3 className="font-heading font-extrabold text-xl uppercase tracking-wide">
-                  {editingMusic ? "Edit Audio Recording" : "Publish New Audio Track"}
-                </h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-hidden animate-in fade-in duration-200">
+          <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col rounded-3xl border border-[var(--subtle-border)] bg-[var(--card)] text-[var(--foreground)] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Modal Header (Sticky) */}
+            <div className="p-5 sm:p-6 pb-4 border-b border-[var(--subtle-border)] flex items-center justify-between shrink-0 bg-[var(--card)]/95 backdrop-blur-sm z-10">
+              <div className="flex items-center space-x-3.5">
+                <div className="w-10 h-10 rounded-2xl bg-[#e11d48]/10 text-[#e11d48] border border-[#e11d48]/25 flex items-center justify-center shrink-0">
+                  <Music className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-extrabold text-lg sm:text-xl uppercase tracking-wide text-[var(--foreground)]">
+                    {editingMusic ? "Edit Audio Recording" : "Publish New Audio Track"}
+                  </h3>
+                  <p className="text-[11px] text-zinc-400">
+                    Configure master audio recording, artwork, metadata, and platform links
+                  </p>
+                </div>
               </div>
               <button
                 type="button"
-                onClick={() => setModalOpen(false)}
-                className="p-1.5 rounded-full border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)]"
+                onClick={handleCloseModal}
+                className="w-8 h-8 rounded-full border border-[var(--subtle-border)] flex items-center justify-center text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
+                title="Close modal"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Title & Artist Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Track Title *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="e.g. Obsidian Horizon"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                  />
+            {/* Modal Form Scrollable Body */}
+            <form onSubmit={handleSubmit} id="music-modal-form" className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
+              {/* Section 1: Track Essentials */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
+                    <Disc3 className="w-4 h-4 text-[#e11d48]" />
+                    <span>Track Essentials &amp; Credits</span>
+                  </div>
+                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">Catalog Metadata</span>
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Artist Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.artist}
-                    onChange={(e) => setFormData({ ...formData, artist: e.target.value })}
-                    placeholder="e.g. Aethelgard"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                {/* Title & Artist Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Track Title <span className="text-[#e11d48]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      placeholder="e.g. Obsidian Horizon"
+                      className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Artist / Producer Name <span className="text-[#e11d48]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.artist}
+                      onChange={(e) => setFormData({ ...formData, artist: e.target.value })}
+                      placeholder="e.g. Aethelgard"
+                      className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                </div>
+
+                {/* Genre, Duration, Year (3-column responsive grid) */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Genre
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.genre}
+                      onChange={(e) => setFormData({ ...formData, genre: e.target.value })}
+                      placeholder="e.g. Dark Ambient / Orchestral"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Duration
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.duration}
+                      onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                      placeholder="e.g. 3:45"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Release Year
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.year}
+                      onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                      placeholder="2026"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                    />
+                  </div>
+                </div>
+
+                {/* Description / Liner Notes (Non-blocking, Optional with Fallback) */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                      Track Description / Liner Notes
+                    </label>
+                    <span className="text-[10px] text-zinc-500 italic">Optional — auto-fills if left blank</span>
+                  </div>
+                  <textarea
+                    rows={2}
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Atmospheric acoustic flutter and valve tube saturation... (Leave blank to use default label notes)"
+                    className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs sm:text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all resize-y"
                   />
                 </div>
               </div>
 
-              {/* Description */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                  Track Description / Liner Notes *
-                </label>
-                <textarea
-                  required
-                  rows={2}
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Atmospheric acoustic flutter and valve tube saturation..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                />
-              </div>
+              {/* Section 2: Master Audio Source & Playback Preview */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
+                    <FileAudio className="w-4 h-4 text-[#e11d48]" />
+                    <span>Master Audio Recording &amp; Stems</span>
+                  </div>
+                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">MP3 • WAV • CDN</span>
+                </div>
 
-              {/* Cover Artwork Image */}
-              <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                  Cover Artwork Thumbnail *
-                </label>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-2.5">
                   <input
                     type="text"
-                    required
+                    value={formData.audioUrl}
+                    onChange={(e) => setFormData({ ...formData, audioUrl: e.target.value })}
+                    placeholder="/audio/track-1.mp3 or paste hosted audio URL"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs sm:text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
+                  />
+                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0 transition-colors shadow-sm">
+                    {uploadingAudio ? (
+                      <Loader2 className="w-4 h-4 text-[#e11d48] animate-spin" />
+                    ) : (
+                      <Upload className="w-4 h-4 text-[#e11d48]" />
+                    )}
+                    <span>{uploadingAudio ? "Uploading Audio..." : "Upload MP3 / WAV"}</span>
+                    <input
+                      type="file"
+                      accept="audio/*"
+                      onChange={handleAudioUpload}
+                      disabled={uploadingAudio}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+
+                {/* Live In-Modal Audio Player Preview */}
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)]">
+                  <div className="flex items-center space-x-3 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={handleToggleModalAudio}
+                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-all shrink-0 ${
+                        modalAudioPlaying
+                          ? "bg-[#e11d48] text-white shadow-lg shadow-[#e11d48]/40 animate-pulse"
+                          : "bg-zinc-800 text-white hover:bg-[#e11d48]"
+                      }`}
+                      title={modalAudioPlaying ? "Pause audio" : "Test audio playback"}
+                    >
+                      {modalAudioPlaying ? (
+                        <Pause className="w-4 h-4 fill-white" />
+                      ) : (
+                        <Play className="w-4 h-4 fill-white ml-0.5" />
+                      )}
+                    </button>
+                    <div className="overflow-hidden">
+                      <div className="text-xs font-semibold text-[var(--foreground)] truncate flex items-center space-x-1.5">
+                        <Headphones className="w-3.5 h-3.5 text-[#e11d48] shrink-0" />
+                        <span>{formData.audioUrl ? "Audio Source Ready" : "Default Audio Stream"}</span>
+                      </div>
+                      <div className="text-[11px] text-zinc-400 font-mono truncate max-w-[200px] sm:max-w-md">
+                        {formData.audioUrl || "/audio/track-1.mp3 (Default Audio Preview)"}
+                      </div>
+                    </div>
+                  </div>
+                  <span className={`text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full border shrink-0 ${
+                    modalAudioPlaying
+                      ? "border-[#e11d48]/40 bg-[#e11d48]/10 text-[#e11d48]"
+                      : "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+                  }`}>
+                    {modalAudioPlaying ? "Playing Now" : "Ready to Test"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Section 3: Cover Artwork */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
+                    <Upload className="w-4 h-4 text-[#e11d48]" />
+                    <span>Cover Artwork Thumbnail</span>
+                  </div>
+                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">1:1 Square</span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <input
+                    type="text"
                     value={formData.thumbnailUrl}
                     onChange={(e) => setFormData({ ...formData, thumbnailUrl: e.target.value })}
-                    placeholder="https://... or upload image"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    placeholder="https://... or upload image (leave blank for logo default)"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs sm:text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48] focus:ring-1 focus:ring-[#e11d48] transition-all"
                   />
-                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
-                    <Upload className="w-3.5 h-3.5 text-[#e11d48]" />
+                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0 transition-colors shadow-sm">
+                    {uploadingImage ? (
+                      <Loader2 className="w-4 h-4 text-[#e11d48] animate-spin" />
+                    ) : (
+                      <Upload className="w-4 h-4 text-[#e11d48]" />
+                    )}
                     <span>{uploadingImage ? "Uploading..." : "Upload Cover"}</span>
                     <input
                       type="file"
@@ -500,131 +710,150 @@ export default function AdminMusicPage() {
                   </label>
                 </div>
 
-                {formData.thumbnailUrl && (
-                  <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-[var(--subtle-border)] mt-2 bg-black">
+                {/* Artwork Live Preview Card */}
+                <div className="flex items-center space-x-4 p-3 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)]">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border border-[var(--subtle-border)] bg-black shrink-0">
                     <img
-                      src={formData.thumbnailUrl}
+                      src={formData.thumbnailUrl || "/logo-icon.png"}
                       alt="Cover Preview"
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = "/logo-icon.png";
+                      }}
                     />
                   </div>
-                )}
+                  <div className="space-y-1">
+                    <div className="text-xs font-bold text-[var(--foreground)] uppercase tracking-wide">
+                      {formData.thumbnailUrl ? "Active Cover Artwork" : "Default Label Artwork"}
+                    </div>
+                    <p className="text-[11px] text-zinc-400">
+                      Recommended: High resolution square image (at least 1000×1000 pixels) in JPG, PNG, or WebP.
+                    </p>
+                    {formData.thumbnailUrl && (
+                      <button
+                        type="button"
+                        onClick={() => setFormData((prev) => ({ ...prev, thumbnailUrl: "" }))}
+                        className="text-[11px] text-[#e11d48] hover:underline font-semibold cursor-pointer"
+                      >
+                        Reset to default artwork
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              {/* Audio Source (File Upload or URL) */}
-              <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                  Audio File (MP3 / WAV Upload or Audio URL)
-                </label>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="text"
-                    value={formData.audioUrl}
-                    onChange={(e) => setFormData({ ...formData, audioUrl: e.target.value })}
-                    placeholder="/audio/track-1.mp3 or upload audio file"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-sm text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
-                  />
-                  <label className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shrink-0">
-                    <FileAudio className="w-3.5 h-3.5 text-[#e11d48]" />
-                    <span>{uploadingAudio ? "Uploading..." : "Upload Audio (MP3/WAV)"}</span>
+              {/* Section 4: Streaming Distribution Links (Optional) */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
+                    <ExternalLink className="w-4 h-4 text-[#e11d48]" />
+                    <span>External Streaming Platforms (Optional)</span>
+                  </div>
+                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">DSP Links</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">Spotify Link</label>
                     <input
-                      type="file"
-                      accept="audio/*"
-                      onChange={handleAudioUpload}
-                      disabled={uploadingAudio}
-                      className="hidden"
+                      type="url"
+                      value={formData.spotifyUrl}
+                      onChange={(e) => setFormData({ ...formData, spotifyUrl: e.target.value })}
+                      placeholder="https://open.spotify.com/track/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                     />
-                  </label>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">SoundCloud Link</label>
+                    <input
+                      type="url"
+                      value={formData.soundcloudUrl}
+                      onChange={(e) => setFormData({ ...formData, soundcloudUrl: e.target.value })}
+                      placeholder="https://soundcloud.com/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">Apple Music Link</label>
+                    <input
+                      type="url"
+                      value={formData.appleMusicUrl}
+                      onChange={(e) => setFormData({ ...formData, appleMusicUrl: e.target.value })}
+                      placeholder="https://music.apple.com/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">YouTube Music Link</label>
+                    <input
+                      type="url"
+                      value={formData.youtubeUrl}
+                      onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
+                      placeholder="https://music.youtube.com/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Duration, Genre, Year */}
-              <div className="grid grid-cols-3 gap-3">
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Duration</label>
-                  <input
-                    type="text"
-                    value={formData.duration}
-                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                    placeholder="3:45"
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
-                  />
+              {/* Section 5: Master Deck Spotlight Switch */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-[var(--subtle-border)] bg-zinc-500/[0.03] flex items-center justify-between gap-4">
+                <div className="space-y-0.5">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[var(--foreground)] flex items-center space-x-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#e11d48]" />
+                    <span>Spotlight on Master Audio Deck</span>
+                  </div>
+                  <p className="text-[11px] text-zinc-400">
+                    Pins this master track to the primary audio deck player on the music catalog view.
+                  </p>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Genre</label>
+                <label className="relative inline-flex items-center cursor-pointer shrink-0">
                   <input
-                    type="text"
-                    value={formData.genre}
-                    onChange={(e) => setFormData({ ...formData, genre: e.target.value })}
-                    placeholder="Dark Ambient"
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
+                    type="checkbox"
+                    id="featured-music-checkbox"
+                    checked={formData.featured}
+                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                    className="sr-only peer"
                   />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Year</label>
-                  <input
-                    type="text"
-                    value={formData.year}
-                    onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
-                  />
-                </div>
-              </div>
-
-              {/* Streaming Links */}
-              <div className="space-y-2 pt-1 border-t border-[var(--subtle-border)]">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
-                  Streaming Platform URLs (Optional)
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <input
-                    type="url"
-                    value={formData.spotifyUrl}
-                    onChange={(e) => setFormData({ ...formData, spotifyUrl: e.target.value })}
-                    placeholder="Spotify URL (https://open.spotify.com/...)"
-                    className="px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
-                  />
-                  <input
-                    type="url"
-                    value={formData.soundcloudUrl}
-                    onChange={(e) => setFormData({ ...formData, soundcloudUrl: e.target.value })}
-                    placeholder="SoundCloud URL (https://soundcloud.com/...)"
-                    className="px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
-                  />
-                </div>
-              </div>
-
-              {/* Featured Checkbox */}
-              <div className="flex items-center space-x-2 pt-2">
-                <input
-                  type="checkbox"
-                  id="featured-music-checkbox"
-                  checked={formData.featured}
-                  onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="rounded text-[#e11d48] focus:ring-[#e11d48] w-4 h-4 cursor-pointer"
-                />
-                <label htmlFor="featured-music-checkbox" className="text-xs font-semibold text-[var(--foreground)] cursor-pointer">
-                  Feature this track on the Master Audio Deck
+                  <div className="w-11 h-6 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#e11d48]"></div>
                 </label>
               </div>
+            </form>
 
-              {/* Modal Buttons */}
-              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-[var(--subtle-border)]">
+            {/* Modal Footer (Sticky) */}
+            <div className="p-4 sm:p-5 border-t border-[var(--subtle-border)] bg-[var(--card)]/95 backdrop-blur-sm flex items-center justify-between shrink-0 z-10">
+              <div className="hidden sm:block text-[11px] text-zinc-400">
+                All changes persist to Supabase database &amp; media storage.
+              </div>
+              <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
                 <button
                   type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-[var(--foreground)]"
+                  onClick={handleCloseModal}
+                  disabled={isSubmitting}
+                  className="px-5 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/20"
+                  form="music-modal-form"
+                  disabled={isSubmitting}
+                  className="px-6 py-2.5 rounded-xl bg-[#e11d48] hover:bg-[#D81A26] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#e11d48]/25 flex items-center space-x-2 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                 >
-                  {editingMusic ? "Save Changes" : "Create Track"}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Saving Track...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-4 h-4" />
+                      <span>{editingMusic ? "Save Changes" : "Publish Track"}</span>
+                    </>
+                  )}
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}
