@@ -28,7 +28,6 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
   const { isDark } = useTheme();
   const searchParams = useSearchParams();
   const [selectedMovie, setSelectedMovie] = useState<MovieItem | null>(null);
-  const [activeGenre, setActiveGenre] = useState<string>("All");
   const [isPlayingTrailer, setIsPlayingTrailer] = useState<boolean>(false);
 
   const handleClosePanel = () => {
@@ -75,12 +74,6 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
     };
   }, [selectedMovie]);
 
-  const genres = ["All", ...Array.from(new Set(movies.map((m) => m.genre).filter(Boolean)))];
-
-  // Filtering by genre
-  const filteredMovies =
-    activeGenre === "All" ? movies : movies.filter((movie) => movie.genre === activeGenre);
-
   return (
     <div className="w-full pb-24">
       {/* 1. Cinematic Hero Header */}
@@ -101,27 +94,6 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
             Immersion into feature-length documentaries, 4K concert films, and avant-garde visual
             narratives. Click any production to inspect full credits, synopsis, and stream presentation.
           </p>
-
-          {/* Genre Filter Pills */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-            {genres.map((genre) => {
-              const active = activeGenre === genre;
-              return (
-                <button
-                  key={genre}
-                  type="button"
-                  onClick={() => setActiveGenre(genre)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                    active
-                      ? "bg-[#e11d48] text-white shadow-lg shadow-[#e11d48]/30 font-bold"
-                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48]/40"
-                  }`}
-                >
-                  {genre}
-                </button>
-              );
-            })}
-          </div>
         </div>
       </section>
 
@@ -130,34 +102,27 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
         <div className="flex items-center justify-between mb-8 border-b border-[var(--subtle-border)] pb-4">
           <div>
             <h2 className="font-heading font-extrabold text-2xl uppercase tracking-wider text-[var(--foreground)]">
-              {activeGenre === "All" ? "Complete Film Catalog" : `${activeGenre} Selections`}
+              Complete Film Catalog
             </h2>
             <p className="text-xs text-zinc-400 mt-1">
-              Showing {filteredMovies.length} of {movies.length} cinematic productions
+              Showing {movies.length} cinematic productions
             </p>
           </div>
         </div>
 
-        {filteredMovies.length === 0 ? (
+        {movies.length === 0 ? (
           <div className="py-20 text-center flex flex-col items-center justify-center text-zinc-400 text-sm">
             <Film className="w-12 h-12 text-zinc-600 mb-3 stroke-[1.5]" />
             <p className="font-semibold text-base text-[var(--foreground)] mb-1">
-              No films cataloged under this genre yet
+              No films cataloged yet
             </p>
             <p className="text-xs max-w-sm text-zinc-500 mb-4">
-              Switch genre filter to view all available productions or use global search.
+              New releases and cinema documentaries will appear here once published.
             </p>
-            <button
-              type="button"
-              onClick={() => setActiveGenre("All")}
-              className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#e11d48] text-white hover:bg-[#D81A26] transition-colors"
-            >
-              Show All Films
-            </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredMovies.map((movie) => {
+            {movies.map((movie) => {
               return (
                 <div
                   key={movie.id}
@@ -186,10 +151,10 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                         </div>
                       </div>
 
-                      {/* Genre & Duration Badges */}
+                      {/* Duration & Year Badges */}
                       <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-white font-medium">
                         <span className="px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 font-bold uppercase tracking-wider text-[10px]">
-                          {movie.genre}
+                          {movie.year}
                         </span>
                         <span className="px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 font-mono text-[10px]">
                           {movie.duration}
@@ -283,11 +248,8 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
               {/* LEFT SIDE: Movie Title, Badges, Director, Detailed Synopsis & Storyline */}
               <div className="lg:col-span-6 xl:col-span-7 space-y-6 flex flex-col justify-between order-2 lg:order-1">
                 <div>
-                  {/* Genre, Duration, Year, Featured Badges */}
+                  {/* Duration, Year, Featured Badges */}
                   <div className="flex flex-wrap items-center gap-2 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-[#e11d48] text-white text-[11px] font-bold uppercase tracking-wider shadow-md shadow-[#e11d48]/20">
-                      {selectedMovie.genre}
-                    </span>
                     <span
                       className={`px-3 py-1 rounded-full border text-[11px] font-semibold ${
                         isDark ? "border-white/15 text-zinc-300" : "border-black/15 text-zinc-700"

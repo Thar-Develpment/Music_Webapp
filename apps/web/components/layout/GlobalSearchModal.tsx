@@ -90,7 +90,6 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
         (m) =>
           m.title.toLowerCase().includes(cleanQuery) ||
           m.director?.toLowerCase().includes(cleanQuery) ||
-          m.genre?.toLowerCase().includes(cleanQuery) ||
           m.description?.toLowerCase().includes(cleanQuery)
       )
     : movies.slice(0, 3);
@@ -237,8 +236,8 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                         </div>
 
                         <div className="flex items-center space-x-2 shrink-0 pl-2">
-                          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                            {movie.genre}
+                          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-zinc-500/10 text-zinc-400 border border-zinc-500/20">
+                            {movie.year}
                           </span>
                           <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#e11d48] group-hover:translate-x-0.5 transition-all" />
                         </div>

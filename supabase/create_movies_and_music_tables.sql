@@ -13,11 +13,13 @@ CREATE TABLE IF NOT EXISTS public.movies (
     director TEXT NOT NULL DEFAULT 'One Roof Studios',
     year TEXT NOT NULL DEFAULT '2026',
     duration TEXT NOT NULL DEFAULT '1h 45m',
-    genre TEXT NOT NULL DEFAULT 'Cinematic / Documentary',
     featured BOOLEAN NOT NULL DEFAULT false,
     order_num INT NOT NULL DEFAULT 0,
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- Drop genre column if it already exists from prior setup
+ALTER TABLE public.movies DROP COLUMN IF EXISTS genre;
 
 ALTER TABLE public.movies ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Public can view movies" ON public.movies;

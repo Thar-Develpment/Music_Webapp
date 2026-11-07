@@ -237,7 +237,6 @@ export const MovieItemSchema = z.object({
   director: z.string().default("One Roof Studios"),
   year: z.string().default("2026"),
   duration: z.string().default("1h 45m"),
-  genre: z.string().default("Cinematic / Documentary"),
   featured: z.boolean().default(false),
   order: z.number().default(0),
   createdAt: z.string().optional(),

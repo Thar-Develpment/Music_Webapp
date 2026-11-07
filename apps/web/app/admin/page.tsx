@@ -261,11 +261,11 @@ export default function AdminDashboardPage() {
                     <div className="flex-1 min-w-0">
                       <div className="text-xs font-bold truncate">{movie.title}</div>
                       <div className="text-[11px] text-zinc-400 flex items-center gap-2 mt-0.5">
-                        <span>{movie.genre}</span>
+                        <span>{movie.year}</span>
                         <span>•</span>
                         <span>{movie.duration}</span>
                         <span>•</span>
-                        <span>{movie.year}</span>
+                        <span>Dir. {movie.director}</span>
                       </div>
                     </div>
                     {movie.featured && (

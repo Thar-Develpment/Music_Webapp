@@ -57,7 +57,6 @@ export default function AdminMoviesPage() {
     director: "One Roof Studios",
     year: "2026",
     duration: "1h 45m",
-    genre: "Documentary Feature",
     featured: false,
     order: 0,
   });
@@ -108,7 +107,6 @@ export default function AdminMoviesPage() {
       director: "One Roof Studios",
       year: "2026",
       duration: "1h 45m",
-      genre: "Documentary Feature",
       featured: false,
       order: movies.length + 1,
     });
@@ -148,7 +146,6 @@ export default function AdminMoviesPage() {
       director: movie.director,
       year: movie.year,
       duration: movie.duration,
-      genre: movie.genre,
       featured: movie.featured,
       order: movie.order,
     });
@@ -398,7 +395,7 @@ export default function AdminMoviesPage() {
                   <th className="py-4 pl-6 pr-3 font-semibold uppercase tracking-wider w-16">Preview</th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider">Title &amp; Synopsis</th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider hidden sm:table-cell">
-                    Genre / Details
+                    Release Details
                   </th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider hidden md:table-cell">
                     YouTube URL
@@ -449,11 +446,13 @@ export default function AdminMoviesPage() {
                       </p>
                     </td>
 
-                    {/* Genre & Details */}
+                    {/* Release Details */}
                     <td className="py-4 px-4 hidden sm:table-cell whitespace-nowrap">
-                      <div className="text-[var(--foreground)] font-medium">{movie.genre}</div>
-                      <div className="text-[11px] text-zinc-400">
-                        {movie.year} • {movie.duration} • Dir. {movie.director}
+                      <div className="text-[var(--foreground)] font-bold text-xs uppercase tracking-wide">
+                        {movie.year} • {movie.duration}
+                      </div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">
+                        Dir. {movie.director}
                       </div>
                     </td>
 
@@ -736,10 +735,12 @@ export default function AdminMoviesPage() {
                 )}
               </div>
 
-              {/* Director, Year, Duration, Genre Row */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Director / Creator</label>
+              {/* Director, Year, Duration Row (Clean 3-column layout) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    Director / Creator
+                  </label>
                   <input
                     type="text"
                     value={formData.director}
@@ -747,34 +748,32 @@ export default function AdminMoviesPage() {
                       setFormData({ ...formData, director: e.target.value });
                       setUserEditedFields((prev) => ({ ...prev, director: true }));
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
+                    placeholder="e.g. One Roof Studios"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Year</label>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    Release Year
+                  </label>
                   <input
                     type="text"
                     value={formData.year}
                     onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
+                    placeholder="2026"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Duration</label>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    Duration
+                  </label>
                   <input
                     type="text"
                     value={formData.duration}
                     onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold uppercase text-zinc-400">Genre</label>
-                  <input
-                    type="text"
-                    value={formData.genre}
-                    onChange={(e) => setFormData({ ...formData, genre: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)]"
+                    placeholder="e.g. 1h 45m"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--background)] text-xs text-[var(--foreground)] focus:outline-none focus:border-[#e11d48]"
                   />
                 </div>
               </div>

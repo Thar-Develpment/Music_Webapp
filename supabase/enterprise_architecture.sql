@@ -84,7 +84,6 @@ CREATE TABLE IF NOT EXISTS public.movies (
     director TEXT NOT NULL DEFAULT 'One Roof Studios',
     year VARCHAR(10) NOT NULL DEFAULT '2026',
     duration VARCHAR(20) NOT NULL DEFAULT '1h 45m',
-    genre VARCHAR(100) NOT NULL DEFAULT 'Cinematic / Documentary',
     featured BOOLEAN NOT NULL DEFAULT false,
     status VARCHAR(20) NOT NULL DEFAULT 'published' CHECK (status IN ('draft', 'published', 'archived', 'unlisted')),
     order_num INT NOT NULL DEFAULT 0,
@@ -93,6 +92,9 @@ CREATE TABLE IF NOT EXISTS public.movies (
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- Drop genre column if it already exists from prior setup
+ALTER TABLE public.movies DROP COLUMN IF EXISTS genre;
 
 -- MUSIC & AUDIO TRACKS
 CREATE TABLE IF NOT EXISTS public.music_items (
