@@ -3,8 +3,6 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { isSupabaseConfigured, getSupabaseAdmin } from "@/lib/supabase/client";
 
-export const dynamic = "force-dynamic";
-
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
