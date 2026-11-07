@@ -186,12 +186,12 @@ export async function getArtists(): Promise<Artist[]> {
       .select("*")
       .order("order_num", { ascending: true });
 
-    if (error || !data) return db.artists;
+    if (error || !data || data.length === 0) return db.artists;
     return data.map((row) => ({
       id: row.id,
       name: row.name,
       genre: row.genre,
-      photoUrl: row.photo_url,
+      photoUrl: row.photo_url || "/logo-icon.png",
       spotifyUrl: row.spotify_url || "",
       order: row.order_num,
     }));
@@ -240,12 +240,12 @@ export async function getManagers(): Promise<Manager[]> {
       .select("*")
       .order("order_num", { ascending: true });
 
-    if (error || !data) return db.managers;
+    if (error || !data || data.length === 0) return db.managers;
     return data.map((row) => ({
       id: row.id,
       name: row.name,
       role: row.role,
-      photoUrl: row.photo_url,
+      photoUrl: row.photo_url || "/logo-icon.png",
       order: row.order_num,
     }));
   } catch {
@@ -292,13 +292,13 @@ export async function getUpcomingProjects(): Promise<UpcomingProject[]> {
       .select("*")
       .order("order_num", { ascending: true });
 
-    if (error || !data) return db.upcomingProjects;
+    if (error || !data || data.length === 0) return db.upcomingProjects;
     return data.map((row) => ({
       id: row.id,
       title: row.title,
       releaseDate: row.release_date,
       category: row.category,
-      coverUrl: row.cover_url,
+      coverUrl: row.cover_url || "/logo-icon.png",
       description: row.description,
       order: row.order_num,
     }));
@@ -348,13 +348,13 @@ export async function getTestimonials(): Promise<Testimonial[]> {
       .select("*")
       .order("order_num", { ascending: true });
 
-    if (error || !data) return db.testimonials;
+    if (error || !data || data.length === 0) return db.testimonials;
     return data.map((row) => ({
       id: row.id,
       name: row.name,
       role: row.role,
       quote: row.quote,
-      photoUrl: row.photo_url,
+      photoUrl: row.photo_url || "/logo-icon.png",
       order: row.order_num,
     }));
   } catch {

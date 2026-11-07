@@ -21,17 +21,22 @@ import { motion } from "motion/react";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface ArtistsGridProps {
-  artists: Artist[];
-  managers: Manager[];
+  artists?: Artist[];
+  managers?: Manager[];
 }
 
-export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
+export default function ArtistsGrid({ artists = [], managers = [] }: ArtistsGridProps) {
   const { isDark } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
+  if (!artists || artists.length === 0) {
+    return null;
+  }
+
   const activeArtist = artists[activeIndex] || artists[0];
+  if (!activeArtist) return null;
 
   const handlePrev = () => {
     const nextIdx = activeIndex === 0 ? artists.length - 1 : activeIndex - 1;
@@ -61,7 +66,7 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
     const currentTarget = targetArtist || activeArtist;
     const url = currentTarget?.audioUrl || "/audio/track-1.mp3";
 
-    if (!el.paused && activeArtist.id === currentTarget.id) {
+    if (!el.paused && activeArtist && activeArtist.id === currentTarget?.id) {
       el.pause();
     } else {
       if (el.src !== url && !el.src.endsWith(url)) {
@@ -145,8 +150,8 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
                     }`}
                   >
                     <img
-                      src={artist.photoUrl}
-                      alt={artist.name}
+                      src={artist?.photoUrl || "/logo-icon.png"}
+                      alt={artist?.name || "Artist"}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
@@ -270,8 +275,8 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
                   {/* Square Artist Artwork / Photo */}
                   <div className="relative w-full h-full bg-[#121218]">
                     <img
-                      src={artist.photoUrl}
-                      alt={artist.name}
+                      src={artist?.photoUrl || "/logo-icon.png"}
+                      alt={artist?.name || "Artist"}
                       className="w-full h-full object-cover transition-transform duration-700"
                     />
 
@@ -399,40 +404,42 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
             </div>
 
             {/* Currently Playing Capsule (Square Thumbnail) */}
-            <div className={`flex items-center space-x-3 min-w-0 px-4 py-1.5 rounded-full border ${
-              isDark ? "bg-white/[0.06] border-white/10" : "bg-zinc-100/80 border-black/5"
-            }`}>
-              <div className={`w-8 h-8 rounded-lg overflow-hidden shrink-0 border aspect-square ${
-                isDark ? "border-white/10" : "border-black/10"
+            {activeArtist && (
+              <div className={`flex items-center space-x-3 min-w-0 px-4 py-1.5 rounded-full border ${
+                isDark ? "bg-white/[0.06] border-white/10" : "bg-zinc-100/80 border-black/5"
               }`}>
-                <img
-                  src={activeArtist.photoUrl}
-                  alt={activeArtist.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="min-w-0 flex flex-col">
-                <span className={`text-xs font-bold truncate max-w-[140px] ${
-                  isDark ? "text-white" : "text-zinc-900"
+                <div className={`w-8 h-8 rounded-lg overflow-hidden shrink-0 border aspect-square ${
+                  isDark ? "border-white/10" : "border-black/10"
                 }`}>
-                  {activeArtist.name}
-                </span>
-                <span className={`text-[10px] font-mono truncate max-w-[140px] ${
-                  isDark ? "text-zinc-400" : "text-zinc-500"
-                }`}>
-                  One Roof Master
-                </span>
-              </div>
+                  <img
+                    src={activeArtist.photoUrl || "/logo-icon.png"}
+                    alt={activeArtist.name || "Artist"}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-              {/* Animated Soundwave Bars */}
-              <div className="flex items-end space-x-0.5 h-3 ml-1 shrink-0">
-                <span className={`w-0.5 rounded-full bg-[#e11d48] ${isPlaying ? "wave-bar-1" : "h-1"}`} />
-                <span className={`w-0.5 rounded-full bg-[#FF4D58] ${isPlaying ? "wave-bar-2" : "h-1"}`} />
-                <span className={`w-0.5 rounded-full bg-[#e11d48] ${isPlaying ? "wave-bar-3" : "h-1"}`} />
-                <span className={`w-0.5 rounded-full bg-[#FF4D58] ${isPlaying ? "wave-bar-4" : "h-1"}`} />
+                <div className="min-w-0 flex flex-col">
+                  <span className={`text-xs font-bold truncate max-w-[140px] ${
+                    isDark ? "text-white" : "text-zinc-900"
+                  }`}>
+                    {activeArtist.name || "One Roof Artist"}
+                  </span>
+                  <span className={`text-[10px] font-mono truncate max-w-[140px] ${
+                    isDark ? "text-zinc-400" : "text-zinc-500"
+                  }`}>
+                    One Roof Master
+                  </span>
+                </div>
+
+                {/* Animated Soundwave Bars */}
+                <div className="flex items-end space-x-0.5 h-3 ml-1 shrink-0">
+                  <span className={`w-0.5 rounded-full bg-[#e11d48] ${isPlaying ? "wave-bar-1" : "h-1"}`} />
+                  <span className={`w-0.5 rounded-full bg-[#FF4D58] ${isPlaying ? "wave-bar-2" : "h-1"}`} />
+                  <span className={`w-0.5 rounded-full bg-[#e11d48] ${isPlaying ? "wave-bar-3" : "h-1"}`} />
+                  <span className={`w-0.5 rounded-full bg-[#FF4D58] ${isPlaying ? "wave-bar-4" : "h-1"}`} />
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Media & Audio Action Icons */}
             <div className={`flex items-center space-x-3 ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
@@ -480,8 +487,8 @@ export default function ArtistsGrid({ artists, managers }: ArtistsGridProps) {
                   <div className="flex flex-col sm:flex-row items-center space-y-5 sm:space-y-0 sm:space-x-6 text-center sm:text-left">
                     <div className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-[#e11d48]/40 shadow-md shadow-[#e11d48]/15 shrink-0 relative group aspect-square">
                       <img
-                        src={mgr.photoUrl}
-                        alt={mgr.name}
+                        src={mgr?.photoUrl || "/logo-icon.png"}
+                        alt={mgr?.name || "Manager"}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>

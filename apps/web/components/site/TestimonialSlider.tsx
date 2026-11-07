@@ -94,8 +94,8 @@ export default function TestimonialSlider({
                     }`}>
                       <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#e11d48]/50 shadow-md shadow-[#e11d48]/15">
                         <img
-                          src={t.photoUrl}
-                          alt={t.name}
+                          src={t?.photoUrl || "/logo-icon.png"}
+                          alt={t?.name || "Testimonial"}
                           className="w-full h-full object-cover"
                         />
                       </div>

@@ -118,8 +118,8 @@ export default function AboutView({
                     <div className="flex items-center space-x-4">
                       <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#e11d48]/40 shadow-sm shrink-0 aspect-square">
                         <img
-                          src={mgr.photoUrl}
-                          alt={mgr.name}
+                          src={mgr?.photoUrl || "/logo-icon.png"}
+                          alt={mgr?.name || "Manager"}
                           className="w-full h-full object-cover"
                         />
                       </div>
