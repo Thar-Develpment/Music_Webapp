@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { upsertMovie, deleteMovie } from "@/lib/supabase/service";
 import { MovieItemSchema } from "@music-label/shared";
+import { fetchYouTubeMetadata, extractYouTubeId, getYouTubeThumbnail } from "@/lib/youtube";
 
 export async function PUT(
   request: Request,
@@ -9,7 +10,32 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const validated = MovieItemSchema.safeParse({ ...body, id });
+    const movieData = { ...body, id };
+
+    const videoId = extractYouTubeId(movieData.youtubeUrl);
+
+    // Apply YouTube fallback if title, thumbnail, or description are empty
+    if (videoId && (!movieData.title?.trim() || !movieData.thumbnailUrl?.trim() || !movieData.description?.trim())) {
+      const meta = await fetchYouTubeMetadata(videoId);
+      if (!movieData.title?.trim()) {
+        movieData.title = meta.title || `YouTube Video (${videoId})`;
+      }
+      if (!movieData.thumbnailUrl?.trim()) {
+        movieData.thumbnailUrl = meta.thumbnailUrl || getYouTubeThumbnail(videoId);
+      }
+      if (!movieData.description?.trim()) {
+        movieData.description = meta.description || `Official video release from ${meta.author || "One Roof Studios"}.`;
+      }
+      if ((!movieData.director || movieData.director === "One Roof Studios") && meta.author) {
+        movieData.director = meta.author;
+      }
+    }
+
+    if (!movieData.thumbnailUrl?.trim() && videoId) {
+      movieData.thumbnailUrl = getYouTubeThumbnail(videoId);
+    }
+
+    const validated = MovieItemSchema.safeParse(movieData);
 
     if (!validated.success) {
       return NextResponse.json(

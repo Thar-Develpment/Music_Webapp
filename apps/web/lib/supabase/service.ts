@@ -19,6 +19,7 @@ import {
 } from "@music-label/shared";
 import { getSupabaseAdmin, isSupabaseConfigured } from "./client";
 import { db } from "../mock-data";
+import { getYouTubeThumbnail } from "../youtube";
 
 // ==========================================
 // 1. SETTINGS
@@ -754,7 +755,7 @@ export async function getMovies(): Promise<MovieItem[]> {
       title: row.title,
       description: row.description,
       youtubeUrl: row.youtube_url,
-      thumbnailUrl: row.thumbnail_url,
+      thumbnailUrl: row.thumbnail_url || getYouTubeThumbnail(row.youtube_url),
       director: row.director || "One Roof Studios",
       year: row.year || "2026",
       duration: row.duration || "1h 45m",

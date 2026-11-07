@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { MovieItem } from "@music-label/shared";
+import { extractYouTubeId, getYouTubeThumbnail } from "@/lib/youtube";
 import {
   Play,
   X,
@@ -19,14 +20,6 @@ import { useTheme } from "@/components/theme/ThemeProvider";
 
 interface MoviesClientProps {
   movies: MovieItem[];
-}
-
-function extractYouTubeId(url: string): string {
-  if (!url) return "";
-  const match = url.match(
-    /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
-  );
-  return match ? match[1] : url;
 }
 
 import { useSearchParams } from "next/navigation";
@@ -175,8 +168,13 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                     {/* Widescreen Thumbnail with Play Badge */}
                     <div className="relative aspect-[16/9] w-full overflow-hidden bg-black">
                       <img
-                        src={movie.thumbnailUrl}
+                        src={movie.thumbnailUrl || getYouTubeThumbnail(movie.youtubeUrl)}
                         alt={movie.title}
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          const hq = getYouTubeThumbnail(movie.youtubeUrl, "hq");
+                          if (target.src !== hq) target.src = hq;
+                        }}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter brightness-90 group-hover:brightness-100"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
@@ -441,8 +439,13 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                   ) : (
                     <div className="relative w-full h-full group">
                       <img
-                        src={selectedMovie.thumbnailUrl}
+                        src={selectedMovie.thumbnailUrl || getYouTubeThumbnail(selectedMovie.youtubeUrl)}
                         alt={selectedMovie.title}
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          const hq = getYouTubeThumbnail(selectedMovie.youtubeUrl, "hq");
+                          if (target.src !== hq) target.src = hq;
+                        }}
                         className="w-full h-full object-cover filter brightness-90 group-hover:brightness-75 transition-all duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />

@@ -230,10 +230,10 @@ export type Track = z.infer<typeof TrackSchema>;
 // ==========================================
 export const MovieItemSchema = z.object({
   id: z.string(),
-  title: z.string().min(1, "Movie title is required"),
-  description: z.string().min(1, "Movie description is required"),
+  title: z.string().default(""),
+  description: z.string().default(""),
   youtubeUrl: z.string().min(1, "YouTube URL or Video ID is required"),
-  thumbnailUrl: z.string().min(1, "Thumbnail image URL is required"),
+  thumbnailUrl: z.string().default(""),
   director: z.string().default("One Roof Studios"),
   year: z.string().default("2026"),
   duration: z.string().default("1h 45m"),
