@@ -53,3 +53,4 @@ CREATE POLICY "Service role has full access to music items" ON public.music_item
 
 -- 3. Force PostgREST schema cache reload
 NOTIFY pgrst, 'reload schema';
+
