@@ -13,8 +13,8 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const current = await getSettings();
 
-    // Fast-track theme updates directly
-    const newTheme = body.theme === "black" || body.theme === "white" ? body.theme : current.theme || "white";
+    // Theme is strictly locked to white design system
+    const newTheme = "white";
 
     // Merge incoming changes with existing settings to allow partial updates like theme toggle
     const merged = { ...current, ...body, theme: newTheme };

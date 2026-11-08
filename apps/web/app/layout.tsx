@@ -40,16 +40,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const theme: SiteTheme = db.settings.theme === "black" ? "black" : "white";
-
   return (
     <html
       lang="en"
-      data-theme={theme}
+      data-theme="white"
       suppressHydrationWarning
-      className={`${blodeStarkly.variable} ${trench.variable} ${
-        theme === "black" ? "dark theme-black" : "theme-white"
-      }`}
+      className={`${blodeStarkly.variable} ${trench.variable} theme-white`}
     >
       <head>
         <script
@@ -57,16 +53,11 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var m = document.cookie.match(/(?:^|;\\s*)velvet_theme=(black|white)/);
-                  var t = (m && m[1]) || localStorage.getItem('velvet_theme') || '${theme}';
-                  document.documentElement.setAttribute('data-theme', t);
-                  if (t === 'black') {
-                    document.documentElement.classList.add('dark', 'theme-black');
-                    document.documentElement.classList.remove('theme-white');
-                  } else {
-                    document.documentElement.classList.remove('dark', 'theme-black');
-                    document.documentElement.classList.add('theme-white');
-                  }
+                  document.documentElement.setAttribute('data-theme', 'white');
+                  document.documentElement.classList.remove('dark', 'theme-black');
+                  document.documentElement.classList.add('theme-white');
+                  localStorage.removeItem('velvet_theme');
+                  document.cookie = 'velvet_theme=white;path=/;max-age=31536000;SameSite=Lax';
                 } catch (e) {}
               })();
             `,
@@ -77,7 +68,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#e11d48] selection:text-white antialiased"
       >
-        <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
+        <ThemeProvider initialTheme="white">{children}</ThemeProvider>
       </body>
     </html>
   );

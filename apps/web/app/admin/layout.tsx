@@ -14,12 +14,8 @@ import {
   Menu,
   X,
   Bell,
-  Sun,
-  Moon,
-  AlertCircle,
   ShieldCheck,
 } from "lucide-react";
-import { SiteTheme } from "@music-label/shared";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import OneRoofLogo from "@/components/ui/OneRoofLogo";
 
@@ -37,10 +33,9 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, isDark, setTheme } = useTheme();
+  const { isDark } = useTheme();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
-  const [themeConfirmTarget, setThemeConfirmTarget] = useState<SiteTheme | null>(null);
 
   // If on login route, render without sidebar
   const isLoginPage = pathname === "/admin/login";
@@ -65,31 +60,6 @@ export default function AdminLayout({
     };
     fetchUnread();
   }, [isLoginPage, pathname, router]);
-
-  const handleThemeButtonClick = (targetTheme: SiteTheme) => {
-    if (targetTheme === theme) return;
-    setThemeConfirmTarget(targetTheme);
-  };
-
-  const handleConfirmThemeSwitch = async () => {
-    if (!themeConfirmTarget) return;
-    const target = themeConfirmTarget;
-    setThemeConfirmTarget(null);
-    setTheme(target);
-    try {
-      await fetch("/api/admin/settings", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ theme: target }),
-      });
-    } catch (e) {
-      // quiet fallback
-    }
-  };
-
-  const handleCancelThemeSwitch = () => {
-    setThemeConfirmTarget(null);
-  };
 
   const handleLogout = async () => {
     try {
@@ -232,51 +202,6 @@ export default function AdminLayout({
           </div>
 
           <div className="flex items-center space-x-3 sm:space-x-4">
-            {/* Quick Live Theme Switcher with Confirmation */}
-            <div className="flex items-center space-x-2">
-              <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider hidden md:inline">
-                Theme:
-              </span>
-              <div
-                className={`flex items-center p-1 rounded-full border shadow-inner transition-colors ${
-                  isDark ? "bg-[#1a1a24] border-white/10" : "bg-zinc-100 border-black/10"
-                }`}
-              >
-                <button
-                  type="button"
-                  id="admin-header-theme-white-btn"
-                  onClick={() => handleThemeButtonClick("white")}
-                  title="Switch to Alabaster White & Red theme (requires confirmation)"
-                  className={`flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                    theme === "white"
-                      ? "bg-white text-[#09090B] shadow-sm font-extrabold border border-black/10"
-                      : isDark
-                      ? "text-zinc-400 hover:text-white"
-                      : "text-zinc-500 hover:text-black"
-                  }`}
-                >
-                  <Sun className="w-3 h-3 text-[#e11d48]" />
-                  <span>White</span>
-                </button>
-                <button
-                  type="button"
-                  id="admin-header-theme-black-btn"
-                  onClick={() => handleThemeButtonClick("black")}
-                  title="Switch to Obsidian Black & Red theme (requires confirmation)"
-                  className={`flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                    theme === "black"
-                      ? "bg-[#e11d48] text-white shadow-sm font-extrabold"
-                      : isDark
-                      ? "text-zinc-400 hover:text-white"
-                      : "text-zinc-500 hover:text-black"
-                  }`}
-                >
-                  <Moon className="w-3 h-3 text-white" />
-                  <span>Black</span>
-                </button>
-              </div>
-            </div>
-
             <Link
               href="/admin/enquiries"
               className={`relative p-2 rounded-lg border transition-colors ${
@@ -373,68 +298,6 @@ export default function AdminLayout({
                 </button>
               </div>
             </nav>
-          </div>
-        )}
-
-        {/* Theme Change Confirmation Modal */}
-        {themeConfirmTarget && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-150">
-            <div
-              className={`max-w-md w-full rounded-2xl p-6 sm:p-7 border shadow-2xl transition-all ${
-                isDark
-                  ? "bg-[#121217] border-white/15 text-white"
-                  : "bg-white border-black/10 text-[#09090B]"
-              }`}
-            >
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-[#e11d48]/10 border border-[#e11d48]/30 flex items-center justify-center text-[#e11d48] shrink-0">
-                  <AlertCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-heading font-extrabold text-lg tracking-wide">
-                    Confirm Theme Change
-                  </h3>
-                  <p className="text-xs text-zinc-400">Accidental change prevention</p>
-                </div>
-              </div>
-
-              <p
-                className={`text-sm leading-relaxed mb-6 ${
-                  isDark ? "text-zinc-300" : "text-zinc-600"
-                }`}
-              >
-                Are you sure you want to change the active theme to{" "}
-                <span className="font-bold text-[#e11d48] uppercase">
-                  {themeConfirmTarget === "black"
-                    ? "Obsidian Black & Red"
-                    : "Alabaster White & Red"}
-                </span>
-                ? This will instantly switch the visual appearance across both the public website
-                and admin console.
-              </p>
-
-              <div className="flex items-center justify-end space-x-3 pt-3 border-t border-black/[0.06] dark:border-white/10">
-                <button
-                  type="button"
-                  onClick={handleCancelThemeSwitch}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer ${
-                    isDark
-                      ? "text-zinc-400 hover:text-white hover:bg-white/5"
-                      : "text-zinc-600 hover:text-black hover:bg-black/5"
-                  }`}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  id="confirm-theme-change-btn"
-                  onClick={handleConfirmThemeSwitch}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#e11d48] hover:bg-[#D81A26] text-white shadow-lg shadow-[#e11d48]/30 transition-all cursor-pointer"
-                >
-                  Confirm & Switch
-                </button>
-              </div>
-            </div>
           </div>
         )}
 

@@ -47,7 +47,7 @@ export async function getSettings(): Promise<Setting> {
       bookingPhone: data.booking_phone,
       address: data.address || undefined,
       footerText: data.footer_text,
-      theme: data.theme === "black" ? "black" : "white",
+      theme: "white",
       socialLinks: data.social_links || db.settings.socialLinks,
     };
   } catch (err) {
@@ -96,7 +96,7 @@ export async function updateSettings(updates: Partial<Setting>): Promise<Setting
       bookingPhone: data.booking_phone,
       address: data.address || undefined,
       footerText: data.footer_text,
-      theme: data.theme === "black" ? "black" : "white",
+      theme: "white",
       socialLinks: data.social_links || db.settings.socialLinks,
     };
     db.settings = updated;

@@ -30,7 +30,7 @@ export const initialSettings: Setting = {
   bookingPhone: "+1 (310) 894-2200",
   address: "8439 Sunset Blvd, West Hollywood, CA 90069",
   footerText: "Crafting iconic sonic experiences and cinematic documentaries. Defining the vanguard of electronic, orchestral, and modern soul music.",
-  theme: "black",
+  theme: "white",
   socialLinks: {
     instagram: "https://instagram.com/oneroofent",
     youtube: "https://youtube.com/@oneroofent",
