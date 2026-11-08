@@ -30,7 +30,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Movies", href: "/movies" },
   { name: "Music", href: "/music" },
-  { name: "Album", href: "/gallery" },
+  // { name: "Album", href: "/gallery" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
