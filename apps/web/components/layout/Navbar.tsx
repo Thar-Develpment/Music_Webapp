@@ -9,12 +9,10 @@ import {
   Disc3,
   Lock,
   ArrowUpRight,
-  Search,
 } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, FacebookIcon } from "@/components/ui/SocialIcons";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import GlobalSearchModal from "./GlobalSearchModal";
 import OneRoofLogo from "@/components/ui/OneRoofLogo";
 
 interface NavbarProps {
@@ -50,18 +48,6 @@ export default function Navbar({
   const { isDark } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchModalOpen, setSearchModalOpen] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setSearchModalOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,31 +112,11 @@ export default function Navbar({
             })}
           </nav>
 
-          {/* Right Header Actions: Global Search, Socials & Admin */}
+          {/* Right Header Actions: Socials & Admin */}
           <div className="hidden lg:flex items-center space-x-4">
             <div className={`flex items-center space-x-2.5 border-r pr-4 ${
               isDark ? "border-white/10" : "border-black/[0.08]"
             }`}>
-              {/* Global Search Button placed right beside social media icons */}
-              <button
-                type="button"
-                onClick={() => setSearchModalOpen(true)}
-                id="global-search-trigger"
-                className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border text-xs transition-all duration-200 cursor-pointer ${
-                  isDark
-                    ? "border-white/10 bg-white/[0.04] text-zinc-300 hover:text-white hover:border-[#e11d48]/50 hover:bg-white/[0.08]"
-                    : "border-black/[0.08] bg-black/[0.02] text-zinc-600 hover:text-black hover:border-[#e11d48]/50 hover:bg-black/[0.05]"
-                }`}
-                aria-label="Global Search"
-                title="Search movies, music, and site (Ctrl+K)"
-              >
-                <Search className="w-3.5 h-3.5 text-[#e11d48]" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600">Search</span>
-                <kbd className="hidden xl:inline-block px-1.5 py-0.2 rounded bg-black/30 text-[9px] font-mono text-zinc-600 border border-white/10">
-                  ⌘K
-                </kbd>
-              </button>
-
               {socialLinks.instagram && (
                 <a
                   href={socialLinks.instagram}
@@ -210,22 +176,8 @@ export default function Navbar({
             </Link>
           </div>
 
-          {/* Mobile Right Controls: Search & Menu Button */}
+          {/* Mobile Right Controls: Menu Button */}
           <div className="flex md:hidden items-center space-x-2">
-            <button
-              type="button"
-              onClick={() => setSearchModalOpen(true)}
-              className={`w-11 h-11 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
-                isDark
-                  ? "border-white/10 bg-white/[0.04] text-zinc-100 hover:text-white"
-                  : "border-black/[0.08] bg-black/[0.02] text-zinc-800 hover:text-black"
-              }`}
-              aria-label="Open Global Search"
-              title="Global Search"
-            >
-              <Search className="w-4 h-4 text-[#e11d48]" />
-            </button>
-
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`w-11 h-11 rounded-full border flex items-center justify-center ${
@@ -279,23 +231,6 @@ export default function Navbar({
                 );
               })}
 
-              {/* Mobile Global Search Button */}
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setSearchModalOpen(true);
-                }}
-                className={`w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
-                  isDark
-                    ? "border-white/10 bg-white/5 text-zinc-200 hover:text-white hover:border-[#e11d48]/50"
-                    : "border-black/10 bg-black/5 text-zinc-800 hover:text-black hover:border-[#e11d48]/50"
-                }`}
-              >
-                <Search className="w-4 h-4 text-[#e11d48]" />
-                <span>Search Films, Tracks &amp; Site</span>
-              </button>
-
               <div className={`pt-4 border-t flex items-center justify-between ${
                 isDark ? "border-white/10" : "border-black/[0.08]"
               }`}>
@@ -325,12 +260,6 @@ export default function Navbar({
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Global Search Command Dialog */}
-      <GlobalSearchModal
-        isOpen={searchModalOpen}
-        onClose={() => setSearchModalOpen(false)}
-      />
     </>
   );
 }
