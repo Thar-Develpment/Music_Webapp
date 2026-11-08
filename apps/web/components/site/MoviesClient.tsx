@@ -90,7 +90,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
             FEATURE FILMS &amp; CINEMA
           </h1>
 
-          <p className="mt-6 text-sm sm:text-base max-w-2xl text-zinc-400 font-light leading-relaxed">
+          <p className="mt-6 text-sm sm:text-base max-w-2xl text-zinc-600 font-light leading-relaxed">
             Immersion into feature-length documentaries, 4K concert films, and avant-garde visual
             narratives. Click any production to inspect full credits, synopsis, and stream presentation.
           </p>
@@ -104,14 +104,14 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
             <h2 className="font-heading font-extrabold text-2xl uppercase tracking-wider text-[var(--foreground)]">
               Complete Film Catalog
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-zinc-600 mt-1">
               Showing {movies.length} cinematic productions
             </p>
           </div>
         </div>
 
         {movies.length === 0 ? (
-          <div className="py-20 text-center flex flex-col items-center justify-center text-zinc-400 text-sm">
+          <div className="py-20 text-center flex flex-col items-center justify-center text-zinc-600 text-sm">
             <Film className="w-12 h-12 text-zinc-600 mb-3 stroke-[1.5]" />
             <p className="font-semibold text-base text-[var(--foreground)] mb-1">
               No films cataloged yet
@@ -164,7 +164,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
 
                     {/* Movie Card Summary Info */}
                     <div className="p-6">
-                      <div className="flex items-center space-x-2 text-[11px] text-zinc-400 mb-2">
+                      <div className="flex items-center space-x-2 text-[11px] text-zinc-600 mb-2">
                         <span>{movie.year}</span>
                         <span>•</span>
                         <span>Dir. {movie.director}</span>
@@ -229,13 +229,13 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
               </button>
 
               <div className="flex items-center space-x-3">
-                <span className="text-[11px] font-mono text-zinc-400 hidden sm:inline-block">
+                <span className="text-[11px] font-mono text-zinc-600 hidden sm:inline-block">
                   Press ESC to close
                 </span>
                 <button
                   type="button"
                   onClick={handleClosePanel}
-                  className="p-2 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:border-white transition-colors cursor-pointer"
+                  className="p-2 rounded-full border border-white/10 text-zinc-600 hover:text-white hover:border-white transition-colors cursor-pointer"
                   title="Close Panel"
                 >
                   <X className="w-5 h-5" />
@@ -282,7 +282,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                   </h2>
 
                   {/* Director Credit */}
-                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-zinc-400 mb-6">
+                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-zinc-600 mb-6">
                     <User className="w-4 h-4 text-[#e11d48]" />
                     <span>
                       Directed by{" "}
@@ -322,7 +322,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                         isDark ? "bg-white/[0.03] border-white/5" : "bg-black/[0.02] border-black/5"
                       }`}
                     >
-                      <span className="text-[10px] text-zinc-400 uppercase tracking-wider block font-semibold">
+                      <span className="text-[10px] text-zinc-600 uppercase tracking-wider block font-semibold">
                         Cinema Master
                       </span>
                       <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>
@@ -334,7 +334,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                         isDark ? "bg-white/[0.03] border-white/5" : "bg-black/[0.02] border-black/5"
                       }`}
                     >
-                      <span className="text-[10px] text-zinc-400 uppercase tracking-wider block font-semibold">
+                      <span className="text-[10px] text-zinc-600 uppercase tracking-wider block font-semibold">
                         Acoustic Format
                       </span>
                       <span className={`font-bold ${isDark ? "text-white" : "text-black"}`}>
@@ -378,7 +378,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                   <button
                     type="button"
                     onClick={handleClosePanel}
-                    className="px-5 py-3 rounded-full border border-white/15 text-xs font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    className="px-5 py-3 rounded-full border border-white/15 text-xs font-bold uppercase tracking-wider text-zinc-600 hover:text-white transition-colors cursor-pointer"
                   >
                     Close
                   </button>
@@ -433,7 +433,7 @@ export default function MoviesClient({ movies }: MoviesClientProps) {
                 </div>
 
                 {/* Subtitle / Tip under video on right */}
-                <div className="flex items-center justify-between text-xs text-zinc-400 px-1">
+                <div className="flex items-center justify-between text-xs text-zinc-600 px-1">
                   <span className="flex items-center gap-1.5 font-mono text-[11px]">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     4K Ultra HD • High Bitrate

@@ -24,7 +24,7 @@ export default function Footer({ settings }: FooterProps) {
 
   return (
     <footer className={`relative border-t pt-20 pb-12 overflow-hidden transition-colors duration-300 ${
-      isDark ? "bg-[#060608] border-white/[0.08] text-zinc-400" : "bg-[#F8F8FA] border-black/[0.08] text-zinc-600"
+      isDark ? "bg-[#060608] border-white/[0.08] text-zinc-600" : "bg-[#F8F8FA] border-black/[0.08] text-zinc-600"
     }`}>
       {/* Background subtle multi-color spectrum ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-36 bg-gradient-to-r from-[#2563EB]/10 via-[#7C3AED]/10 via-[#E11D48]/15 via-[#EA580C]/10 to-[#FACC15]/10 blur-[120px] pointer-events-none rounded-full" />
@@ -39,7 +39,7 @@ export default function Footer({ settings }: FooterProps) {
               <OneRoofLogo size="lg" variant="horizontal" />
             </Link>
 
-            <p className={`text-sm leading-relaxed max-w-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+            <p className={`text-sm leading-relaxed max-w-sm ${isDark ? "text-zinc-600" : "text-zinc-600"}`}>
               {settings.footerText}
             </p>
 

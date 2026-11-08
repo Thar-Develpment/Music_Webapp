@@ -73,7 +73,7 @@ function LoginForm() {
 
       <form onSubmit={handleLogin} className="space-y-5">
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+          <label className="text-xs font-semibold tracking-wider text-zinc-600 uppercase">
             Administrator Email
           </label>
           <div className="relative">
@@ -85,13 +85,13 @@ function LoginForm() {
               placeholder="admin@oneroofentertainment.com"
               className="w-full pl-10 pr-4 py-3 rounded-xl border text-sm transition-all focus:outline-none focus:border-[#e11d48] bg-[var(--background)] border-[var(--subtle-border)] text-[var(--foreground)]"
             />
-            <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
+            <Mail className="w-4 h-4 text-zinc-600 absolute left-3.5 top-3.5" />
           </div>
         </div>
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+            <label className="text-xs font-semibold tracking-wider text-zinc-600 uppercase">
               Password
             </label>
             <span className="text-[11px] text-zinc-500">Default: admin123</span>
@@ -105,7 +105,7 @@ function LoginForm() {
               placeholder="••••••••••••"
               className="w-full pl-10 pr-4 py-3 rounded-xl border text-sm transition-all focus:outline-none focus:border-[#e11d48] bg-[var(--background)] border-[var(--subtle-border)] text-[var(--foreground)]"
             />
-            <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
+            <Lock className="w-4 h-4 text-zinc-600 absolute left-3.5 top-3.5" />
           </div>
         </div>
 
@@ -124,7 +124,7 @@ function LoginForm() {
           <button
             type="button"
             onClick={handleAutoFill}
-            className="w-full py-2.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48]/50 text-xs font-medium flex items-center justify-center space-x-2 transition-colors cursor-pointer"
+            className="w-full py-2.5 rounded-lg border border-[var(--subtle-border)] text-zinc-600 hover:text-[var(--foreground)] hover:border-[#e11d48]/50 text-xs font-medium flex items-center justify-center space-x-2 transition-colors cursor-pointer"
           >
             <KeyRound className="w-3.5 h-3.5 text-[#e11d48]" />
             <span>Fill Master Credentials (admin@oneroofentertainment.com)</span>
@@ -141,7 +141,7 @@ export default function AdminLoginPage() {
       {/* Background ambient crimson warmth */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#e11d48]/10 blur-[140px] rounded-full pointer-events-none" />
 
-      <Suspense fallback={<div className="text-zinc-400 text-sm">Loading security gate...</div>}>
+      <Suspense fallback={<div className="text-zinc-600 text-sm">Loading security gate...</div>}>
         <LoginForm />
       </Suspense>
     </div>

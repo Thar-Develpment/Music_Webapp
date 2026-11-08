@@ -36,7 +36,7 @@ export default function SocialFollowBanner({ socialLinks }: SocialFollowBannerPr
           </h2>
 
           <p className={`mt-4 text-sm sm:text-base max-w-xl mx-auto font-light transition-colors ${
-            isDark ? "text-zinc-400" : "text-zinc-600"
+            isDark ? "text-zinc-600" : "text-zinc-600"
           }`}>
             Follow our channels for secret listening sessions, behind-the-scenes recording footage, and priority vinyl drop notices.
           </p>

@@ -95,7 +95,7 @@ export default function ContactForm() {
         </h3>
         <p
           className={`mt-2 text-sm font-light ${
-            isDark ? "text-zinc-400" : "text-zinc-600"
+            isDark ? "text-zinc-600" : "text-zinc-600"
           }`}
         >
           Fill out the secure form below. All licensing and tour requests are routed straight to our
@@ -280,7 +280,7 @@ export default function ContactForm() {
                 </label>
                 <span
                   className={`text-xs font-mono ${
-                    isDark ? "text-zinc-400" : "text-zinc-500"
+                    isDark ? "text-zinc-600" : "text-zinc-500"
                   }`}
                 >
                   {formData.message.length}/180

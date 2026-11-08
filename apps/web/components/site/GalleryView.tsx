@@ -58,7 +58,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                   isSelected
                     ? "bg-[#e11d48] text-white shadow-md shadow-red-500/20 scale-105"
                     : isDark
-                    ? "text-zinc-400 hover:text-white hover:bg-white/10"
+                    ? "text-zinc-600 hover:text-white hover:bg-white/10"
                     : "text-zinc-600 hover:text-black hover:bg-black/[0.04]"
                 }`}
               >
@@ -80,7 +80,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
               viewMode === "matrix"
                 ? "bg-[#e11d48] text-white shadow-sm"
                 : isDark
-                ? "text-zinc-400 hover:text-white"
+                ? "text-zinc-600 hover:text-white"
                 : "text-zinc-600 hover:text-black"
             }`}
           >
@@ -93,7 +93,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
               viewMode === "cards"
                 ? "bg-[#e11d48] text-white shadow-sm"
                 : isDark
-                ? "text-zinc-400 hover:text-white"
+                ? "text-zinc-600 hover:text-white"
                 : "text-zinc-600 hover:text-black"
             }`}
           >
@@ -160,7 +160,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
 
             <span
               className={`rotate-[-90deg] origin-left translate-y-12 text-[10px] font-mono tracking-[0.3em] uppercase whitespace-nowrap ${
-                isDark ? "text-zinc-400" : "text-zinc-500"
+                isDark ? "text-zinc-600" : "text-zinc-500"
               }`}
             >
               ▾ OCTOBER 2026 ▾
@@ -182,7 +182,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
               />
             </div>
           </div>
-          <div className="absolute right-6 bottom-6 z-20 flex items-center space-x-1 text-zinc-400 opacity-60">
+          <div className="absolute right-6 bottom-6 z-20 flex items-center space-x-1 text-zinc-600 opacity-60">
             <span className="text-xs font-mono">—o—</span>
           </div>
 
@@ -232,7 +232,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                   {/* Subtle Grid Index Stamp */}
                   <div
                     className={`flex items-center justify-between text-[10px] font-mono z-20 ${
-                      isDark ? "text-zinc-400" : "text-zinc-500"
+                      isDark ? "text-zinc-600" : "text-zinc-500"
                     }`}
                   >
                     <span className="group-hover:text-[#e11d48] transition-colors font-bold">
@@ -287,7 +287,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
                       <div
                         className={`mt-2 flex items-center space-x-1.5 text-[11px] font-bold transition-colors ${
                           isDark
-                            ? "text-zinc-400 group-hover:text-white"
+                            ? "text-zinc-600 group-hover:text-white"
                             : "text-zinc-500 group-hover:text-black"
                         }`}
                       >
@@ -311,7 +311,7 @@ export default function GalleryView({ categories, items }: GalleryViewProps) {
           {/* Bottom Bar: Instructions & Direct Preview CTA */}
           <div
             className={`relative z-20 mt-6 pt-4 border-t flex flex-col sm:flex-row items-center justify-between text-xs ${
-              isDark ? "border-white/10 text-zinc-400" : "border-black/[0.08] text-zinc-600"
+              isDark ? "border-white/10 text-zinc-600" : "border-black/[0.08] text-zinc-600"
             }`}
           >
             <span className="font-mono text-[11px]">

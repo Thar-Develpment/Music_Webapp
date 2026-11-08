@@ -48,7 +48,7 @@ export default function GalleryPageView({ categories, items }: GalleryPageViewPr
 
             <p
               className={`mt-4 text-sm sm:text-base font-light ${
-                isDark ? "text-zinc-400" : "text-zinc-600"
+                isDark ? "text-zinc-600" : "text-zinc-600"
               }`}
             >
               An intimate photographic look inside recording consoles, worldwide arena stages, and

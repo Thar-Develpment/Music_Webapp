@@ -119,7 +119,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                           PRO
                         </span>
                       </div>
-                      <span className="text-[11px] text-zinc-400 uppercase tracking-widest font-semibold block">
+                      <span className="text-[11px] text-zinc-600 uppercase tracking-widest font-semibold block">
                         Collector Archival Cut • Direct Master
                       </span>
                     </div>
@@ -163,7 +163,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                         <div className="flex items-center space-x-4 min-w-0">
                           <span
                             className={`text-xs font-mono font-bold ${
-                              isSelected ? "text-[#e11d48]" : "text-zinc-400"
+                              isSelected ? "text-[#e11d48]" : "text-zinc-600"
                             }`}
                           >
                             {track.number}
@@ -192,7 +192,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                             >
                               {track.title}
                             </h4>
-                            <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block">
+                            <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-semibold block">
                               {track.artist} • {track.badge}
                             </span>
                           </div>
@@ -209,7 +209,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
                           )}
                           <span
                             className={`text-xs font-mono font-semibold ${
-                              isSelected ? "text-[#e11d48]" : "text-zinc-400"
+                              isSelected ? "text-[#e11d48]" : "text-zinc-600"
                             }`}
                           >
                             {track.duration}
@@ -223,7 +223,7 @@ export default function VinylShowcaseSection({ tracks = initialTracks }: VinylSh
 
               {/* Bottom Vinylist Status */}
               <div className={`mt-8 pt-4 border-t flex items-center justify-between text-xs ${
-                isDark ? "border-white/10 text-zinc-400" : "border-black/[0.08] text-zinc-500"
+                isDark ? "border-white/10 text-zinc-600" : "border-black/[0.08] text-zinc-500"
               }`}>
                 <span className="uppercase tracking-widest font-bold">
                   45 RPM • 180g Audiophile Press

@@ -54,7 +54,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
 
             <p
               className={`mt-4 text-sm sm:text-base font-light max-w-xl mx-auto ${
-                isDark ? "text-zinc-400" : "text-zinc-600"
+                isDark ? "text-zinc-600" : "text-zinc-600"
               }`}
             >
               {content.instructions}
@@ -92,7 +92,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                     <div>
                       <p
                         className={`text-xs uppercase tracking-wider font-bold ${
-                          isDark ? "text-zinc-400" : "text-zinc-500"
+                          isDark ? "text-zinc-600" : "text-zinc-500"
                         }`}
                       >
                         Booking & Licensing
@@ -117,7 +117,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                     <div>
                       <p
                         className={`text-xs uppercase tracking-wider font-bold ${
-                          isDark ? "text-zinc-400" : "text-zinc-500"
+                          isDark ? "text-zinc-600" : "text-zinc-500"
                         }`}
                       >
                         Direct Phone
@@ -143,7 +143,7 @@ export default function ContactPageView({ settings, content }: ContactPageViewPr
                       <div>
                         <p
                           className={`text-xs uppercase tracking-wider font-bold ${
-                            isDark ? "text-zinc-400" : "text-zinc-500"
+                            isDark ? "text-zinc-600" : "text-zinc-500"
                           }`}
                         >
                           Studio Sanctuary

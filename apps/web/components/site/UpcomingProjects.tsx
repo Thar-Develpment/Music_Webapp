@@ -40,7 +40,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
 
           <MotionReveal direction="right" delay={0.2}>
             <p className={`mt-4 md:mt-0 text-sm max-w-md font-light leading-relaxed transition-colors ${
-              isDark ? "text-zinc-400" : "text-zinc-600"
+              isDark ? "text-zinc-600" : "text-zinc-600"
             }`}>
               Upcoming album pressings, feature documentary broadcasts, and spatial concert experiences scheduled for worldwide premiere.
             </p>
@@ -93,7 +93,7 @@ export default function UpcomingProjects({ projects }: UpcomingProjectsProps) {
                       {proj.title}
                     </h3>
                     <p className={`mt-3 text-xs sm:text-sm font-light leading-relaxed ${
-                      isDark ? "text-zinc-400" : "text-zinc-600"
+                      isDark ? "text-zinc-600" : "text-zinc-600"
                     }`}>
                       {proj.description}
                     </p>

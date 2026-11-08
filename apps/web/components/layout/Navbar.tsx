@@ -145,8 +145,8 @@ export default function Navbar({
                 title="Search movies, music, and site (Ctrl+K)"
               >
                 <Search className="w-3.5 h-3.5 text-[#e11d48]" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Search</span>
-                <kbd className="hidden xl:inline-block px-1.5 py-0.2 rounded bg-black/30 text-[9px] font-mono text-zinc-400 border border-white/10">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600">Search</span>
+                <kbd className="hidden xl:inline-block px-1.5 py-0.2 rounded bg-black/30 text-[9px] font-mono text-zinc-600 border border-white/10">
                   ⌘K
                 </kbd>
               </button>
@@ -308,7 +308,7 @@ export default function Navbar({
                   <span>Access CMS</span>
                 </Link>
 
-                <div className={`flex items-center space-x-3 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                <div className={`flex items-center space-x-3 ${isDark ? "text-zinc-600" : "text-zinc-600"}`}>
                   {socialLinks.instagram && (
                     <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
                       <InstagramIcon className="w-4 h-4" />

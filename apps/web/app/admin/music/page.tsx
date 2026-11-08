@@ -319,7 +319,7 @@ export default function AdminMusicPage() {
           <h1 className="font-heading font-extrabold text-3xl uppercase tracking-wider text-[var(--foreground)]">
             Music Audio Catalog
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-zinc-600 mt-1">
             Manage audio tracks, upload MP3/WAV files, set cover artwork, and link streaming platforms
           </p>
         </div>
@@ -337,19 +337,19 @@ export default function AdminMusicPage() {
 
       {/* Stats Bar */}
       <div className="flex items-center justify-between border-b border-[var(--subtle-border)] pb-4">
-        <div className="text-xs text-zinc-400 font-medium">
+        <div className="text-xs text-zinc-600 font-medium">
           Total Tracks: <span className="font-bold text-[var(--foreground)]">{musicItems.length}</span> master recordings
         </div>
       </div>
 
       {/* Music Table */}
       {loading ? (
-        <div className="py-20 text-center text-zinc-400 text-sm">Loading music tracks...</div>
+        <div className="py-20 text-center text-zinc-600 text-sm">Loading music tracks...</div>
       ) : musicItems.length === 0 ? (
         <div className="py-20 text-center border border-dashed border-[var(--subtle-border)] rounded-2xl p-8">
           <Music className="w-10 h-10 text-zinc-500 mx-auto mb-3" />
           <p className="text-sm font-semibold text-[var(--foreground)]">No music tracks cataloged</p>
-          <p className="text-xs text-zinc-400 mt-1 max-w-sm mx-auto">
+          <p className="text-xs text-zinc-600 mt-1 max-w-sm mx-auto">
             Click &quot;Add New Track&quot; to upload your first audio track or single.
           </p>
         </div>
@@ -358,7 +358,7 @@ export default function AdminMusicPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-[var(--subtle-border)] text-zinc-400">
+                <tr className="border-b border-[var(--subtle-border)] text-zinc-600">
                   <th className="py-4 pl-6 pr-3 font-semibold uppercase tracking-wider w-12">Play</th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider">Track &amp; Artist</th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider hidden sm:table-cell">
@@ -388,7 +388,7 @@ export default function AdminMusicPage() {
                           className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                             isPlaying
                               ? "bg-[#e11d48] text-white shadow-md shadow-[#e11d48]/30"
-                              : "border border-[var(--subtle-border)] text-zinc-400 hover:text-[#e11d48] hover:border-[#e11d48]"
+                              : "border border-[var(--subtle-border)] text-zinc-600 hover:text-[#e11d48] hover:border-[#e11d48]"
                           }`}
                           title={isPlaying ? "Stop preview" : "Play preview"}
                         >
@@ -421,7 +421,7 @@ export default function AdminMusicPage() {
                                 </span>
                               )}
                             </div>
-                            <div className="text-xs text-zinc-400 mt-0.5">{track.artist}</div>
+                            <div className="text-xs text-zinc-600 mt-0.5">{track.artist}</div>
                           </div>
                         </div>
                       </td>
@@ -429,14 +429,14 @@ export default function AdminMusicPage() {
                       {/* Genre & Duration */}
                       <td className="py-4 px-4 hidden sm:table-cell whitespace-nowrap">
                         <div className="text-[var(--foreground)] font-medium">{track.genre}</div>
-                        <div className="text-[11px] text-zinc-400 font-mono">
+                        <div className="text-[11px] text-zinc-600 font-mono">
                           {track.duration} • {track.year}
                         </div>
                       </td>
 
                       {/* Audio Source */}
                       <td className="py-4 px-4 hidden md:table-cell max-w-xs truncate">
-                        <span className="text-[11px] text-zinc-400 truncate block">
+                        <span className="text-[11px] text-zinc-600 truncate block">
                           {track.audioUrl || "Standard catalog audio"}
                         </span>
                       </td>
@@ -447,7 +447,7 @@ export default function AdminMusicPage() {
                           <button
                             type="button"
                             onClick={() => handleOpenEditModal(track)}
-                            className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-600 hover:text-[var(--foreground)] hover:border-[#e11d48] transition-colors cursor-pointer"
                             title="Edit Track"
                           >
                             <Edit className="w-3.5 h-3.5" />
@@ -455,7 +455,7 @@ export default function AdminMusicPage() {
                           <button
                             type="button"
                             onClick={() => handleDelete(track.id, track.title)}
-                            className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-red-500 hover:border-red-500/40 transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-600 hover:text-red-500 hover:border-red-500/40 transition-colors cursor-pointer"
                             title="Delete Track"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -485,7 +485,7 @@ export default function AdminMusicPage() {
                   <h3 className="font-heading font-extrabold text-lg sm:text-xl uppercase tracking-wide text-[var(--foreground)]">
                     {editingMusic ? "Edit Audio Recording" : "Publish New Audio Track"}
                   </h3>
-                  <p className="text-[11px] text-zinc-400">
+                  <p className="text-[11px] text-zinc-600">
                     Configure master audio recording, artwork, metadata, and platform links
                   </p>
                 </div>
@@ -493,7 +493,7 @@ export default function AdminMusicPage() {
               <button
                 type="button"
                 onClick={handleCloseModal}
-                className="w-8 h-8 rounded-full border border-[var(--subtle-border)] flex items-center justify-center text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full border border-[var(--subtle-border)] flex items-center justify-center text-zinc-600 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
                 title="Close modal"
               >
                 <X className="w-4 h-4" />
@@ -509,13 +509,13 @@ export default function AdminMusicPage() {
                     <Disc3 className="w-4 h-4 text-[#e11d48]" />
                     <span>Track Essentials &amp; Credits</span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">Catalog Metadata</span>
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">Catalog Metadata</span>
                 </div>
 
                 {/* Title & Artist Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Track Title <span className="text-[#e11d48]">*</span>
                     </label>
                     <input
@@ -529,7 +529,7 @@ export default function AdminMusicPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Artist / Producer Name <span className="text-[#e11d48]">*</span>
                     </label>
                     <input
@@ -546,7 +546,7 @@ export default function AdminMusicPage() {
                 {/* Genre, Duration, Year (3-column responsive grid) */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Genre
                     </label>
                     <input
@@ -558,7 +558,7 @@ export default function AdminMusicPage() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Duration
                     </label>
                     <input
@@ -570,7 +570,7 @@ export default function AdminMusicPage() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Release Year
                     </label>
                     <input
@@ -586,7 +586,7 @@ export default function AdminMusicPage() {
                 {/* Description / Liner Notes (Non-blocking, Optional with Fallback) */}
                 <div className="space-y-1.5 pt-1">
                   <div className="flex items-center justify-between">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
                       Track Description / Liner Notes
                     </label>
                     <span className="text-[10px] text-zinc-500 italic">Optional — auto-fills if left blank</span>
@@ -608,7 +608,7 @@ export default function AdminMusicPage() {
                     <FileAudio className="w-4 h-4 text-[#e11d48]" />
                     <span>Master Audio Recording &amp; Stems</span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">MP3 • WAV • CDN</span>
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">MP3 • WAV • CDN</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-2.5">
@@ -660,7 +660,7 @@ export default function AdminMusicPage() {
                         <Headphones className="w-3.5 h-3.5 text-[#e11d48] shrink-0" />
                         <span>{formData.audioUrl ? "Audio Source Ready" : "Default Audio Stream"}</span>
                       </div>
-                      <div className="text-[11px] text-zinc-400 font-mono truncate max-w-[200px] sm:max-w-md">
+                      <div className="text-[11px] text-zinc-600 font-mono truncate max-w-[200px] sm:max-w-md">
                         {formData.audioUrl || "/audio/track-1.mp3 (Default Audio Preview)"}
                       </div>
                     </div>
@@ -682,7 +682,7 @@ export default function AdminMusicPage() {
                     <Upload className="w-4 h-4 text-[#e11d48]" />
                     <span>Cover Artwork Thumbnail</span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">1:1 Square</span>
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">1:1 Square</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-2.5">
@@ -726,7 +726,7 @@ export default function AdminMusicPage() {
                     <div className="text-xs font-bold text-[var(--foreground)] uppercase tracking-wide">
                       {formData.thumbnailUrl ? "Active Cover Artwork" : "Default Label Artwork"}
                     </div>
-                    <p className="text-[11px] text-zinc-400">
+                    <p className="text-[11px] text-zinc-600">
                       Recommended: High resolution square image (at least 1000×1000 pixels) in JPG, PNG, or WebP.
                     </p>
                     {formData.thumbnailUrl && (
@@ -749,12 +749,12 @@ export default function AdminMusicPage() {
                     <ExternalLink className="w-4 h-4 text-[#e11d48]" />
                     <span>External Streaming Platforms (Optional)</span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">DSP Links</span>
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">DSP Links</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">Spotify Link</label>
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600">Spotify Link</label>
                     <input
                       type="url"
                       value={formData.spotifyUrl}
@@ -764,7 +764,7 @@ export default function AdminMusicPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">SoundCloud Link</label>
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600">SoundCloud Link</label>
                     <input
                       type="url"
                       value={formData.soundcloudUrl}
@@ -774,7 +774,7 @@ export default function AdminMusicPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">Apple Music Link</label>
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600">Apple Music Link</label>
                     <input
                       type="url"
                       value={formData.appleMusicUrl}
@@ -784,7 +784,7 @@ export default function AdminMusicPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400">YouTube Music Link</label>
+                    <label className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600">YouTube Music Link</label>
                     <input
                       type="url"
                       value={formData.youtubeUrl}
@@ -803,7 +803,7 @@ export default function AdminMusicPage() {
                     <Sparkles className="w-3.5 h-3.5 text-[#e11d48]" />
                     <span>Spotlight on Master Audio Deck</span>
                   </div>
-                  <p className="text-[11px] text-zinc-400">
+                  <p className="text-[11px] text-zinc-600">
                     Pins this master track to the primary audio deck player on the music catalog view.
                   </p>
                 </div>
@@ -822,7 +822,7 @@ export default function AdminMusicPage() {
 
             {/* Modal Footer (Sticky) */}
             <div className="p-4 sm:p-5 border-t border-[var(--subtle-border)] bg-[var(--card)]/95 backdrop-blur-sm flex items-center justify-between shrink-0 z-10">
-              <div className="hidden sm:block text-[11px] text-zinc-400">
+              <div className="hidden sm:block text-[11px] text-zinc-600">
                 All changes persist to Supabase database &amp; media storage.
               </div>
               <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
@@ -830,7 +830,7 @@ export default function AdminMusicPage() {
                   type="button"
                   onClick={handleCloseModal}
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-600 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>

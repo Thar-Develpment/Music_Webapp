@@ -142,7 +142,7 @@ export default function AboutArchitecturalHero() {
               >
                 ONE ROOF
               </span>
-              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block">
+              <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">
                 entertainment architecture
               </span>
             </div>
@@ -152,12 +152,12 @@ export default function AboutArchitecturalHero() {
           <div className="flex items-center space-x-8 text-right">
             <div>
               <span className="text-xs font-mono font-bold text-[#e11d48] block">2026</span>
-              <span className="text-[11px] text-zinc-400 tracking-wide block">
+              <span className="text-[11px] text-zinc-600 tracking-wide block">
                 Architecture of Pure Sound
               </span>
             </div>
 
-            <div className="hidden sm:flex flex-col text-left text-[11px] text-zinc-400 space-y-0.5 font-mono">
+            <div className="hidden sm:flex flex-col text-left text-[11px] text-zinc-600 space-y-0.5 font-mono">
               <span className="hover:text-[#e11d48] transition-colors">— Compactness</span>
               <span className="hover:text-[#e11d48] transition-colors">— Decoupled Purity</span>
               <span className="hover:text-[#e11d48] transition-colors">— Spatial Minimalism</span>
@@ -275,7 +275,7 @@ export default function AboutArchitecturalHero() {
                     isDark ? "border-white/10" : "border-black/5"
                   }`}
                 >
-                  <span className="text-zinc-400">Studio:</span>
+                  <span className="text-zinc-600">Studio:</span>
                   <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
                     One Roof Acoustics
                   </span>
@@ -285,7 +285,7 @@ export default function AboutArchitecturalHero() {
                     isDark ? "border-white/10" : "border-black/5"
                   }`}
                 >
-                  <span className="text-zinc-400">Acoustic Architect:</span>
+                  <span className="text-zinc-600">Acoustic Architect:</span>
                   <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
                     Decoupled Concrete & Cedar
                   </span>
@@ -295,7 +295,7 @@ export default function AboutArchitecturalHero() {
                     isDark ? "border-white/10" : "border-black/5"
                   }`}
                 >
-                  <span className="text-zinc-400">Location:</span>
+                  <span className="text-zinc-600">Location:</span>
                   <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
                     Berlin • Los Angeles • Reykjavik
                   </span>
@@ -305,7 +305,7 @@ export default function AboutArchitecturalHero() {
                     isDark ? "border-white/10" : "border-black/5"
                   }`}
                 >
-                  <span className="text-zinc-400">Footprint:</span>
+                  <span className="text-zinc-600">Footprint:</span>
                   <span className="font-mono font-bold text-[#e11d48]">
                     840 m² / 9.1.6 Chamber
                   </span>
@@ -315,7 +315,7 @@ export default function AboutArchitecturalHero() {
                     isDark ? "border-white/10" : "border-black/5"
                   }`}
                 >
-                  <span className="text-zinc-400">Year:</span>
+                  <span className="text-zinc-600">Year:</span>
                   <span
                     className={`font-mono font-bold ${isDark ? "text-white" : "text-zinc-900"}`}
                   >
@@ -323,7 +323,7 @@ export default function AboutArchitecturalHero() {
                   </span>
                 </div>
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-zinc-400">Category:</span>
+                  <span className="text-zinc-600">Category:</span>
                   <span className={`font-bold ${isDark ? "text-white" : "text-zinc-800"}`}>
                     Analog & Spatial Audio Sanctuary
                   </span>

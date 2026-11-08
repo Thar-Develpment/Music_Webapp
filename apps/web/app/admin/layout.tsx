@@ -115,7 +115,7 @@ export default function AdminLayout({
                   isActive
                     ? "bg-[#e11d48] text-white shadow-md shadow-[#e11d48]/20 font-bold"
                     : isDark
-                    ? "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                    ? "text-zinc-600 hover:text-white hover:bg-white/[0.06]"
                     : "text-zinc-600 hover:text-black hover:bg-black/[0.04]"
                 }`}
               >
@@ -150,7 +150,7 @@ export default function AdminLayout({
             target="_blank"
             className={`flex items-center justify-between px-3.5 py-2 rounded-xl text-xs transition-colors ${
               isDark
-                ? "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                ? "text-zinc-600 hover:text-white hover:bg-white/[0.06]"
                 : "text-zinc-500 hover:text-[#09090B] hover:bg-black/[0.04]"
             }`}
           >
@@ -233,7 +233,7 @@ export default function AdminLayout({
                 >
                   Administrator
                 </span>
-                <span className="text-[10px] text-zinc-400">admin@oneroofentertainment.com</span>
+                <span className="text-[10px] text-zinc-600">admin@oneroofentertainment.com</span>
               </div>
             </div>
           </div>
@@ -262,7 +262,7 @@ export default function AdminLayout({
                       isActive
                         ? "bg-[#e11d48] text-white"
                         : isDark
-                        ? "text-zinc-400 hover:bg-white/[0.06]"
+                        ? "text-zinc-600 hover:bg-white/[0.06]"
                         : "text-zinc-600 hover:bg-black/5"
                     }`}
                   >
@@ -283,7 +283,7 @@ export default function AdminLayout({
                   href="/"
                   target="_blank"
                   className={`flex items-center space-x-2 text-sm py-2 ${
-                    isDark ? "text-zinc-400 hover:text-white" : "text-zinc-600 hover:text-black"
+                    isDark ? "text-zinc-600 hover:text-white" : "text-zinc-600 hover:text-black"
                   }`}
                 >
                   <ExternalLink className="w-4 h-4 text-[#e11d48]" />

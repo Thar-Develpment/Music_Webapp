@@ -358,7 +358,7 @@ export default function AdminMoviesPage() {
           <h1 className="font-heading font-extrabold text-3xl uppercase tracking-wider text-[var(--foreground)]">
             Movies &amp; Cinema Manager
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-zinc-600 mt-1">
             Publish feature-length concert films, trailers, documentaries, and embed YouTube videos
           </p>
         </div>
@@ -376,19 +376,19 @@ export default function AdminMoviesPage() {
 
       {/* Stats Bar */}
       <div className="flex items-center justify-between border-b border-[var(--subtle-border)] pb-4">
-        <div className="text-xs text-zinc-400 font-medium">
+        <div className="text-xs text-zinc-600 font-medium">
           Total: <span className="font-bold text-[var(--foreground)]">{movies.length}</span> cinematic productions
         </div>
       </div>
 
       {/* Movies Table / Grid */}
       {loading ? (
-        <div className="py-20 text-center text-zinc-400 text-sm">Loading movies catalog...</div>
+        <div className="py-20 text-center text-zinc-600 text-sm">Loading movies catalog...</div>
       ) : movies.length === 0 ? (
         <div className="py-20 text-center border border-dashed border-[var(--subtle-border)] rounded-2xl p-8">
           <Film className="w-10 h-10 text-zinc-500 mx-auto mb-3" />
           <p className="text-sm font-semibold text-[var(--foreground)]">No movies cataloged</p>
-          <p className="text-xs text-zinc-400 mt-1 max-w-sm mx-auto">
+          <p className="text-xs text-zinc-600 mt-1 max-w-sm mx-auto">
             Click &quot;Add New Movie&quot; to publish your first cinema release or documentary trailer.
           </p>
         </div>
@@ -397,7 +397,7 @@ export default function AdminMoviesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-[var(--subtle-border)] text-zinc-400">
+                <tr className="border-b border-[var(--subtle-border)] text-zinc-600">
                   <th className="py-4 pl-6 pr-3 font-semibold uppercase tracking-wider w-16">Preview</th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider">Title &amp; Synopsis</th>
                   <th className="py-4 px-4 font-semibold uppercase tracking-wider hidden sm:table-cell">
@@ -447,7 +447,7 @@ export default function AdminMoviesPage() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-zinc-400 mt-1 max-w-md line-clamp-2">
+                      <p className="text-xs text-zinc-600 mt-1 max-w-md line-clamp-2">
                         {movie.description}
                       </p>
                     </td>
@@ -457,7 +457,7 @@ export default function AdminMoviesPage() {
                       <div className="text-[var(--foreground)] font-bold text-xs uppercase tracking-wide">
                         {movie.year} • {movie.duration}
                       </div>
-                      <div className="text-[11px] text-zinc-400 mt-0.5">
+                      <div className="text-[11px] text-zinc-600 mt-0.5">
                         Dir. {movie.director}
                       </div>
                     </td>
@@ -468,7 +468,7 @@ export default function AdminMoviesPage() {
                         href={movie.youtubeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-zinc-400 hover:text-[#e11d48] flex items-center space-x-1"
+                        className="text-xs text-zinc-600 hover:text-[#e11d48] flex items-center space-x-1"
                       >
                         <span className="truncate">{movie.youtubeUrl}</span>
                         <ExternalLink className="w-3 h-3 shrink-0" />
@@ -481,7 +481,7 @@ export default function AdminMoviesPage() {
                         <button
                           type="button"
                           onClick={() => handleOpenEditModal(movie)}
-                          className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48] transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-600 hover:text-[var(--foreground)] hover:border-[#e11d48] transition-colors cursor-pointer"
                           title="Edit Movie"
                         >
                           <Edit className="w-3.5 h-3.5" />
@@ -489,7 +489,7 @@ export default function AdminMoviesPage() {
                         <button
                           type="button"
                           onClick={() => handleDelete(movie.id, movie.title)}
-                          className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-400 hover:text-red-500 hover:border-red-500/40 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg border border-[var(--subtle-border)] text-zinc-600 hover:text-red-500 hover:border-red-500/40 transition-colors cursor-pointer"
                           title="Delete Movie"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -518,7 +518,7 @@ export default function AdminMoviesPage() {
                   <h3 className="font-heading font-extrabold text-lg sm:text-xl uppercase tracking-wide text-[var(--foreground)]">
                     {editingMovie ? "Edit Cinema Release" : "Publish New Movie"}
                   </h3>
-                  <p className="text-[11px] text-zinc-400">
+                  <p className="text-[11px] text-zinc-600">
                     Configure YouTube video stream, metadata, cinema poster, and hero spotlight
                   </p>
                 </div>
@@ -526,7 +526,7 @@ export default function AdminMoviesPage() {
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="w-8 h-8 rounded-full border border-[var(--subtle-border)] flex items-center justify-center text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full border border-[var(--subtle-border)] flex items-center justify-center text-zinc-600 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
                 title="Close modal"
               >
                 <X className="w-4 h-4" />
@@ -563,7 +563,7 @@ export default function AdminMoviesPage() {
                     type="button"
                     onClick={() => syncYouTubeDetails(formData.youtubeUrl, true)}
                     disabled={fetchingYouTube || !formData.youtubeUrl}
-                    className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold text-zinc-400 hover:text-[var(--foreground)] flex items-center justify-center space-x-1.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0 transition-colors shadow-sm"
+                    className="px-4 py-2.5 rounded-xl border border-[var(--subtle-border)] bg-[var(--card)] hover:border-[#e11d48] text-xs font-semibold text-zinc-600 hover:text-[var(--foreground)] flex items-center justify-center space-x-1.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0 transition-colors shadow-sm"
                     title="Force re-sync original YouTube title, synopsis, and thumbnail"
                   >
                     <RotateCcw className={`w-3.5 h-3.5 ${fetchingYouTube ? "animate-spin" : ""}`} />
@@ -572,7 +572,7 @@ export default function AdminMoviesPage() {
                 </div>
 
                 {youtubeMeta ? (
-                  <div className="flex items-center justify-between text-[11px] text-zinc-400 p-2.5 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05]">
+                  <div className="flex items-center justify-between text-[11px] text-zinc-600 p-2.5 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05]">
                     <span className="truncate pr-2">
                       Linked: <strong className="text-[var(--foreground)]">{youtubeMeta.title}</strong>
                     </span>
@@ -595,13 +595,13 @@ export default function AdminMoviesPage() {
                     <Clapperboard className="w-4 h-4 text-[#e11d48]" />
                     <span>Film Details &amp; Synopsis</span>
                   </div>
-                  <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">Cinema Metadata</span>
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">Cinema Metadata</span>
                 </div>
 
                 {/* Title */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
                       Movie Title
                     </label>
                     {userEditedFields.title ? (
@@ -645,7 +645,7 @@ export default function AdminMoviesPage() {
                 {/* Description */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
                       Synopsis / Description
                     </label>
                     {userEditedFields.description ? (
@@ -689,7 +689,7 @@ export default function AdminMoviesPage() {
                 {/* Director, Year, Duration (Clean 3-column layout; genre is permanently removed) */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Director / Creator
                     </label>
                     <input
@@ -704,7 +704,7 @@ export default function AdminMoviesPage() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Release Year
                     </label>
                     <input
@@ -716,7 +716,7 @@ export default function AdminMoviesPage() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 block">
                       Duration
                     </label>
                     <input
@@ -738,7 +738,7 @@ export default function AdminMoviesPage() {
                     <span>Cinematic Poster Artwork</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">16:9 Widescreen</span>
+                    <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">16:9 Widescreen</span>
                     {userEditedFields.thumbnailUrl ? (
                       <span className="text-[10px] font-semibold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
                         Custom File
@@ -799,7 +799,7 @@ export default function AdminMoviesPage() {
                     <div className="text-xs font-bold text-[var(--foreground)] uppercase tracking-wide">
                       {userEditedFields.thumbnailUrl ? "Custom Poster Active" : "Original YouTube Thumbnail"}
                     </div>
-                    <p className="text-[11px] text-zinc-400">
+                    <p className="text-[11px] text-zinc-600">
                       Standard 16:9 cinema aspect ratio. The thumbnail automatically adapts to desktop banners and mobile previews.
                     </p>
                     {userEditedFields.thumbnailUrl && youtubeMeta?.thumbnailUrl && (
@@ -826,7 +826,7 @@ export default function AdminMoviesPage() {
                     <Sparkles className="w-3.5 h-3.5 text-[#e11d48]" />
                     <span>Hero Premiere Spotlight</span>
                   </div>
-                  <p className="text-[11px] text-zinc-400">
+                  <p className="text-[11px] text-zinc-600">
                     Feature this film prominently in the hero video banner on the cinema portal.
                   </p>
                 </div>
@@ -845,7 +845,7 @@ export default function AdminMoviesPage() {
 
             {/* Modal Footer (Sticky) */}
             <div className="p-4 sm:p-5 border-t border-[var(--subtle-border)] bg-[var(--card)]/95 backdrop-blur-sm flex items-center justify-between shrink-0 z-10">
-              <div className="hidden sm:block text-[11px] text-zinc-400">
+              <div className="hidden sm:block text-[11px] text-zinc-600">
                 All cinema metadata persists to Supabase database.
               </div>
               <div className="flex items-center space-x-3 w-full sm:w-auto justify-end">
@@ -853,7 +853,7 @@ export default function AdminMoviesPage() {
                   type="button"
                   onClick={() => setModalOpen(false)}
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl border border-[var(--subtle-border)] text-xs font-semibold uppercase tracking-wider text-zinc-600 hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>

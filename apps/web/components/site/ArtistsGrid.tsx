@@ -113,7 +113,7 @@ export default function ArtistsGrid({ artists = [], managers = [] }: ArtistsGrid
             </h2>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#2563EB] via-[#e11d48] to-[#facc15] mx-auto mb-4" />
             <p className={`text-xs sm:text-sm font-light tracking-wide max-w-lg mx-auto transition-colors ${
-              isDark ? "text-zinc-400" : "text-zinc-600"
+              isDark ? "text-zinc-600" : "text-zinc-600"
             }`}>
               Those who bring art to people with open eyes and open ears
             </p>
@@ -160,7 +160,7 @@ export default function ArtistsGrid({ artists = [], managers = [] }: ArtistsGrid
                       isSelected
                         ? "text-[#e11d48]"
                         : isDark
-                        ? "text-zinc-400 group-hover:text-white"
+                        ? "text-zinc-600 group-hover:text-white"
                         : "text-zinc-600 group-hover:text-black"
                     }`}
                   >
@@ -425,7 +425,7 @@ export default function ArtistsGrid({ artists = [], managers = [] }: ArtistsGrid
                     {activeArtist.name || "One Roof Artist"}
                   </span>
                   <span className={`text-[10px] font-mono truncate max-w-[140px] ${
-                    isDark ? "text-zinc-400" : "text-zinc-500"
+                    isDark ? "text-zinc-600" : "text-zinc-500"
                   }`}>
                     One Roof Master
                   </span>
@@ -442,7 +442,7 @@ export default function ArtistsGrid({ artists = [], managers = [] }: ArtistsGrid
             )}
 
             {/* Media & Audio Action Icons */}
-            <div className={`flex items-center space-x-3 ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+            <div className={`flex items-center space-x-3 ${isDark ? "text-zinc-600" : "text-zinc-500"}`}>
               <button className={`transition-colors cursor-pointer ${isDark ? "hover:text-white" : "hover:text-black"}`} title="AirPlay">
                 <Cast className="w-4 h-4" />
               </button>
@@ -502,7 +502,7 @@ export default function ArtistsGrid({ artists = [], managers = [] }: ArtistsGrid
                         {mgr.role}
                       </p>
                       <p className={`text-xs mt-2.5 font-light leading-relaxed ${
-                        isDark ? "text-zinc-400" : "text-zinc-600"
+                        isDark ? "text-zinc-600" : "text-zinc-600"
                       }`}>
                         Curating label repertoire, international orchestra tours, and archival vinyl releases.
                       </p>

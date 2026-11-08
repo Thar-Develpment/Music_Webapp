@@ -82,7 +82,7 @@ export default function AdminDashboardPage() {
             <h1 className="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight">
               Executive Label Console
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-xl">
+            <p className="text-xs sm:text-sm text-zinc-600 mt-1 max-w-xl">
               Manage cinema productions, music releases, and inbound press enquiries with secure
               real-time publishing.
             </p>
@@ -122,14 +122,14 @@ export default function AdminDashboardPage() {
             <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Film className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-600 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
               Manage <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
           <div className="font-heading text-3xl font-extrabold mb-1">
             {loading ? "..." : movies.length}
           </div>
-          <div className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+          <div className="text-xs font-bold uppercase tracking-wider text-zinc-600">
             Cinema Films & Teasers
           </div>
           <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500">
@@ -153,14 +153,14 @@ export default function AdminDashboardPage() {
             <div className="w-11 h-11 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[#e11d48] flex items-center justify-center group-hover:scale-110 transition-transform">
               <Music className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-600 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
               Manage <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
           <div className="font-heading text-3xl font-extrabold mb-1">
             {loading ? "..." : musicList.length}
           </div>
-          <div className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+          <div className="text-xs font-bold uppercase tracking-wider text-zinc-600">
             Master Audio Tracks
           </div>
           <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500">
@@ -184,14 +184,14 @@ export default function AdminDashboardPage() {
             <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Mail className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-600 flex items-center gap-1 group-hover:text-[#e11d48] transition-colors">
               Inbox <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </div>
           <div className="font-heading text-3xl font-extrabold mb-1">
             {loading ? "..." : enquiries.length}
           </div>
-          <div className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+          <div className="text-xs font-bold uppercase tracking-wider text-zinc-600">
             Press & Booking Enquiries
           </div>
           <div className="mt-3 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[11px] text-zinc-500">
@@ -260,7 +260,7 @@ export default function AdminDashboardPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs font-bold truncate">{movie.title}</div>
-                      <div className="text-[11px] text-zinc-400 flex items-center gap-2 mt-0.5">
+                      <div className="text-[11px] text-zinc-600 flex items-center gap-2 mt-0.5">
                         <span>{movie.year}</span>
                         <span>•</span>
                         <span>{movie.duration}</span>
@@ -283,7 +283,7 @@ export default function AdminDashboardPage() {
             <Link
               href="/movies"
               target="_blank"
-              className="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors"
+              className="text-xs text-zinc-600 hover:text-white flex items-center gap-1.5 transition-colors"
             >
               <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
               <span>Preview Live Cinema Page</span>
@@ -349,7 +349,7 @@ export default function AdminDashboardPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs font-bold truncate">{item.title}</div>
-                      <div className="text-[11px] text-zinc-400 flex items-center gap-2 mt-0.5">
+                      <div className="text-[11px] text-zinc-600 flex items-center gap-2 mt-0.5">
                         <span className="truncate">{item.artist}</span>
                         <span>•</span>
                         <span>{item.duration}</span>
@@ -370,7 +370,7 @@ export default function AdminDashboardPage() {
             <Link
               href="/music"
               target="_blank"
-              className="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors"
+              className="text-xs text-zinc-600 hover:text-white flex items-center gap-1.5 transition-colors"
             >
               <ExternalLink className="w-3.5 h-3.5 text-[#e11d48]" />
               <span>Preview Live Audio Deck</span>

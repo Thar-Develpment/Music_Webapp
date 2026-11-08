@@ -197,7 +197,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
             DISCOGRAPHY &amp; MASTER TRACKS
           </h1>
 
-          <p className="mt-6 text-sm sm:text-base max-w-2xl text-zinc-400 font-light leading-relaxed">
+          <p className="mt-6 text-sm sm:text-base max-w-2xl text-zinc-600 font-light leading-relaxed">
             Direct analog cuts, lossless digital masters, and orchestral sessions. Click any track
             to open its dedicated studio audition deck, acoustic details, and streaming hubs.
           </p>
@@ -214,7 +214,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                     active
                       ? "bg-[#e11d48] text-white shadow-lg shadow-[#e11d48]/30 font-bold"
-                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-400 hover:text-[var(--foreground)] hover:border-[#e11d48]/40"
+                      : "border border-[var(--subtle-border)] bg-[var(--card)] text-zinc-600 hover:text-[var(--foreground)] hover:border-[#e11d48]/40"
                   }`}
                 >
                   {genre}
@@ -232,14 +232,14 @@ export default function MusicClient({ tracks }: MusicClientProps) {
             <h2 className="font-heading font-extrabold text-2xl uppercase tracking-wider text-[var(--foreground)]">
               {activeGenre === "All" ? "Master Audio Catalog" : `${activeGenre} Tracks`}
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-zinc-600 mt-1">
               Showing {filteredTracks.length} of {tracks.length} master recordings
             </p>
           </div>
         </div>
 
         {filteredTracks.length === 0 ? (
-          <div className="py-20 text-center flex flex-col items-center justify-center text-zinc-400 text-sm">
+          <div className="py-20 text-center flex flex-col items-center justify-center text-zinc-600 text-sm">
             <Music className="w-12 h-12 text-zinc-600 mb-3 stroke-[1.5]" />
             <p className="font-semibold text-base text-[var(--foreground)] mb-1">
               No audio tracks cataloged under this genre yet
@@ -260,7 +260,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[var(--subtle-border)] text-zinc-400">
+                  <tr className="border-b border-[var(--subtle-border)] text-zinc-600">
                     <th className="py-4 pl-6 pr-3 font-semibold uppercase tracking-wider w-12">#</th>
                     <th className="py-4 px-4 font-semibold uppercase tracking-wider">Track &amp; Artist</th>
                     <th className="py-4 px-4 font-semibold uppercase tracking-wider hidden sm:table-cell">
@@ -302,7 +302,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                             className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                               isCurrentlyPlaying
                                 ? "bg-[#e11d48] text-white shadow-md shadow-[#e11d48]/30"
-                                : "text-zinc-400 group-hover:text-[#e11d48] group-hover:bg-[#e11d48]/10"
+                                : "text-zinc-600 group-hover:text-[#e11d48] group-hover:bg-[#e11d48]/10"
                             }`}
                           >
                             {isCurrentlyPlaying ? (
@@ -331,7 +331,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                               >
                                 {track.title}
                               </span>
-                              <span className="text-xs text-zinc-400 font-medium truncate">
+                              <span className="text-xs text-zinc-600 font-medium truncate">
                                 {track.artist}
                               </span>
                             </div>
@@ -340,18 +340,18 @@ export default function MusicClient({ tracks }: MusicClientProps) {
 
                         {/* Genre */}
                         <td className="py-4 px-4 hidden sm:table-cell whitespace-nowrap">
-                          <span className="px-2.5 py-1 rounded-full border border-[var(--subtle-border)] text-[10px] font-semibold text-zinc-400">
+                          <span className="px-2.5 py-1 rounded-full border border-[var(--subtle-border)] text-[10px] font-semibold text-zinc-600">
                             {track.genre}
                           </span>
                         </td>
 
                         {/* Year */}
-                        <td className="py-4 px-4 hidden md:table-cell text-zinc-400">
+                        <td className="py-4 px-4 hidden md:table-cell text-zinc-600">
                           {track.year}
                         </td>
 
                         {/* Duration */}
-                        <td className="py-4 px-4 text-right whitespace-nowrap text-zinc-400 font-mono">
+                        <td className="py-4 px-4 text-right whitespace-nowrap text-zinc-600 font-mono">
                           {track.duration}
                         </td>
 
@@ -404,7 +404,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
               <button
                 type="button"
                 onClick={handleClosePanel}
-                className="p-2 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:border-white transition-colors cursor-pointer"
+                className="p-2 rounded-full border border-white/10 text-zinc-600 hover:text-white hover:border-white transition-colors cursor-pointer"
                 title="Close Panel"
               >
                 <X className="w-5 h-5" />
@@ -464,7 +464,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
 
               {/* Animated Waveform Equalizer */}
               <div className="flex items-end justify-center space-x-1.5 h-8 py-1 bg-black/40 rounded-xl px-4 border border-white/5 mt-4 w-full max-w-sm">
-                <div className="flex items-center space-x-1 text-xs text-zinc-400 mr-2">
+                <div className="flex items-center space-x-1 text-xs text-zinc-600 mr-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48] animate-ping" />
                   <span className="text-[9px] font-bold uppercase tracking-widest text-[#e11d48]">
                     {isPlaying ? "Transmitting" : "Ready"}
@@ -488,7 +488,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
             <div className="p-6 sm:p-8 space-y-6">
               {/* Seek Bar */}
               <div className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs text-zinc-400 font-mono">
+                <div className="flex items-center justify-between text-xs text-zinc-600 font-mono">
                   <span>{formatTime(currentTime)}</span>
                   <span>{formatTime(duration || 180)}</span>
                 </div>
@@ -542,7 +542,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
                   <button
                     type="button"
                     onClick={toggleMute}
-                    className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    className="text-zinc-600 hover:text-white transition-colors cursor-pointer"
                   >
                     {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                   </button>
@@ -570,7 +570,7 @@ export default function MusicClient({ tracks }: MusicClientProps) {
 
               {/* External Streaming Platform Hub */}
               <div className="pt-4 border-t border-white/10 space-y-3">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600 block">
                   Listen on Streaming Platforms
                 </span>
                 <div className="flex flex-wrap items-center gap-2.5">

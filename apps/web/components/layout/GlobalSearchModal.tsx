@@ -162,7 +162,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="p-1 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 mr-2 transition-colors cursor-pointer"
+              className="p-1 rounded-full text-zinc-600 hover:text-white hover:bg-zinc-800 mr-2 transition-colors cursor-pointer"
               title="Clear text"
             >
               <X className="w-4 h-4" />
@@ -171,7 +171,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
           <button
             type="button"
             onClick={onClose}
-            className="px-2 py-1 rounded-md border border-zinc-700/50 text-[10px] font-mono text-zinc-400 uppercase tracking-wider hover:text-white transition-colors cursor-pointer"
+            className="px-2 py-1 rounded-md border border-zinc-700/50 text-[10px] font-mono text-zinc-600 uppercase tracking-wider hover:text-white transition-colors cursor-pointer"
           >
             ESC
           </button>
@@ -225,7 +225,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                             <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide truncate group-hover:text-[#e11d48] transition-colors">
                               {movie.title}
                             </h4>
-                            <div className="text-[10px] text-zinc-400 flex items-center space-x-1.5 mt-0.5">
+                            <div className="text-[10px] text-zinc-600 flex items-center space-x-1.5 mt-0.5">
                               <span>Dir. {movie.director}</span>
                               <span>•</span>
                               <span>{movie.year}</span>
@@ -236,7 +236,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                         </div>
 
                         <div className="flex items-center space-x-2 shrink-0 pl-2">
-                          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-zinc-500/10 text-zinc-400 border border-zinc-500/20">
+                          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-zinc-500/10 text-zinc-600 border border-zinc-500/20">
                             {movie.year}
                           </span>
                           <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#e11d48] group-hover:translate-x-0.5 transition-all" />
@@ -279,7 +279,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                             <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wide truncate group-hover:text-[#e11d48] transition-colors">
                               {track.title}
                             </h4>
-                            <div className="text-[10px] text-zinc-400 flex items-center space-x-1.5 mt-0.5">
+                            <div className="text-[10px] text-zinc-600 flex items-center space-x-1.5 mt-0.5">
                               <span>{track.artist}</span>
                               <span>•</span>
                               <span>{track.genre}</span>
@@ -288,7 +288,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                         </div>
 
                         <div className="flex items-center space-x-2 shrink-0 pl-2">
-                          <span className="hidden sm:inline-block font-mono text-[10px] text-zinc-400">
+                          <span className="hidden sm:inline-block font-mono text-[10px] text-zinc-600">
                             {track.duration}
                           </span>
                           <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#e11d48] group-hover:translate-x-0.5 transition-all" />
@@ -302,8 +302,8 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
               {/* Navigation Pages */}
               {matchedPages.length > 0 && (
                 <div>
-                  <div className="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-3 px-1">
-                    <Compass className="w-3.5 h-3.5 text-zinc-400" />
+                  <div className="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-widest text-zinc-600 mb-3 px-1">
+                    <Compass className="w-3.5 h-3.5 text-zinc-600" />
                     <span>Navigation &amp; Pages</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -342,7 +342,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
           }`}
         >
           <div className="flex items-center space-x-1.5">
-            <span className="font-semibold text-zinc-400">Tip:</span>
+            <span className="font-semibold text-zinc-600">Tip:</span>
             <span>Press Enter to select or Esc to dismiss</span>
           </div>
           <span className="text-[10px] uppercase font-mono tracking-widest text-[#e11d48]">

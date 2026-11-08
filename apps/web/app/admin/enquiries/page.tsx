@@ -104,7 +104,7 @@ export default function AdminEnquiriesPage() {
           <h1 className="font-heading font-extrabold text-3xl text-white uppercase tracking-tight">
             Client Enquiries Inbox
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 font-light mt-1">
+          <p className="text-xs sm:text-sm text-zinc-600 font-light mt-1">
             Review messages received via the public contact form for booking, licensing, and press inquiries.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function AdminEnquiriesPage() {
             className={`px-4 py-2 rounded-full text-xs font-semibold uppercase transition-all cursor-pointer ${
               activeFilter === "all"
                 ? "bg-[#D4AF37] text-[#070709]"
-                : "bg-white/[0.04] text-zinc-400 hover:text-white"
+                : "bg-white/[0.04] text-zinc-600 hover:text-white"
             }`}
           >
             All Messages ({enquiries.length})
@@ -126,7 +126,7 @@ export default function AdminEnquiriesPage() {
             className={`px-4 py-2 rounded-full text-xs font-semibold uppercase transition-all cursor-pointer ${
               activeFilter === "unread"
                 ? "bg-[#D4AF37] text-[#070709]"
-                : "bg-white/[0.04] text-zinc-400 hover:text-white"
+                : "bg-white/[0.04] text-zinc-600 hover:text-white"
             }`}
           >
             Unread ({unreadCount})
@@ -137,7 +137,7 @@ export default function AdminEnquiriesPage() {
       {/* Messages List */}
       <div className="rounded-2xl glass-panel overflow-hidden border border-white/10">
         {filtered.length === 0 ? (
-          <div className="p-16 text-center text-zinc-400 flex flex-col items-center">
+          <div className="p-16 text-center text-zinc-600 flex flex-col items-center">
             <Mail className="w-8 h-8 text-[#D4AF37]/40 mb-3" />
             <p className="text-sm">No enquiries found in this view.</p>
           </div>
@@ -164,7 +164,7 @@ export default function AdminEnquiriesPage() {
                   <div className="flex items-start sm:items-center space-x-4 flex-1 min-w-0">
                     <button
                       onClick={() => toggleReadStatus(enq.id, enq.readAt)}
-                      className="mt-1 sm:mt-0 p-1.5 rounded-lg border border-white/10 text-zinc-400 hover:text-[#D4AF37] cursor-pointer"
+                      className="mt-1 sm:mt-0 p-1.5 rounded-lg border border-white/10 text-zinc-600 hover:text-[#D4AF37] cursor-pointer"
                       title={isUnread ? "Mark as Read" : "Mark as Unread"}
                     >
                       {isUnread ? (
@@ -185,7 +185,7 @@ export default function AdminEnquiriesPage() {
                         </span>
                         <span className="text-xs text-zinc-500">• {enq.email}</span>
                       </div>
-                      <p className="text-xs text-zinc-400 truncate mt-1 font-light">
+                      <p className="text-xs text-zinc-600 truncate mt-1 font-light">
                         {enq.message}
                       </p>
                     </div>
@@ -235,12 +235,12 @@ export default function AdminEnquiriesPage() {
                   <h3 className="font-heading font-extrabold text-lg text-white">
                     {selectedEnquiry.firstName}
                   </h3>
-                  <span className="text-xs text-zinc-400">{selectedEnquiry.email}</span>
+                  <span className="text-xs text-zinc-600">{selectedEnquiry.email}</span>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedEnquiry(null)}
-                className="text-zinc-400 hover:text-white"
+                className="text-zinc-600 hover:text-white"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -252,7 +252,7 @@ export default function AdminEnquiriesPage() {
                 <span className="font-medium text-white">{selectedEnquiry.phone}</span>
               </div>
 
-              <div className="flex items-center space-x-2 text-zinc-400">
+              <div className="flex items-center space-x-2 text-zinc-600">
                 <Calendar className="w-4 h-4 text-[#D4AF37]" />
                 <span>{new Date(selectedEnquiry.createdAt).toLocaleString()}</span>
               </div>

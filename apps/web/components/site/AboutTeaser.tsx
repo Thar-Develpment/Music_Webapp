@@ -152,7 +152,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                       Dolby Atmos 9.1.6 Room
                     </p>
                     <p className={`text-[11px] font-light mt-0.5 truncate ${
-                      isDark ? "text-zinc-400" : "text-zinc-500"
+                      isDark ? "text-zinc-600" : "text-zinc-500"
                     }`}>
                       Decoupled Floating Acoustic Sanctuary
                     </p>
@@ -181,7 +181,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
               </h2>
 
               <p className={`mt-7 text-base sm:text-lg leading-relaxed font-light transition-colors ${
-                isDark ? "text-zinc-400" : "text-zinc-600"
+                isDark ? "text-zinc-600" : "text-zinc-600"
               }`}>
                 {content.bio}
               </p>
@@ -191,7 +191,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                 isDark ? "border-white/10" : "border-black/10"
               }`}>
                 <div className={`text-[11px] font-bold tracking-widest uppercase mb-3 flex items-center justify-between ${
-                  isDark ? "text-zinc-400" : "text-zinc-500"
+                  isDark ? "text-zinc-600" : "text-zinc-500"
                 }`}>
                   <span>Active Channel Routing</span>
                   <span className="text-[#e11d48]">Click to Switch Signal Path</span>
@@ -219,7 +219,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                           }`}>{ch.name}</span>
                           {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48] animate-ping" />}
                         </div>
-                        <span className="text-[10px] text-zinc-400 block font-mono">{ch.mode}</span>
+                        <span className="text-[10px] text-zinc-600 block font-mono">{ch.mode}</span>
                         <span className="text-[10px] text-[#e11d48] font-mono font-bold block mt-1">{ch.rate}</span>
                       </button>
                     );
@@ -243,7 +243,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                     }`}>
                       Custom Neve Desks
                     </span>
-                    <span className={`text-[11px] font-light ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+                    <span className={`text-[11px] font-light ${isDark ? "text-zinc-600" : "text-zinc-500"}`}>
                       Pure Class-A discrete analog path
                     </span>
                   </div>
@@ -263,7 +263,7 @@ export default function AboutTeaser({ content }: AboutTeaserProps) {
                     }`}>
                       Direct-to-Lacquer Cut
                     </span>
-                    <span className={`text-[11px] font-light ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+                    <span className={`text-[11px] font-light ${isDark ? "text-zinc-600" : "text-zinc-500"}`}>
                       45 RPM 180g virgin vinyl presses
                     </span>
                   </div>
