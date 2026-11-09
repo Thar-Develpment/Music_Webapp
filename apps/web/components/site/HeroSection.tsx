@@ -57,14 +57,14 @@ export default function HeroSection({ content }: HeroSectionProps) {
 
       {/* Floating Decorative Glass Capsules */}
       <div className="hidden lg:block absolute left-12 top-1/3 z-10">
-        <div className="p-4 rounded-2xl glass-panel-roof flex items-center space-x-3.5 shadow-xl">
-          <div className={`w-10 h-10 rounded-xl border border-blue-500/40 flex items-center justify-center text-[#2563eb] ${
-            isDark ? "bg-blue-950/60" : "bg-blue-50/90"
+        <div className="p-4 rounded-2xl glass-panel-roof !border-[#224690]/40 flex items-center space-x-3.5 shadow-xl">
+          <div className={`w-10 h-10 rounded-xl border border-[#224690]/40 flex items-center justify-center text-[#224690] ${
+            isDark ? "bg-[#224690]/20" : "bg-[#224690]/10"
           }`}>
             <Headphones className="w-5 h-5 animate-pulse" />
           </div>
           <div>
-            <span className="text-[10px] font-bold tracking-widest text-[#2563eb] uppercase block">
+            <span className="text-[10px] font-bold tracking-widest text-[#224690] uppercase block">
               Spatial Mastering
             </span>
             <span className={`text-xs font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
